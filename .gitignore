@@ -1,0 +1,7 @@
+mine/*
+.DS_Store
+latestswagger*
+crap.py
+start_server.sh
+terraform/.terraform*
+terraform/terraform*
