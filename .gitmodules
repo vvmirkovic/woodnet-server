@@ -1,0 +1,3 @@
+[submodule "woodnet-frontend"]
+	path = woodnet-frontend
+	url = .\\woodnet-frontend\\
