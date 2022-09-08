@@ -1,3 +1,6 @@
 [submodule "src/woodnet-frontend"]
 	path = src/woodnet-frontend
 	url = git@github.com:Brennan-Flood/woodnet-frontend.git
+[submodule "src/sam_rust"]
+	path = src/sam_rust
+	url = git@github.com:CoreyCole/sam_rust_woodnet.git
