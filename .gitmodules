@@ -4,3 +4,6 @@
 [submodule "src/sam_rust"]
 	path = src/sam_rust
 	url = git@github.com:CoreyCole/sam_rust_woodnet.git
+[submodule "src/hello-world-container-lambda"]
+	path = src/hello-world-container-lambda
+	url = git@github.com:jammymalina/hello-world-container-lambda.git
