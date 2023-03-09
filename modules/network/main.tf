@@ -3,8 +3,9 @@ locals {
 }
 
 resource "aws_vpc" "main" {
-  cidr_block       = local.vpc_cidr
-  instance_tenancy = "default"
+  cidr_block           = local.vpc_cidr
+  instance_tenancy     = "default"
+  enable_dns_hostnames = true
 
   tags = {
     Name = "woodnet"
@@ -56,7 +57,7 @@ resource "aws_subnet" "public" {
   availability_zone = local.azs[count.index % local.az_count]
 
   tags = {
-    Name = "Public 1"
+    Name = "Public ${count.index}"
   }
 }
 
