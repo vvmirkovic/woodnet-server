@@ -72,7 +72,7 @@ resource "aws_route_table" "public" {
   }
 
   route {
-    ipv4_cidr_block        = "0.0.0.0/0"
+    cidr_block        = "0.0.0.0/0"
     egress_only_gateway_id = aws_internet_gateway.gw.id
   }
 
