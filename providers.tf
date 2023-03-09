@@ -1,3 +1,11 @@
+terraform {
+  backend "s3" {
+    bucket = "state-414057778078"
+    key    = "woodnet/home"
+    region = "us-east-1"
+  }
+}
+
 locals {
   account = {
     "dev"  = "851722294868"
