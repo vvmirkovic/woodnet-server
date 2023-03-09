@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket = "state-414057778078"
-    path   = "woodnet/home"
+    key   = "woodnet/home"
     region = "us-east-1"
   }
 }
