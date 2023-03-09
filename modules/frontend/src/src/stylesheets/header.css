@@ -1,0 +1,112 @@
+.app-header {
+    width: 100%;
+    display: flex;
+    position: fixed;
+    top: 0px;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    background-color: #0f3460;
+    z-index: 2;
+}
+
+.app-title {
+    padding: 5px;
+    font-size: 44px;
+    color: white;
+    font-family: Comfortaa;
+    font-weight: 400;
+    text-align: center;
+}
+
+@media only screen and (max-width: 697px) {
+    .app-header {
+        height: 90px;
+    }
+
+    .app-title {
+        font-size: 44px;
+    }
+
+    #header-bars {
+        margin: 20px;
+        font-size: 30px;
+    }
+}
+
+@media only screen and (min-width: 698px) {
+    .app-header {
+        height: 90px;
+    }
+
+    .app-title {
+        font-size: 44px;
+    }
+
+    #header-bars {
+        margin: 20px;
+        font-size: 30px;
+    }
+}
+
+@media only screen and (max-width: 388px) {
+    #header-bars {
+        margin: 10px;
+        font-size: 25px;
+    }
+
+    .app-header {
+        height: 70px;
+    }
+
+    .app-title {
+        font-size: 38px;
+    }
+}
+
+@media only screen and (max-width: 333px) {
+    #header-bars {
+        margin: 10px;
+        font-size: 20px;
+    }
+
+    .app-header {
+        height: 60px;
+    }
+
+    .app-title {
+        font-size: 20px;
+    }
+}
+
+#header-bars {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: white;
+    padding: 10px;
+    background-color: rgba(15, 51, 96, 0);
+    transition: 0.3s;
+}
+
+#header-bars:hover {
+    margin-top: 19px;
+    background-color: rgba(15, 51, 96, 0.329);
+    cursor: pointer;
+}
+
+#dropdownMenuLink {
+    font-size: 30px;
+    color: white;
+}
+
+#dropdown-container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin: 25px;
+}
+
+.dropdown-menu {
+    display: block;
+}
