@@ -11,10 +11,6 @@ resource "aws_vpc" "main" {
   }
 }
 
-resource "aws_internet_gateway" "gw" {
-  vpc_id = aws_vpc.main.id
-}
-
 data "aws_availability_zones" "available" {
   state = "available"
 }
@@ -25,18 +21,20 @@ locals {
   az_count = length(data.aws_availability_zones.available.names)
 }
 
-
-resource "aws_subnet" "public" {
-  count = local.subnet_count
-
-  vpc_id     = aws_vpc.main.id
-  cidr_block = "10.0.${count.index * 2}.0/24"
-  availability_zone = local.azs[count.index % local.az_count]
-
-  tags = {
-    Name = "Public 1"
-  }
+resource "aws_internet_gateway" "gw" {
+  vpc_id = aws_vpc.main.id
 }
+
+# resource "aws_nat_gateway" "this" {
+#   count = local.subnet_count % local.az_count
+
+#   allocation_id = "${aws_eip.nat.id}"
+#   subnet_id     = "${aws_subnet.public.0.id}"
+
+#   tags = {
+#     Name = "${var.service_name}-nat-gw"
+#   }
+# }
 
 resource "aws_subnet" "private" {
   count = local.subnet_count
@@ -50,13 +48,26 @@ resource "aws_subnet" "private" {
   }
 }
 
+resource "aws_subnet" "public" {
+  count = local.subnet_count
+
+  vpc_id     = aws_vpc.main.id
+  cidr_block = "10.0.${count.index * 2}.0/24"
+  availability_zone = local.azs[count.index % local.az_count]
+
+  tags = {
+    Name = "Public 1"
+  }
+}
+
+
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id
 
-  route {
-    cidr_block = local.vpc_cidr
-    gateway_id = "local"
-  }
+#   route {
+#     cidr_block = local.vpc_cidr
+#     gateway_id = "local"
+#   }
 
   tags = {
     Name = "private"
@@ -66,10 +77,10 @@ resource "aws_route_table" "private" {
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
 
-  route {
-    cidr_block = local.vpc_cidr
-    gateway_id = "local"
-  }
+#   route {
+#     cidr_block = local.vpc_cidr
+#     gateway_id = "local"
+#   }
 
   route {
     cidr_block        = "0.0.0.0/0"
