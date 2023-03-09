@@ -12,5 +12,5 @@ module "ark" {
   server_image = "hermsi/ark-server"
   # server_image = "thmhoag/arkserver"
   vpc_id          = module.network.vpc_id
-  subnet_group_id = module.network.private_subnet_ids[0]
+  subnet_group_id = module.network.public_subnet_ids[0]
 }
