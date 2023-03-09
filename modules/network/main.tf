@@ -64,11 +64,6 @@ resource "aws_subnet" "public" {
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id
 
-#   route {
-#     cidr_block = local.vpc_cidr
-#     gateway_id = "local"
-#   }
-
   tags = {
     Name = "private"
   }
@@ -76,11 +71,6 @@ resource "aws_route_table" "private" {
 
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
-
-#   route {
-#     cidr_block = local.vpc_cidr
-#     gateway_id = "local"
-#   }
 
   route {
     cidr_block        = "0.0.0.0/0"
