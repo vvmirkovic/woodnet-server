@@ -1,5 +1,7 @@
 module "frontend" {
   source = "./modules/frontend"
+
+  env = var.env
 }
 
 module "network" {
