@@ -37,22 +37,22 @@ resource "aws_ecs_task_definition" "ark" {
   memory                   = 8192
   container_definitions = jsonencode([
     {
-      name        = "ark-server"
-      image       = var.server_image
-      cpu         = 1024
-      memory      = 8192
+      name   = "ark-server"
+      image  = var.server_image
+      cpu    = 1024
+      memory = 8192
       # entryPoint: ["/"],
       environment = local.ark_environment_variables
       essential   = true
       logConfiguration = {
-                logDriver = "awslogs",
-                options = {
-                    "awslogs-group": "/ark",
-                    "awslogs-region": "us-east-1",
-                    "awslogs-create-group": "true",
-                    "awslogs-stream-prefix": "ark"
-                }
-            }
+        logDriver = "awslogs",
+        options = {
+          "awslogs-group" : "/ark",
+          "awslogs-region" : "us-east-1",
+          "awslogs-create-group" : "true",
+          "awslogs-stream-prefix" : "ark"
+        }
+      }
       portMappings = [
         {
           containerPort = local.port_game_client

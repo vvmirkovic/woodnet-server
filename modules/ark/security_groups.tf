@@ -81,7 +81,7 @@ resource "aws_vpc_security_group_ingress_rule" "server2" {
   from_port   = local.port_raw_udp
   to_port     = local.port_raw_udp
   ip_protocol = "udp"
-  cidr_ipv4 = "0.0.0.0/0"
+  cidr_ipv4   = "0.0.0.0/0"
 }
 
 resource "aws_vpc_security_group_ingress_rule" "server3" {
@@ -101,7 +101,7 @@ resource "aws_vpc_security_group_ingress_rule" "server4" {
   from_port   = local.port_rcon_management
   to_port     = local.port_rcon_management
   ip_protocol = "tcp"
-  cidr_ipv4 = "0.0.0.0/0"
+  cidr_ipv4   = "0.0.0.0/0"
 }
 
 resource "aws_vpc_security_group_ingress_rule" "server5" {
