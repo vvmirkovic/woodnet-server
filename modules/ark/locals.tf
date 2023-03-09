@@ -1,9 +1,9 @@
 locals {
-  server_image = "hermsi/ark-server"
+  # server_image = "hermsi/ark-server"
   # server_image = "thmhoag/arkserver"
 
-  subnet_group_id = "subnet-0d47f3b4d605adefd"
-  vpc_id          = "vpc-0799418679a5295cb"
+  # subnet_group_id = "subnet-0d47f3b4d605adefd"
+  # vpc_id          = "vpc-0799418679a5295cb"
 
   port_game_client     = 7777
   port_raw_udp         = 7778

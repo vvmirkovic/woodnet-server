@@ -23,7 +23,7 @@ resource "aws_iam_role" "ark_server" {
 resource "aws_iam_policy" "ark_server" {
   name        = "ark-server"
   description = "Ark ECS execution role policy for allowing logs"
-  policy      = file("ecs_execution_policy.json")
+  policy      = file("${path.module}/ecs_execution_policy.json")
 }
 
 resource "aws_iam_role_policy_attachment" "ark_server" {

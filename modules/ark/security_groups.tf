@@ -51,7 +51,7 @@
 resource "aws_security_group" "ark_server" {
   name        = "allow_server_connections"
   description = "Security group to only allow necessary connections to the server"
-  vpc_id      = local.vpc_id
+  vpc_id      = var.vpc_id
 }
 
 resource "aws_vpc_security_group_ingress_rule" "server0" {
@@ -81,7 +81,7 @@ resource "aws_vpc_security_group_ingress_rule" "server2" {
   from_port   = local.port_raw_udp
   to_port     = local.port_raw_udp
   ip_protocol = "udp"
-  cidr_ipv4 = "0.0.0.0/0"
+  cidr_ipv4   = "0.0.0.0/0"
 }
 
 resource "aws_vpc_security_group_ingress_rule" "server3" {
@@ -101,7 +101,7 @@ resource "aws_vpc_security_group_ingress_rule" "server4" {
   from_port   = local.port_rcon_management
   to_port     = local.port_rcon_management
   ip_protocol = "tcp"
-  cidr_ipv4 = "0.0.0.0/0"
+  cidr_ipv4   = "0.0.0.0/0"
 }
 
 resource "aws_vpc_security_group_ingress_rule" "server5" {
@@ -166,7 +166,7 @@ resource "aws_vpc_security_group_egress_rule" "server1" {
 resource "aws_security_group" "efs_mount_point" {
   name        = "efs_allow_server"
   description = "Security group to only allow connection from server"
-  vpc_id      = local.vpc_id
+  vpc_id      = var.vpc_id
 }
 
 resource "aws_vpc_security_group_ingress_rule" "efs0" {
