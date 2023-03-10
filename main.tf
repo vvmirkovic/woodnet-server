@@ -1,8 +1,9 @@
 module "frontend" {
   source = "./modules/frontend"
 
-  env  = var.env
-  repo = "https://github.com/vvmirkovic/woodnet-server.git"
+  env          = var.env
+  repo         = "https://github.com/vvmirkovic/woodnet-server.git"
+  github_token = var.github_token
 }
 
 module "network" {
