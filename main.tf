@@ -1,7 +1,7 @@
 module "frontend" {
   source = "./modules/frontend"
 
-  env = var.env
+  env  = var.env
   repo = "https://github.com/vvmirkovic/woodnet-server.git"
 }
 

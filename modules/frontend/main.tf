@@ -14,7 +14,7 @@ resource "aws_amplify_app" "woodnet_frontend" {
   name       = "woodnet-frontend"
   repository = var.repo
 
-    # The default patterns added by the Amplify Console.
+  # The default patterns added by the Amplify Console.
   auto_branch_creation_patterns = [
     "*",
     "*/**",
@@ -47,7 +47,7 @@ resource "aws_amplify_app" "woodnet_frontend" {
   EOT
 
   environment_variables = {
-    ENV = var.env
+    ENV           = var.env
     _CUSTOM_IMAGE = "node:18",
   }
 }
