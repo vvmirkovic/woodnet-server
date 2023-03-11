@@ -5,7 +5,7 @@ resource "aws_cloudfront_distribution" "https_distribution" {
   price_class     = "PriceClass_100"
 
   origin {
-    domain_name = "temp"#aws_s3_bucket.woodnet.website_endpoint
+    domain_name = aws_s3_bucket.woodnet.website_endpoint
     origin_id   = local.s3_origin_id #local.s3_origin_id
 
     custom_origin_config {
