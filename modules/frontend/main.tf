@@ -10,10 +10,10 @@ locals {
 
 resource "aws_s3_bucket_object" "test" {
   for_each = fileset("${local.build_folder}", "**")
-  bucket = "test"
-  key = each.value
-  source = "${local.build_folder}${each.value}"
-  etag = filemd5("${local.build_folder}${each.value}")
+  bucket   = "test"
+  key      = each.value
+  source   = "${local.build_folder}${each.value}"
+  etag     = filemd5("${local.build_folder}${each.value}")
 }
 
 # locals {

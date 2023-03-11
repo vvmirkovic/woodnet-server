@@ -7,9 +7,9 @@ terraform {
   }
 }
 
-locals {
-  cv_data = split(" ", aws_amplify_domain_association.woodnet_frontend.certificate_verification_dns_record)
-}
+# locals {
+#   cv_data = split(" ", aws_amplify_domain_association.woodnet_frontend.certificate_verification_dns_record)
+# }
 
 data "aws_route53_zone" "this" {
   provider = aws.main
@@ -17,22 +17,66 @@ data "aws_route53_zone" "this" {
   name = var.domain
 }
 
-resource "aws_route53_record" "woodnet" {
-  provider = aws.main
+# resource "aws_route53_record" "woodnet" {
+#   provider = aws.main
 
-  zone_id = data.aws_route53_zone.this.zone_id
-  ttl     = 300
-  name    = local.cv_data[0]
-  type    = local.cv_data[1]
-  records = [local.cv_data[2]]
+#   zone_id = data.aws_route53_zone.this.zone_id
+#   ttl     = 300
+#   name    = local.cv_data[0]
+#   type    = local.cv_data[1]
+#   records = [local.cv_data[2]]
+# }
+
+# resource "aws_route53_record" "easy" {
+#   provider = aws.main
+
+#   zone_id = data.aws_route53_zone.this.zone_id
+#   ttl     = 300
+#   name    = "test.${var.subdomain}.${var.domain}"
+#   type    = "CNAME"
+#   records = [aws_amplify_app.woodnet_frontend.default_domain]
+# }
+
+resource "aws_route53_record" "woodnet_domain" {
+  zone_id = data.aws_route53_zone.main.zone_id
+  name    = local.subdomain
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.https_distribution.domain_name
+    zone_id                = aws_cloudfront_distribution.https_distribution.hosted_zone_id
+    evaluate_target_health = false
+  }
 }
 
-resource "aws_route53_record" "easy" {
-  provider = aws.main
+# resource "aws_acm_certificate" "woodnet" {
+#   domain_name       = "*.${var.domain}"
+#   validation_method = "DNS"
+# }
 
-  zone_id = data.aws_route53_zone.this.zone_id
-  ttl     = 300
-  name    = "test.${var.subdomain}.${var.domain}"
-  type    = "CNAME"
-  records = [aws_amplify_app.woodnet_frontend.default_domain]
+data "aws_acm_certificate" "woodnet" {
+  domain   = "*.${var.domain}"
+  statuses = ["ISSUED"]
 }
+
+# resource "aws_route53_record" "woodnet_certificate" {
+#   for_each = {
+#     for dvo in data.aws_acm_certificate.woodnet.domain_validation_options : dvo.domain_name => {
+#       name   = dvo.resource_record_name
+#       record = dvo.resource_record_value
+#       type   = dvo.resource_record_type
+#     }
+#   }
+
+#   # allow_overwrite = true
+#   name            = each.value.name
+#   records         = [each.value.record]
+#   ttl             = 300
+#   type            = each.value.type
+#   zone_id         = data.aws_route53_zone.main.zone_id
+# }
+
+# resource "aws_acm_certificate_validation" "this" {
+#   certificate_arn         = data.aws_acm_certificate.woodnet.arn
+#   validation_record_fqdns = [for record in aws_route53_record.woodnet_certificate : record.fqdn]
+# }

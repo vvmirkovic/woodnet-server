@@ -11,9 +11,7 @@ module "frontend" {
   domain       = "vvmirkovic.com"
   subdomain    = "woodnet"
 }
-output "cv_record" {
-  value = module.frontend.cv_record
-}
+
 module "network" {
   source = "./modules/network"
 }
