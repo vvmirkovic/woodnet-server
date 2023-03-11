@@ -1,5 +1,8 @@
 data "aws_caller_identity" "current" {}
 
+locals {
+  branch = var.env
+}
 resource "aws_amplify_app" "woodnet_frontend" {
   name                        = "woodnet-frontend"
   repository                  = var.repo
@@ -8,7 +11,7 @@ resource "aws_amplify_app" "woodnet_frontend" {
 
   # The default patterns added by the Amplify Console.
   auto_branch_creation_patterns = [
-    var.env
+    local.branch
   ]
 
   auto_branch_creation_config {
@@ -40,5 +43,15 @@ resource "aws_amplify_app" "woodnet_frontend" {
   environment_variables = {
     ENV           = var.env
     _CUSTOM_IMAGE = "node:18",
+  }
+}
+
+resource "aws_amplify_domain_association" "woodnet_frontend" {
+  app_id      = aws_amplify_app.woodnet_frontend.id
+  domain_name = var.domain
+
+  sub_domain {
+    branch_name = local.branch
+    prefix      = ""
   }
 }
