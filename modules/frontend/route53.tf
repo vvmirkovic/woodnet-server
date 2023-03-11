@@ -11,7 +11,7 @@ terraform {
 #   cv_data = split(" ", aws_amplify_domain_association.woodnet_frontend.certificate_verification_dns_record)
 # }
 
-data "aws_route53_zone" "this" {
+data "aws_route53_zone" "main" {
   provider = aws.main
 
   name = var.domain
