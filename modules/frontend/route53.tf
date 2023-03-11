@@ -12,6 +12,8 @@ locals {
 }
 
 data "aws_route53_zone" "this" {
+  provider = aws.main
+
   name         = var.domain
 }
 
