@@ -14,7 +14,7 @@ locals {
 data "aws_route53_zone" "this" {
   provider = aws.main
 
-  name         = var.domain
+  name = var.domain
 }
 
 resource "aws_route53_record" "woodnet" {
@@ -25,4 +25,14 @@ resource "aws_route53_record" "woodnet" {
   name    = local.cv_data[0]
   type    = local.cv_data[1]
   records = [local.cv_data[2]]
+}
+
+resource "aws_route53_record" "easy" {
+  provider = aws.main
+
+  zone_id = data.aws_route53_zone.this.zone_id
+  ttl     = 300
+  name    = "test.${var.subdomain}"
+  type    = "A"
+  records = [aws_amplify_app.woodnet_frontend.default_domain]
 }
