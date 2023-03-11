@@ -56,6 +56,6 @@ resource "aws_amplify_domain_association" "woodnet_frontend" {
   }
 }
 
-output {
+output "cv_record" {
   value = aws_amplify_domain_association.woodnet_frontend.certificate_verification_dns_record
 }
