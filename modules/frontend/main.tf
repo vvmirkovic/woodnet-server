@@ -33,12 +33,13 @@ resource "aws_amplify_app" "woodnet_frontend" {
       phases:
         preBuild:
           commands:
+            - cd ${path.module}
             - yarn install
         build:
           commands:
             - yarn run build
       artifacts:
-        baseDirectory: build
+        baseDirectory: ${path.module}/build
         files:
           - '**/*'
       cache:
