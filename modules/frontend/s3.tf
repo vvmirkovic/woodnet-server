@@ -6,7 +6,7 @@ resource "aws_s3_bucket" "woodnet" {
   bucket = local.bucket_name
 }
 
-resource "aws_s3_bucket_policy" {
+resource "aws_s3_bucket_policy" "woodnet" {
   bucket = local.bucket_name
 
   policy = templatefile(
