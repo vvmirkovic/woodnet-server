@@ -21,8 +21,6 @@ resource "aws_amplify_app" "woodnet_frontend" {
   # The default patterns added by the Amplify Console.
   auto_branch_creation_patterns = [
     var.env
-    # "*",
-    # "*/**",
   ]
 
   auto_branch_creation_config {
