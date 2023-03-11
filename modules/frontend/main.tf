@@ -1,20 +1,20 @@
 data "aws_caller_identity" "current" {}
 
-resource "aws_s3_bucket" "woodnet" {
-  bucket = "woodnet-${data.aws_caller_identity.current.account_id}"
-}
+# resource "aws_s3_bucket" "woodnet" {
+#   bucket = "woodnet-${data.aws_caller_identity.current.account_id}"
+# }
 
-locals {
-  build_folder = "${path.module}/src/build/"
-}
+# locals {
+#   build_folder = "${path.module}/src/build/"
+# }
 
-resource "aws_s3_bucket_object" "test" {
-  for_each = fileset("${local.build_folder}", "**")
-  bucket   = "test"
-  key      = each.value
-  source   = "${local.build_folder}${each.value}"
-  etag     = filemd5("${local.build_folder}${each.value}")
-}
+# resource "aws_s3_bucket_object" "test" {
+#   for_each = fileset("${local.build_folder}", "**")
+#   bucket   = "test"
+#   key      = each.value
+#   source   = "${local.build_folder}${each.value}"
+#   etag     = filemd5("${local.build_folder}${each.value}")
+# }
 
 # locals {
 #   branch = var.env
