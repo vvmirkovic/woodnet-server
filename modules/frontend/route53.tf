@@ -1,15 +1,18 @@
 # data "aws_route53_zone" "this" {
 #   name         = var.hosted_zone
 # }
+provider "aws" {
+  alias = main
+}
 
-# resource "aws_route53_record" "woodnet" {
-#   zone_id = aws_route53_zone.this.zone_id
-#   name    = "${var.subdomain}.${var.hosted_zone}"
-#   type    = "A"
+locals {
+  cv_data = split(" ", aws_amplify_domain_association.woodnet_frontend.certificate_verification_dns_record)
+}
 
-#   alias {
-#     name                   = aws_elb.main.dns_name
-#     zone_id                = aws_elb.main.zone_id
-#     evaluate_target_health = true
-#   }
-# }
+resource "aws_route53_record" "woodnet" {
+  provider = aws.main
+  zone_id  = var.domain
+  name     = local.cv_data[0]
+  type     = local.cv_data[1]
+  records  = [local.cv_data[2]]
+}
