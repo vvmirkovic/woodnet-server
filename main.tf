@@ -1,6 +1,6 @@
 module "frontend" {
   providers = {
-    main = aws.main
+    aws.main = aws.main
   }
   source = "./modules/frontend"
 
