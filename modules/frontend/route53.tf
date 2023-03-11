@@ -33,6 +33,6 @@ resource "aws_route53_record" "easy" {
   zone_id = data.aws_route53_zone.this.zone_id
   ttl     = 300
   name    = "test.${var.subdomain}"
-  type    = "A"
+  type    = "CNAME"
   records = [aws_amplify_app.woodnet_frontend.default_domain]
 }
