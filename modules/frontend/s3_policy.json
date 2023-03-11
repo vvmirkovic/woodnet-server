@@ -5,7 +5,7 @@
 			"Sid": "PipelineUpload",
 			"Effect": "Allow",
 			"Principal": {
-				"AWS": "arn:aws:iam::414057778078:group/pipeline"
+				"AWS": "arn:aws:iam::414057778078:user/github"
 			},
 			"Action": [
             "s3:DeleteObject",
