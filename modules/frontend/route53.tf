@@ -29,7 +29,7 @@ data "aws_route53_zone" "main" {
 # }
 
 locals {
-  full_domain = "${var.subdomain}.${var.domain}"
+  full_domain = var.subdomain == "" ? var.domain : "${var.subdomain}.${var.domain}"
 }
 
 resource "aws_acm_certificate" "woodnet" {
