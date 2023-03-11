@@ -28,6 +28,6 @@ jobs:
         cache: 'npm'
         cache-dependency-path: modules/frontend/src/package-lock.json
     - run: cd modules/frontend/src/
-    - run: npm ci
+    - run: npm install
     - run: npm run build --if-present
     - run: npm test
