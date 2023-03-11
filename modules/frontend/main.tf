@@ -1,9 +1,9 @@
 data "aws_caller_identity" "current" {}
 
 resource "aws_amplify_app" "woodnet_frontend" {
-  name         = "woodnet-frontend"
-  repository   = var.repo
-  access_token = var.github_token
+  name                        = "woodnet-frontend"
+  repository                  = var.repo
+  access_token                = var.github_token
   enable_auto_branch_creation = true
 
   # The default patterns added by the Amplify Console.
