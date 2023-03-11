@@ -3,8 +3,10 @@
 # }
 terraform {
   required_providers {
-    source                = "hashicorp/aws"
-    configuration_aliases = [aws.main]
+    aws = {
+      source                = "hashicorp/aws"
+      configuration_aliases = [aws.main]
+    }
   }
 }
 
