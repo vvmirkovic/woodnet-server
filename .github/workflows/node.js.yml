@@ -12,7 +12,6 @@ on:
 env:
   REACT_PATH: modules/frontend/src/
   CI: false
-  GITHUB_REF: github.ref
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_DEFAULT_REGION: us-east-1
@@ -38,4 +37,4 @@ jobs:
     - run: npm ci ${{ env.REACT_PATH }} --prefix ${{ env.REACT_PATH }}
     - run: npm run build --if-present --prefix ${{ env.REACT_PATH }}
 #    - run: npm test --prefix ${{ env.REACT_PATH }}
-    - run: aws s3 sync ${{ env.REACT_PATH }}build/ s3://${GITHUB_REF##*/}-woodnet-frontend
+    - run: aws s3 sync ${{ env.REACT_PATH }}build/ s3://${{ github.ref_name }}-woodnet-frontend
