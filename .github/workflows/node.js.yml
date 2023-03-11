@@ -9,6 +9,9 @@ on:
   pull_request:
     branches: [ "main", "dev" ]
 
+env:
+  REACT_PATH: modules/frontend/src/
+
 jobs:
   build:
 
@@ -26,8 +29,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: modules/frontend/src/package-lock.json
-    - run: cd modules/frontend/src/
-    - run: npm install
-    - run: npm run build --if-present
-    - run: npm test
+        cache-dependency-path: ${{ secrets.REACT_PATH }}/package-lock.json
+    - run: npm ci ${{ secrets.REACT_PATH }} --prefix ${{ secrets.REACT_PATH }}
+    - run: npm run build --if-present --prefix ${{ secrets.REACT_PATH }}
+    - run: npm test --prefix ${{ secrets.REACT_PATH }}
