@@ -11,6 +11,7 @@ locals {
 
 resource "aws_route53_record" "woodnet" {
   provider = aws.main
+  
   zone_id  = var.domain
   name     = local.cv_data[0]
   type     = local.cv_data[1]
