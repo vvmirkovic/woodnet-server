@@ -22,3 +22,8 @@ provider "aws" {
     role_arn = local.role
   }
 }
+
+provider "aws" {
+  alias  = "main"
+  region = "us-east-1"
+}

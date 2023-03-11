@@ -1,4 +1,7 @@
 module "frontend" {
+  providers = {
+    aws.main = aws.main
+  }
   source = "./modules/frontend"
 
   env  = var.env
