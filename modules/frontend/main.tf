@@ -39,13 +39,12 @@ resource "aws_amplify_app" "woodnet_frontend" {
           commands:
             - yarn run build
       artifacts:
-        baseDirectory: ${path.module}/build
+        baseDirectory: /${path.module}/build
         files:
           - '**/*'
       cache:
         paths:
           - node_modules/**/*
-      appRoot: ${path.module}/src
   EOT
 
   environment_variables = {
