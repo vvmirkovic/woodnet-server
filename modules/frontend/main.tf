@@ -52,7 +52,7 @@ resource "aws_amplify_domain_association" "woodnet_frontend" {
 
   sub_domain {
     branch_name = local.branch
-    prefix      = ""
+    prefix      = var.subdomain
   }
 }
 
