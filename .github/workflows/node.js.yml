@@ -11,7 +11,7 @@ on:
 
 env:
   REACT_PATH: modules/frontend/src/
-
+  CI: false
 jobs:
   build:
 
