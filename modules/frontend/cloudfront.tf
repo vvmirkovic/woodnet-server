@@ -46,7 +46,7 @@ resource "aws_cloudfront_distribution" "https_distribution" {
   }
 
   viewer_certificate {
-    acm_certificate_arn      = data.aws_acm_certificate.minecraft.arn
+    acm_certificate_arn      = data.aws_acm_certificate.woodnet.arn
     minimum_protocol_version = "TLSv1.2_2021"
     ssl_support_method       = "sni-only"
   }
