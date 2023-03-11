@@ -18,7 +18,7 @@ data "aws_route53_zone" "this" {
 resource "aws_route53_record" "woodnet" {
   provider = aws.main
 
-  zone_id = aws_route53_zone.this.zone_id
+  zone_id = data.aws_route53_zone.this.zone_id
   name    = local.cv_data[0]
   type    = local.cv_data[1]
   records = [local.cv_data[2]]
