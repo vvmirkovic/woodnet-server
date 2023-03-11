@@ -2,7 +2,7 @@
 #   name         = var.hosted_zone
 # }
 provider "aws" {
-  alias = main
+  alias = "main"
 }
 
 locals {
