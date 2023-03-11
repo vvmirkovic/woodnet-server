@@ -37,9 +37,13 @@ data "aws_route53_zone" "this" {
 #   records = [aws_amplify_app.woodnet_frontend.default_domain]
 # }
 
+locals {
+  full_domain = "${var.subdomain}.${var.domain}"
+}
+
 resource "aws_route53_record" "woodnet_domain" {
   zone_id = data.aws_route53_zone.main.zone_id
-  name    = local.subdomain
+  name    = local.full_domain
   type    = "A"
 
   alias {
