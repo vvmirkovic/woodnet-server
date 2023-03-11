@@ -29,7 +29,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: ${{ secrets.REACT_PATH }}/package-lock.json
-    - run: npm ci ${{ secrets.REACT_PATH }} --prefix ${{ secrets.REACT_PATH }}
-    - run: npm run build --if-present --prefix ${{ secrets.REACT_PATH }}
-    - run: npm test --prefix ${{ secrets.REACT_PATH }}
+        cache-dependency-path: ${{ env.REACT_PATH }}/package-lock.json
+    - run: npm ci ${{ env.REACT_PATH }} --prefix ${{ env.REACT_PATH }}
+    - run: npm run build --if-present --prefix ${{ env.REACT_PATH }}
+    - run: npm test --prefix ${{ env.REACT_PATH }}
