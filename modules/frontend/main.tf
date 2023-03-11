@@ -1,17 +1,5 @@
 data "aws_caller_identity" "current" {}
 
-# resource "aws_amplify_branch" "this" {
-#   app_id      = aws_amplify_app.woodnet_frontend.id
-#   branch_name = var.env
-
-#   framework = "React"
-#   stage     = var.env == "prod" ? "PRODUCTION" : "DEVELOPMENT"
-
-#   environment_variables = {
-#     REACT_APP_API_SERVER = "https://api.example.com"
-#   }
-# }
-
 resource "aws_amplify_app" "woodnet_frontend" {
   name         = "woodnet-frontend"
   repository   = var.repo
