@@ -1,10 +1,17 @@
+locals {
+  bucket_name = "${var.env}-woodnet-frontend"
+}
+
 resource "aws_s3_bucket" "woodnet" {
-  #   bucket = local.subdomain
-  bucket = "${var.env}-woodnet-frontend"
+  bucket = local.bucket_name
+}
+
+resource "aws_s3_bucket_policy" {
+  bucket = local.bucket_name
 
   policy = templatefile(
     "${path.module}/s3_policy.json",
-    { bucket = "${var.env}-woodnet-frontend" }
+    { bucket = local.bucket_name }
   )
 }
 
