@@ -31,7 +31,7 @@ data "aws_route53_zone" "main" {
 locals {
   env_modifier = var.env == "dev" ? "" : "${var.env}."
   full_domain = var.subdomain == "" ? "${local.env_modifier}${var.domain}" : "${local.env_modifier}${var.subdomain}.${var.domain}"
-  certificate = var.env == "dev" && var.sub_domain == "" ? var.domain : "*.${var.domain}"
+  certificate = var.env == "dev" && var.subdomain == "" ? var.domain : "*.${var.domain}"
 }
 
 resource "aws_acm_certificate" "woodnet" {
