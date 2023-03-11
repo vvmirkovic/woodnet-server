@@ -77,11 +77,11 @@ resource "aws_route53_record" "woodnet_certificate" {
   }
 
   # allow_overwrite = true
-  name            = each.value.name
-  records         = [each.value.record]
-  ttl             = 300
-  type            = each.value.type
-  zone_id         = data.aws_route53_zone.main.zone_id
+  name    = each.value.name
+  records = [each.value.record]
+  ttl     = 300
+  type    = each.value.type
+  zone_id = data.aws_route53_zone.main.zone_id
 }
 
 resource "aws_acm_certificate_validation" "this" {

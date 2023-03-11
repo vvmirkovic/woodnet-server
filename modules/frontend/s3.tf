@@ -1,6 +1,11 @@
 resource "aws_s3_bucket" "woodnet" {
   #   bucket = local.subdomain
   bucket = "${var.env}-woodnet-frontend"
+
+  policy = templatefile(
+    "${path.module}/s3_policy.json",
+    { bucket = "${var.env}-woodnet-frontend" }
+  )
 }
 
 resource "aws_s3_bucket_public_access_block" "woodnet" {
