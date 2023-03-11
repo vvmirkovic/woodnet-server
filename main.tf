@@ -5,6 +5,8 @@ module "frontend" {
   # repo         = "https://github.com/vvmirkovic/woodnet-server.git"
   repo         = "https://github.com/Brennan-Flood/woodnet-frontend.git"
   github_token = var.github_token
+  domain       = "vvmirkovic.com"
+  subdomain    = "woodnet"
 }
 
 module "network" {
