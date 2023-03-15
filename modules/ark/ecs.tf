@@ -33,7 +33,7 @@ resource "aws_ecs_task_definition" "ark" {
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   execution_role_arn       = aws_iam_role.ark_server.arn
-  cpu                      = 1024
+  cpu                      = 2048
   memory                   = 8192
   container_definitions = jsonencode([
     {
