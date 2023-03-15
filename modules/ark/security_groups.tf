@@ -54,26 +54,6 @@ resource "aws_security_group" "ark_server" {
   vpc_id      = var.vpc_id
 }
 
-resource "aws_vpc_security_group_ingress_rule" "server02" {
-  security_group_id = aws_security_group.ark_server.id
-
-  description = "Port for connections from ARK game client"
-  from_port   = 0
-  to_port     = 30000
-  ip_protocol = "udp"
-  cidr_ipv4   = "0.0.0.0/0"
-}
-
-resource "aws_vpc_security_group_ingress_rule" "server01" {
-  security_group_id = aws_security_group.ark_server.id
-
-  description = "Port for connections from ARK game client"
-  from_port   = 0
-  to_port     = 30000
-  ip_protocol = "tcp"
-  cidr_ipv4   = "0.0.0.0/0"
-}
-
 resource "aws_vpc_security_group_ingress_rule" "server0" {
   security_group_id = aws_security_group.ark_server.id
 
