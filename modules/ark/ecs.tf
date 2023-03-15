@@ -39,7 +39,7 @@ resource "aws_ecs_task_definition" "ark" {
     {
       name   = "ark-server"
       image  = var.server_image
-      cpu    = 1024
+      cpu    = 2048
       memory = 8192
       # entryPoint: ["/"],
       environment = local.ark_environment_variables
