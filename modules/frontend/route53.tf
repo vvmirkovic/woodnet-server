@@ -2,12 +2,6 @@
 #   cv_data = split(" ", aws_amplify_domain_association.woodnet_frontend.certificate_verification_dns_record)
 # }
 
-data "aws_route53_zone" "main" {
-  provider = aws.main
-
-  name = var.domain
-}
-
 # resource "aws_route53_record" "woodnet" {
 #   provider = aws.main
 
@@ -29,9 +23,10 @@ data "aws_route53_zone" "main" {
 # }
 
 locals {
-  env_modifier = var.env == "dev" ? "" : "${var.env}."
-  full_domain = var.subdomain == "" ? "${local.env_modifier}${var.domain}" : "${local.env_modifier}${var.subdomain}.${var.domain}"
-  certificate = var.env == "dev" && var.subdomain == "" ? var.domain : "*.${var.domain}"
+  env_modifier = var.env == "prod" ? "" : "${var.env}."
+  subdomain_modifier = var.subdomain == "" ? "" : "${var.subdomain}."
+  full_domain = "${local.env_modifier}${local.subdomain_modifier}${var.domain}"
+  certificate = var.env == "prod" && var.subdomain == "" ? var.domain : "*.${var.domain}"
 }
 
 resource "aws_acm_certificate" "woodnet" {

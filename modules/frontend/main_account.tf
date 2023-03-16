@@ -7,6 +7,12 @@ terraform {
   }
 }
 
+data "aws_route53_zone" "main" {
+  provider = aws.main
+
+  name = var.domain
+}
+
 resource "aws_route53_record" "woodnet_domain" {
   provider = aws.main
 
