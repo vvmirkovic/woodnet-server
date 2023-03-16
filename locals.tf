@@ -1,3 +1,3 @@
 locals {
-    domain = "woodnet.io"
+  domain = "woodnet.io"
 }

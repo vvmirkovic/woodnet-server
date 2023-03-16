@@ -27,7 +27,7 @@ module "ark" {
   }
   source = "./modules/ark"
 
-  server_image    = "hermsi/ark-server"
+  server_image = "hermsi/ark-server"
   # server_image = "thmhoag/arkserver"
   domain          = local.domain
   vpc_id          = module.network.vpc_id
