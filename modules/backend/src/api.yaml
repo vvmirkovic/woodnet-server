@@ -6,8 +6,13 @@ info:
 paths:
   /test:
     get:
+      operationId: getTest
+      responses:
+        default:
+          description: "Default response for GET /test"
       x-amazon-apigateway-integration:
+        type: AWS_PROXY
         httpMethod: GET
-        payloadFormatVersion: "1.0"
-        type: "HTTP_PROXY"
-        uri: "https://ip-ranges.amazonaws.com/ip-ranges.json"
+        uri: "${test_arn}"
+        payloadFormatVersion: "2.0"
+        connectionType: INTERNET
