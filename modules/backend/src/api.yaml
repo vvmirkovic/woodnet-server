@@ -15,7 +15,7 @@ paths:
 
 components:
   x-amazon-apigateway-integrations:
-    debug:
+    test:
       type: AWS_PROXY
       httpMethod: GET
       uri: "${test_arn}"

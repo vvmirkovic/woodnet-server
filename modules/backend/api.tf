@@ -1,5 +1,10 @@
 resource "aws_api_gateway_rest_api" "woodnet" {
-  body = file("${path.module}/src/api.yaml")
+  body = templatefile(
+    "${path.module}/src/api.yaml",
+    {
+      test_arn = aws_lambda_function.test.arn
+    }  
+  )
 
   name = "woodnet-backend"
 
