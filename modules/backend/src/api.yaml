@@ -7,9 +7,6 @@ paths:
   /test:
     get:
       operationId: getTest
-      responses:
-        default:
-          description: "Default response for GET /test"
       x-amazon-apigateway-integration:
         type: AWS_PROXY
         httpMethod: GET
