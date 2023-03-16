@@ -10,6 +10,6 @@ paths:
       x-amazon-apigateway-integration:
         type: AWS_PROXY
         httpMethod: GET
-        uri: ${test_arn}
+        uri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/${test_arn}/invocations
         payloadFormatVersion: "2.0"
         connectionType: INTERNET
