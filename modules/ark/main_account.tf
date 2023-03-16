@@ -20,6 +20,8 @@ locals {
 }
 
 resource "aws_route53_record" "server" {
+  provider = aws.main
+
   zone_id = data.aws_route53_zone.main.zone_id
   name    = local.full_domain
   type    = "A"
