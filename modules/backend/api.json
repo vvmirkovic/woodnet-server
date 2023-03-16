@@ -1,0 +1,74 @@
+{
+    "openapi" : "3.0.1",
+    "info" : {
+      "title" : "Minecraft",
+      "description" : "Minecraft server API",
+      "version" : "2022-09-04T00:04:49Z"
+    },
+    "servers" : [ {
+      "url" : "https://os9qtg17uj.execute-api.us-east-1.amazonaws.com/{basePath}",
+      "variables" : {
+        "basePath" : {
+          "default" : "/test"
+        }
+      }
+    } ],
+    "paths" : {
+      "/server/start" : {
+        "post" : {
+          "responses" : {
+            "200" : {
+              "description" : "200 response",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/Empty"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/server" : {
+        "get" : {
+          "responses" : {
+            "200" : {
+              "description" : "200 response",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/Empty"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/server/stop" : {
+        "post" : {
+          "responses" : {
+            "200" : {
+              "description" : "200 response",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/Empty"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components" : {
+      "schemas" : {
+        "Empty" : {
+          "title" : "Empty Schema",
+          "type" : "object"
+        }
+      }
+    }
+  }

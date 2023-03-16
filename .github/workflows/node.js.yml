@@ -35,8 +35,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: package-lock.json
         # cache-dependency-path: ${{ env.REACT_PATH }}/package-lock.json
-    # - run: npm ci src/woodnet-frontend/ --prefix src/woodnet-frontend/
     - run: npm ci #${{ env.REACT_PATH }} --prefix ${{ env.REACT_PATH }}
     - run: npm run build --if-present # --prefix ${{ env.REACT_PATH }}
 #    - run: npm test --prefix ${{ env.REACT_PATH }}
