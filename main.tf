@@ -6,9 +6,7 @@ module "frontend" {
 
   env  = var.env
   repo = "https://github.com/vvmirkovic/woodnet-server.git"
-  # repo         = "https://github.com/Brennan-Flood/woodnet-frontend.git"
   github_token = var.github_token
-  # domain       = "vvmirkovic.com"
   domain    = local.domain
   subdomain = ""
 }
@@ -27,6 +25,7 @@ module "ark" {
   }
   source = "./modules/ark"
 
+  env  = var.env
   server_image = "hermsi/ark-server"
   # server_image = "thmhoag/arkserver"
   domain          = local.domain
