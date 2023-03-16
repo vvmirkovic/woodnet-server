@@ -19,13 +19,14 @@ locals {
   full_domain = "${local.env_modifier}${local.subdomain_modifier}${var.domain}"
 }
 
-resource "aws_route53_record" {
+resource "aws_route53_record" "server" {
   zone_id        = data.aws_route53_zone.main.zone_id
   name           = local.full_domain
   type           = "A"
   ttl            = 300
   records        = ["0.0.0.0"]
 
+  # IP needs to be updated whenever a new instance is started up
   lifecycle {
     ignore_changes = [
       records,
