@@ -14,17 +14,17 @@ data "aws_route53_zone" "main" {
 }
 
 locals {
-  env_modifier = var.env == "prod" ? "" : "${var.env}."
+  env_modifier       = var.env == "prod" ? "" : "${var.env}."
   subdomain_modifier = var.subdomain == "" ? "" : "${var.subdomain}."
-  full_domain = "${local.env_modifier}${local.subdomain_modifier}${var.domain}"
+  full_domain        = "${local.env_modifier}${local.subdomain_modifier}${var.domain}"
 }
 
 resource "aws_route53_record" "server" {
-  zone_id        = data.aws_route53_zone.main.zone_id
-  name           = local.full_domain
-  type           = "A"
-  ttl            = 300
-  records        = ["0.0.0.0"]
+  zone_id = data.aws_route53_zone.main.zone_id
+  name    = local.full_domain
+  type    = "A"
+  ttl     = 300
+  records = ["0.0.0.0"]
 
   # IP needs to be updated whenever a new instance is started up
   lifecycle {
