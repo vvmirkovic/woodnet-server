@@ -4,20 +4,10 @@ info:
   title: Woodnet
   description: Woodnet Backend API
 paths:
-  /debug:
+  /test:
     get:
-      operationId: getTest
-      responses:
-        default:
-          description: "Default response for GET /test"
       x-amazon-apigateway-integration:
-        $ref: '#/components/x-amazon-apigateway-integrations/test'
-
-components:
-  x-amazon-apigateway-integrations:
-    test:
-      type: AWS_PROXY
-      httpMethod: GET
-      uri: "${test_arn}"
-      payloadFormatVersion: "2.0"
-      connectionType: INTERNET
+        httpMethod: GET
+        payloadFormatVersion: "1.0"
+        type: "HTTP_PROXY"
+        uri: "https://ip-ranges.amazonaws.com/ip-ranges.json"
