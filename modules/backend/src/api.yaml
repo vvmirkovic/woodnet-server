@@ -1,0 +1,23 @@
+openapi: "3.0.1"
+info:
+  version: 0.0.1
+  title: Woodnet
+  description: Woodnet Backend API
+paths:
+  /debug:
+    get:
+      operationId: getTest
+      responses:
+        default:
+          description: "Default response for GET /test"
+      x-amazon-apigateway-integration:
+        $ref: '#/components/x-amazon-apigateway-integrations/test'
+
+components:
+  x-amazon-apigateway-integrations:
+    debug:
+      type: AWS_PROXY
+      httpMethod: GET
+      uri: "${test_arn}"
+      payloadFormatVersion: "2.0"
+      connectionType: INTERNET

@@ -1,5 +1,5 @@
 resource "aws_api_gateway_rest_api" "woodnet" {
-  body = file("${path.module}/api.json")
+  body = file("${path.module}/src/api.yaml")
 
   name = "woodnet-backend"
 

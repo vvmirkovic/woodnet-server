@@ -11,9 +11,9 @@ module "frontend" {
   subdomain    = ""
 }
 
-# module "backend" {
-#   source = "./modules/backend"
-# }
+module "backend" {
+  source = "./modules/backend"
+}
 
 module "network" {
   source = "./modules/network"
