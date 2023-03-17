@@ -64,7 +64,7 @@ jobs:
       run: terraform apply -auto-approve -input=false -var="env=$ENVIRONMENT" -var="github_token=$GITHUB_TOKEN"
 
     - name: Dispatch Frontend Build
-      uses: peter-evans/repository-dispatch@v1
+      uses: peter-evans/repository-dispatch@v2
       with:
         token: ${{ secrets.PAT }}
         event-type: frontend-build
