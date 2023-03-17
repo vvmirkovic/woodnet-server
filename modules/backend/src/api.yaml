@@ -27,8 +27,6 @@ paths:
         type: AWS_PROXY
         httpMethod: GET
         uri: ${lambda_invoke_arn}
-        payloadFormatVersion: "2.0"
-        connectionType: INTERNET
         type: aws
 definitions:
   Input:
