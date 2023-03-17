@@ -19,6 +19,7 @@ env:
   AWS_DEFAULT_REGION: us-east-1
   # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS }}
+  APPLY: ${{ github.ref_name == 'main' || github.ref_name == 'dev' && github.event_name == 'push' }}
 
 permissions:
   contents: read
@@ -60,8 +61,15 @@ jobs:
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
-      if: github.ref_name == 'main' || github.ref_name == 'dev' && github.event_name == 'push'
+      if: env.APPLY
       run: terraform apply -auto-approve -input=false -var="env=$ENVIRONMENT" -var="github_token=$GITHUB_TOKEN"
+    
+    - name: Upload Terraform Data
+      if: env.APPLY
+      uses: actions/upload-artifact@v3
+        with:
+          name: backend_url
+          path: backend_url.txt
 
     - name: Dispatch Frontend Build
       uses: peter-evans/repository-dispatch@v2
