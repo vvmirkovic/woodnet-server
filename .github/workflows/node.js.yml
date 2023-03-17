@@ -6,7 +6,6 @@ on:
   workflow_run:
     workflows: [Terraform]
     types: [completed]
-    branches: ["main", "dev"]
   # push:
   #   branches: [ "main", "dev" ]
   # pull_request:
