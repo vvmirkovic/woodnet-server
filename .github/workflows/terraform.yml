@@ -83,6 +83,7 @@ jobs:
   
   build:
     if: ${{ github.ref_name == 'main' || github.ref_name == 'dev' && github.event_name == 'push' }}
+    needs: terraform
     runs-on: ubuntu-latest
 
     strategy:
