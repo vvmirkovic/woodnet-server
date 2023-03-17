@@ -12,6 +12,7 @@ on:
   #   branches: [ "main", "dev" ]
 
 env:
+  ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || github.ref_name }}
   REACT_PATH: modules/frontend/src/
   CI: false
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -49,10 +50,10 @@ jobs:
     - name: Save terraform data values
       run: |
         backend_url=`cat backend_url.txt`
-        echo backend_url
+        echo $backend_url
 
     - run: npm ci #${{ env.REACT_PATH }} --prefix ${{ env.REACT_PATH }}
     - run: npm run build --if-present # --prefix ${{ env.REACT_PATH }}
 #    - run: npm test --prefix ${{ env.REACT_PATH }}
     # - run: aws s3 sync ${{ env.REACT_PATH }}build/ s3://${{ github.ref_name }}-woodnet-frontend
-    - run: aws s3 sync build/ s3://${{ github.event.client_payload.environment }}-woodnet-frontend
+    - run: aws s3 sync build/ s3://${{ env.ENVIRONMENT }}-woodnet-frontend
