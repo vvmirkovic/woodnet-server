@@ -85,6 +85,7 @@ jobs:
         cache: 'npm'
         cache-dependency-path: package-lock.json
         # cache-dependency-path: ${{ env.REACT_PATH }}/package-lock.json
+    - run: echo $BACKEND_URL
     - run: npm ci #${{ env.REACT_PATH }} --prefix ${{ env.REACT_PATH }}
     - run: npm run build --if-present # --prefix ${{ env.REACT_PATH }}
 #    - run: npm test --prefix ${{ env.REACT_PATH }}
