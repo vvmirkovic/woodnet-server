@@ -68,4 +68,4 @@ jobs:
       with:
         token: ${{ secrets.PAT }}
         event-type: frontend-build
-        client-payload: '{"backend_url": "${{ env.BACKEND_URL }}"}'
+        client-payload: '{"backend_url": "${{ env.BACKEND_URL }}", "environment": "${{ env.ENVIRONMENT }}"" }'

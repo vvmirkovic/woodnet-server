@@ -4,10 +4,12 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: [ "main0", "dev0" ]
-  pull_request:
-    branches: [ "main0", "dev0" ]
+  repository_dispatch:
+    types: [frontend-build]
+  # push:
+  #   branches: [ "main", "dev" ]
+  # pull_request:
+  #   branches: [ "main", "dev" ]
 
 env:
   REACT_PATH: modules/frontend/src/
@@ -15,6 +17,7 @@ env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_DEFAULT_REGION: us-east-1
+  BACKEND_URL: github.event.client_payload.backend_url
 
 jobs:
   build:
@@ -41,4 +44,4 @@ jobs:
     - run: npm run build --if-present # --prefix ${{ env.REACT_PATH }}
 #    - run: npm test --prefix ${{ env.REACT_PATH }}
     # - run: aws s3 sync ${{ env.REACT_PATH }}build/ s3://${{ github.ref_name }}-woodnet-frontend
-    - run: aws s3 sync build/ s3://${{ github.ref_name }}-woodnet-frontend
+    - run: aws s3 sync build/ s3://${{ github.event.client_payload.environment }}-woodnet-frontend
