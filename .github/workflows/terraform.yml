@@ -66,6 +66,6 @@ jobs:
     - name: Dispatch Frontend Build
       uses: peter-evans/repository-dispatch@v1
       with:
-        token: ${{ secrets.PERSONAL_ACCESS }}
+        token: ${{ secrets.PAT }}
         event-type: frontend-build
         client-payload: '{"backend_url": "${{ env.BACKEND_URL }}"}'
