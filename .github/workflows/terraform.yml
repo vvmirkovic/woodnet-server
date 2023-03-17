@@ -19,8 +19,6 @@ env:
   AWS_DEFAULT_REGION: us-east-1
   # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS }}
-  REACT_PATH: modules/frontend/src/
-  CI: false
 
 permissions:
   contents: read
