@@ -24,7 +24,6 @@ paths:
             operator:
               type: string
       x-amazon-apigateway-integration:
-        type: AWS_PROXY
         httpMethod: GET
         uri: ${lambda_invoke_arn}
         type: aws
