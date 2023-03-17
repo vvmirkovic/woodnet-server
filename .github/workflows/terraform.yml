@@ -5,7 +5,7 @@
 #
 # Documentation for `hashicorp/setup-terraform` is located here: https://github.com/hashicorp/setup-terraform
 
-name: 'Terraform'
+name: Terraform
 
 on:
   push:
@@ -67,13 +67,14 @@ jobs:
     - name: Upload Terraform Data
       if: env.APPLY
       uses: actions/upload-artifact@v3
-        with:
-          name: backend_url
-          path: backend_url.txt
-
-    - name: Dispatch Frontend Build
-      uses: peter-evans/repository-dispatch@v2
       with:
-        token: ${{ secrets.PAT }}
-        event-type: frontend-build
-        client-payload: '{"backend_url": "${{ env.BACKEND_URL }}", "environment": "${{ env.ENVIRONMENT }}" }'
+        name: backend_url
+        path: backend_url.txt
+
+    # - name: Dispatch Frontend Build
+    #   if: env.APPLY
+    #   uses: peter-evans/repository-dispatch@v2
+    #   with:
+    #     token: ${{ secrets.PAT }}
+    #     event-type: frontend-build
+    #     client-payload: '{"backend_url": "${{ env.BACKEND_URL }}", "environment": "${{ env.ENVIRONMENT }}" }'
