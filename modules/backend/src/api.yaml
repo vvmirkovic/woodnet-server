@@ -10,7 +10,7 @@ paths:
       - application/json
       operationId: getTest
       x-amazon-apigateway-integration:
-        httpMethod: GET
+        httpMethod: POST
         uri: ${lambda_invoke_arn}
         type: aws_proxy
 definitions:
