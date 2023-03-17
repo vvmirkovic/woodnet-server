@@ -28,7 +28,6 @@ permissions:
 
 jobs:
   terraform:
-    if: env.APPLY
     name: 'Terraform'
     runs-on: ubuntu-latest
     environment: production
@@ -83,7 +82,7 @@ jobs:
     #     client-payload: '{"backend_url": "${{ env.BACKEND_URL }}", "environment": "${{ env.ENVIRONMENT }}" }'
   
   build:
-    if: env.APPLY
+    if: ${{ github.ref_name == 'main' || github.ref_name == 'dev' && github.event_name == 'push' }}
     runs-on: ubuntu-latest
 
     strategy:
