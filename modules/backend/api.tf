@@ -1,3 +1,7 @@
+resource "aws_api_gateway_account" "woodnet" {
+  cloudwatch_role_arn = aws_iam_role.cloudwatch.arn
+}
+
 resource "aws_api_gateway_rest_api" "woodnet" {
   body = templatefile(
     "${path.module}/src/api.yaml",
