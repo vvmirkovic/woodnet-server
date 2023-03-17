@@ -1,5 +1,5 @@
 resource "aws_api_gateway_account" "woodnet" {
-  cloudwatch_role_arn = aws_iam_role.cloudwatch.arn
+  cloudwatch_role_arn = aws_iam_role.api_cloudwatch.arn
 }
 
 resource "aws_api_gateway_rest_api" "woodnet" {
