@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main", "dev" ]
+    branches: [ "main0", "dev0" ]
   pull_request:
-    branches: [ "main", "dev" ]
+    branches: [ "main0", "dev0" ]
 
 env:
   REACT_PATH: modules/frontend/src/
