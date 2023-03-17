@@ -43,9 +43,9 @@ jobs:
         # cache-dependency-path: ${{ env.REACT_PATH }}/package-lock.json
 
     - name: Download terraform values
-        uses: actions/download-artifact@v3
-        with:
-          name: backend_url
+      uses: actions/download-artifact@v3
+      with:
+        name: backend_url
 
     - name: Save terraform data values
       run: |
