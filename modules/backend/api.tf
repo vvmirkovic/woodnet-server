@@ -34,3 +34,13 @@ resource "aws_api_gateway_stage" "woodnet" {
   rest_api_id   = aws_api_gateway_rest_api.woodnet.id
   stage_name    = "woodnet"
 }
+
+resource "aws_api_gateway_method_settings" "example" {
+  rest_api_id = aws_api_gateway_rest_api.woodnet.id
+  stage_name  = aws_api_gateway_stage.example.woodnet
+  method_path = "*/*"
+
+  settings {
+    logging_level   = "INFO"
+  }
+}
