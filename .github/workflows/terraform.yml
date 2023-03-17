@@ -82,7 +82,7 @@ jobs:
     #     client-payload: '{"backend_url": "${{ env.BACKEND_URL }}", "environment": "${{ env.ENVIRONMENT }}" }'
   
   build:
-    if: env.APPLY
+    if: ${{ env.APPLY }}
     runs-on: ubuntu-latest
 
     strategy:
