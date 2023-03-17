@@ -6,8 +6,6 @@ info:
 paths:
   /test:
     get:
-      consumes:
-      - application/json
       produces:
       - application/json
       operationId: getTest
