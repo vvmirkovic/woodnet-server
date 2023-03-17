@@ -9,22 +9,10 @@ paths:
       produces:
       - application/json
       operationId: getTest
-      responses:
-        '200':
-          description: 200 response
-          schema:
-            "$ref": "#/definitions/Result"
-          headers:
-            operand_1:
-              type: string
-            operand_2:
-              type: string
-            operator:
-              type: string
       x-amazon-apigateway-integration:
         httpMethod: GET
         uri: ${lambda_invoke_arn}
-        type: aws
+        type: aws_proxy
 definitions:
   Input:
     type: object
