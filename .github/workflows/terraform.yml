@@ -65,29 +65,9 @@ jobs:
       if: github.ref_name == 'main' || github.ref_name == 'dev' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false -var="env=$ENVIRONMENT" -var="github_token=$GITHUB_TOKEN"
 
-  build:
-    if: github.ref_name == 'main' || github.ref_name == 'dev'
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        repository: Brennan-Flood/woodnet-frontend
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        cache-dependency-path: package-lock.json
-        # cache-dependency-path: ${{ env.REACT_PATH }}/package-lock.json
-    - run: echo $BACKEND_URL
-    - run: npm ci #${{ env.REACT_PATH }} --prefix ${{ env.REACT_PATH }}
-    - run: npm run build --if-present # --prefix ${{ env.REACT_PATH }}
-#    - run: npm test --prefix ${{ env.REACT_PATH }}
-    # - run: aws s3 sync ${{ env.REACT_PATH }}build/ s3://${{ github.ref_name }}-woodnet-frontend
-    - run: aws s3 sync build/ s3://${{ github.ref_name }}-woodnet-frontend
+    - name: Dispatch Frontend Build
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS }}
+          event-type: frontend-build
+          client-payload: '{"backend_url": "${{ env.BACKEND_URL }}"}'
