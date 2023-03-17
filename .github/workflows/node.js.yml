@@ -4,8 +4,10 @@
 name: Node.js CI
 on:
   workflow_run:
-    workflows: [Terraform]
-    types: [completed]
+    workflows: 
+      - Terraform
+    types: 
+      - completed
   # push:
   #   branches: [ "main", "dev" ]
   # pull_request:
