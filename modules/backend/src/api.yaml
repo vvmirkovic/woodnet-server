@@ -26,7 +26,7 @@ paths:
       x-amazon-apigateway-integration:
         type: AWS_PROXY
         httpMethod: GET
-        uri: lambda_url
+        uri: ${lambda_invoke_arn}
         payloadFormatVersion: "2.0"
         connectionType: INTERNET
         type: aws
