@@ -24,7 +24,7 @@ paths:
             operator:
               type: string
       x-amazon-apigateway-integration:
-        credentials: arn:aws:iam::${account}:role/${api_role}
+        # credentials: arn:aws:iam::${account}:role/${api_role}
         type: AWS_PROXY
         httpMethod: GET
         uri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/${test_arn}/invocations
