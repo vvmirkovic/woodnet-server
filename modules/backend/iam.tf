@@ -8,5 +8,10 @@ resource "aws_iam_role" "lambda_execution" {
 resource "aws_iam_policy" "lambda_policy" {
   name = "woodnet_lambda"
 
-  policy = file("${path.module}/policies/lambda_execution.json")
+  policy = templatefile(
+    "${path.module}/policies/lambda_execution.json",
+    {
+      account_id = data.aws_caller_identity.current.account_id
+    }
+  )
 }
