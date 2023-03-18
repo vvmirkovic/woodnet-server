@@ -22,7 +22,7 @@ resource "aws_launch_template" "ark" {
   user_data     = filebase64("${path.module}/ecs.sh")
 
   iam_instance_profile {
-    arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:instance-profile/AmazonEC2RoleforSSMRole"
+    name = aws_iam_instance_profile.ecs_instance.name
   }
 
   network_interfaces {
