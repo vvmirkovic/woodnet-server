@@ -63,7 +63,7 @@ data "aws_iam_policy" "ssm" {
 }
 
 data "aws_iam_policy" "ecs" {
-  name = "AmazonEC2ContainerServiceforEC2Role "
+  name = "AmazonEC2ContainerServiceforEC2Role"
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_ssm" {
