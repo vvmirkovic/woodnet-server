@@ -145,10 +145,6 @@ resource "aws_ecs_task_definition" "ark" {
   network_mode       = "host"
   execution_role_arn = aws_iam_role.ark_server.arn
 
-  runtime_platform   = {
-    cpu_architecture = "ARM64"
-  }
-  
   container_definitions = jsonencode([
     {
       name              = "ark-server"
@@ -203,6 +199,10 @@ resource "aws_ecs_task_definition" "ark" {
     }
   ])
 
+  runtime_platform {
+    cpu_architecture = "ARM64"
+  }
+  
   volume {
     name = "ark-server"
 
