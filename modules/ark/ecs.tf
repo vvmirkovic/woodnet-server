@@ -267,10 +267,10 @@ resource "aws_ecs_service" "ark" {
   scheduling_strategy = "DAEMON"
   task_definition     = aws_ecs_task_definition.ark.arn
 
-  capacity_provider_strategy {
-    capacity_provider = aws_ecs_capacity_provider.ark.name
-    weight            = 100
-  }
+  # capacity_provider_strategy {
+  #   capacity_provider = aws_ecs_capacity_provider.ark.name
+  #   weight            = 100
+  # }
 
   network_configuration {
     subnets          = var.public_subnet_ids
