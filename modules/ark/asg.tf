@@ -1,7 +1,7 @@
 resource "aws_autoscaling_group" "ark" {
-  desired_capacity   = 1
-  max_size           = 1
-  min_size           = 0
+  desired_capacity = 1
+  max_size         = 1
+  min_size         = 0
 
   launch_template {
     id      = aws_launch_template.ark.id
@@ -16,8 +16,8 @@ resource "aws_autoscaling_group" "ark" {
 }
 
 resource "aws_launch_template" "ark" {
-  name = "ark"
-  image_id = data.aws_ami.ecs_optimized.id
+  name          = "ark"
+  image_id      = data.aws_ami.ecs_optimized.id
   instance_type = "t3.medium"
 
   iam_instance_profile {
@@ -37,10 +37,10 @@ EOF
 
 data "aws_ami" "ecs_optimized" {
   most_recent = true
-  owners = ["amazon"]
+  owners      = ["amazon"]
 
   filter {
-    name = "name"
+    name   = "name"
     values = ["amzn2-ami-ecs-hvm-2.0.20*-x86_64-ebs"]
   }
 }

@@ -141,13 +141,13 @@ resource "aws_efs_mount_target" "ark-backups" {
 }
 */
 resource "aws_ecs_task_definition" "ark" {
-  family                   = "ark"
-  network_mode             = "awsvpc"
-  execution_role_arn       = aws_iam_role.ark_server.arn
+  family             = "ark"
+  network_mode       = "awsvpc"
+  execution_role_arn = aws_iam_role.ark_server.arn
   container_definitions = jsonencode([
     {
-      name   = "ark-server"
-      image  = var.server_image
+      name  = "ark-server"
+      image = var.server_image
       # entryPoint: ["/"],
       environment = local.ark_environment_variables
       essential   = true
@@ -260,15 +260,15 @@ resource "aws_ecs_cluster_capacity_providers" "ark" {
 # }
 
 resource "aws_ecs_service" "ark" {
-  name            = "ark"
-  cluster         = aws_ecs_cluster.ark.id
-  launch_type     = "EC2"
-  scheduling_stategy = "DAEMON"
-  task_definition = aws_ecs_task_definition.ark.arn
+  name                = "ark"
+  cluster             = aws_ecs_cluster.ark.id
+  launch_type         = "EC2"
+  scheduling_strategy = "DAEMON"
+  task_definition     = aws_ecs_task_definition.ark.arn
 
   capacity_provider_strategy {
     capacity_provider = aws_ecs_capacity_provider.ark.name
-    weight = 100
+    weight            = 100
   }
 
   network_configuration {
