@@ -24,7 +24,7 @@ resource "aws_launch_template" "ark" {
     {
       cluster_name = aws_ecs_cluster.ark.name
     }
-  )
+  ))
 
   iam_instance_profile {
     name = aws_iam_instance_profile.ecs_instance.name
