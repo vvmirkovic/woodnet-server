@@ -29,7 +29,7 @@ resource "aws_launch_template" "ark" {
   # }
 
   user_data = <<EOF
-#!/bin/bash
+#!/bin/bash -x
 echo "ECS_CLUSTER=MyCluster" >> /etc/ecs/ecs.config
 EOF
 
