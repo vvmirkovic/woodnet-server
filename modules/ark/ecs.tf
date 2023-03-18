@@ -275,6 +275,6 @@ resource "aws_ecs_service" "ark" {
   network_configuration {
     subnets          = var.public_subnet_ids
     security_groups  = [aws_security_group.ark_server.id]
-    assign_public_ip = true
+    # assign_public_ip = true
   }
 }
