@@ -267,7 +267,7 @@ resource "aws_ecs_service" "ark" {
   task_definition = aws_ecs_task_definition.ark.arn
 
   capacity_provider_strategy {
-    capacity_provider = 
+    capacity_provider = aws_ecs_capacity_provider.ark.name
     weight = 100
   }
 
