@@ -28,11 +28,11 @@ module "ark" {
   env          = var.env
   server_image = "hermsi/ark-server"
   # server_image = "thmhoag/arkserver"
-  domain          = local.domain
-  subdomain       = "ark.server"
-  vpc_id          = module.network.vpc_id
+  domain             = local.domain
+  subdomain          = "ark.server"
+  vpc_id             = module.network.vpc_id
   private_subnet_ids = module.network.public_subnet_ids
-  public_subnet_ids = module.network.public_subnet_ids
+  public_subnet_ids  = module.network.public_subnet_ids
 
   depends_on = [
     module.frontend

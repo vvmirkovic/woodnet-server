@@ -146,8 +146,8 @@ resource "aws_ecs_task_definition" "ark" {
   execution_role_arn = aws_iam_role.ark_server.arn
   container_definitions = jsonencode([
     {
-      name  = "ark-server"
-      image = var.server_image
+      name              = "ark-server"
+      image             = var.server_image
       memoryReservation = 6
       # entryPoint: ["/"],
       environment = local.ark_environment_variables
