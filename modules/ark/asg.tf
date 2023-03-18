@@ -17,11 +17,11 @@ resource "aws_autoscaling_group" "ark" {
 
 resource "aws_launch_template" "ark" {
   name = "ark"
-  iam_instance_profile = "AmazonEC2RoleforSSMRole"
+  image_id = data.aws_ami.ecs_optimized.id
   instance_type = "t3.medium"
 
-  image_id {
-    name = data.aws_ami.ecs_optimized.id
+  iam_instance_profile {
+    name = "AmazonEC2RoleforSSMRole"
   }
 
   # network_interfaces {
