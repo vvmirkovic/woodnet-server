@@ -18,7 +18,7 @@ resource "aws_autoscaling_group" "ark" {
 resource "aws_launch_template" "ark" {
   name          = "ark"
   image_id      = data.aws_ami.ecs_optimized.id
-  instance_type = "t3.medium"
+  instance_type = "t3.large"
   user_data     = base64encode(templatefile(
     "${path.module}/ecs.sh",
     {
