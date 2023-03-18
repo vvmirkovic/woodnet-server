@@ -228,7 +228,7 @@ resource "aws_ecs_capacity_provider" "ark" {
   name = "ark"
 
   auto_scaling_group_provider {
-    auto_scaling_group_arn         = aws_autoscaling_group.ark.arn
+    auto_scaling_group_arn = aws_autoscaling_group.ark.arn
     # managed_termination_protection = "ENABLED"
 
     # managed_scaling {
@@ -261,8 +261,8 @@ resource "aws_ecs_cluster_capacity_providers" "ark" {
 # }
 
 resource "aws_ecs_service" "ark" {
-  name                = "ark"
-  cluster             = aws_ecs_cluster.ark.id
+  name    = "ark"
+  cluster = aws_ecs_cluster.ark.id
   # launch_type         = "EC2"
   scheduling_strategy = "DAEMON"
   task_definition     = aws_ecs_task_definition.ark.arn
