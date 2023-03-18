@@ -62,7 +62,7 @@ data "aws_iam_policy" "ssm" {
   name = "AmazonSSMManagedInstanceCore"
 }
 
-resource "aws_iam_role_policy_attachment" "ark_server" {
+resource "aws_iam_role_policy_attachment" "ecs_instance" {
   role       = aws_iam_role.ecs_instance.name
   policy_arn = aws_iam_policy.ssm.arn
 }
