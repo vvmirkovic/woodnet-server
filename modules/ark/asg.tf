@@ -32,7 +32,7 @@ resource "aws_launch_template" "ark" {
 
   network_interfaces {
     subnet_id                   = var.public_subnet_ids[0]
-    associate_public_ip_address = false
+    associate_public_ip_address = true
   }
 
 }
