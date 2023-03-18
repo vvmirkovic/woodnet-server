@@ -8,7 +8,7 @@ resource "aws_efs_file_system" "ark-server" {
 
 resource "aws_efs_mount_target" "ark" {
   file_system_id  = aws_efs_file_system.ark-server.id
-  subnet_id       = var.subnet_group_id
+  subnet_id       = var.public_subnet_ids[0]
   security_groups = [aws_security_group.efs_mount_point.id]
 }
 
@@ -22,7 +22,7 @@ resource "aws_efs_file_system" "ark-server-backups" {
 
 resource "aws_efs_mount_target" "ark-backups" {
   file_system_id  = aws_efs_file_system.ark-server-backups.id
-  subnet_id       = var.subnet_group_id
+  subnet_id       = var.public_subnet_ids[0]
   security_groups = [aws_security_group.efs_mount_point.id]
 }
 
@@ -148,6 +148,7 @@ resource "aws_ecs_task_definition" "ark" {
     {
       name  = "ark-server"
       image = var.server_image
+      memoryReservation = 6
       # entryPoint: ["/"],
       environment = local.ark_environment_variables
       essential   = true
@@ -253,7 +254,7 @@ resource "aws_ecs_cluster_capacity_providers" "ark" {
 #   desired_count   = 1
 
 #   network_configuration {
-#     subnets          = [var.subnet_group_id]
+#     subnets          = var.public_subnet_ids
 #     security_groups  = [aws_security_group.ark_server.id]
 #     assign_public_ip = true
 #   }
@@ -272,7 +273,7 @@ resource "aws_ecs_service" "ark" {
   }
 
   network_configuration {
-    subnets          = [var.subnet_group_id]
+    subnets          = var.public_subnet_ids
     security_groups  = [aws_security_group.ark_server.id]
     assign_public_ip = true
   }

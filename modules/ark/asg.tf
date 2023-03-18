@@ -20,6 +20,7 @@ resource "aws_launch_template" "ark" {
   image_id      = data.aws_ami.ecs_optimized.id
   instance_type = "t3.medium"
   user_data = filebase64("${path.module}/ecs.sh")
+  subnet_id = var.private_subnet_ids[0]
 
   iam_instance_profile {
     name = "AmazonEC2RoleforSSMRole"

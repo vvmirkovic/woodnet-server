@@ -31,7 +31,8 @@ module "ark" {
   domain          = local.domain
   subdomain       = "ark.server"
   vpc_id          = module.network.vpc_id
-  subnet_group_id = module.network.public_subnet_ids[0]
+  private_subnet_ids = module.network.public_subnet_ids
+  public_subnet_ids = module.network.public_subnet_ids
 
   depends_on = [
     module.frontend
