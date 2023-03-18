@@ -64,5 +64,5 @@ data "aws_iam_policy" "ssm" {
 
 resource "aws_iam_role_policy_attachment" "ecs_instance" {
   role       = aws_iam_role.ecs_instance.name
-  policy_arn = aws_iam_policy.ssm.arn
+  policy_arn = data.aws_iam_policy.ssm.arn
 }
