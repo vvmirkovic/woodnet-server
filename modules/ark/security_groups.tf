@@ -48,25 +48,25 @@
 #   }
 # }
 
-resource "aws_security_group" "ecs_instance" {
-  name        = "allow_outbound"
-  description = "Security group to only allow outbound connections from ecs instance"
-  vpc_id      = var.vpc_id
-}
+# resource "aws_security_group" "ecs_instance" {
+#   name        = "allow_outbound"
+#   description = "Security group to only allow outbound connections from ecs instance"
+#   vpc_id      = var.vpc_id
+# }
 
-resource "aws_vpc_security_group_egress_rule" "ecs_instance0" {
-  security_group_id = aws_security_group.ecs_instance.id
+# resource "aws_vpc_security_group_egress_rule" "ecs_instance0" {
+#   security_group_id = aws_security_group.ecs_instance.id
 
-  ip_protocol = "-1"
-  cidr_ipv4   = "0.0.0.0/0"
-}
+#   ip_protocol = "-1"
+#   cidr_ipv4   = "0.0.0.0/0"
+# }
 
-resource "aws_vpc_security_group_egress_rule" "ecs_instance1" {
-  security_group_id = aws_security_group.ecs_instance.id
+# resource "aws_vpc_security_group_egress_rule" "ecs_instance1" {
+#   security_group_id = aws_security_group.ecs_instance.id
 
-  ip_protocol = "-1"
-  cidr_ipv6   = "::/0"
-}
+#   ip_protocol = "-1"
+#   cidr_ipv6   = "::/0"
+# }
 
 resource "aws_security_group" "ark_server" {
   name        = "allow_server_connections"

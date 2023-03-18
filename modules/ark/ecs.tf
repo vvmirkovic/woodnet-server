@@ -142,7 +142,7 @@ resource "aws_efs_mount_target" "ark-backups" {
 */
 resource "aws_ecs_task_definition" "ark" {
   family             = "ark"
-  network_mode       = "awsvpc"
+  network_mode       = "host"
   execution_role_arn = aws_iam_role.ark_server.arn
   container_definitions = jsonencode([
     {
@@ -272,9 +272,9 @@ resource "aws_ecs_service" "ark" {
   #   weight            = 100
   # }
 
-  network_configuration {
-    subnets          = var.public_subnet_ids
-    security_groups  = [aws_security_group.ark_server.id]
-    assign_public_ip = true
-  }
+  # network_configuration {
+  #   subnets          = var.public_subnet_ids
+  #   security_groups  = [aws_security_group.ark_server.id]
+  #   assign_public_ip = true
+  # }
 }
