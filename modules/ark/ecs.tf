@@ -263,7 +263,7 @@ resource "aws_ecs_cluster_capacity_providers" "ark" {
 resource "aws_ecs_service" "ark" {
   name                = "ark"
   cluster             = aws_ecs_cluster.ark.id
-  launch_type         = "EC2"
+  # launch_type         = "EC2"
   scheduling_strategy = "DAEMON"
   task_definition     = aws_ecs_task_definition.ark.arn
 
