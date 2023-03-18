@@ -32,12 +32,12 @@ resource "aws_iam_role_policy_attachment" "ark_server" {
 }
 
 resource "aws_iam_instance_profile" "ecs_instance" {
-  name = "ecs_instance"
+  name = "ecsInstanceRole-profile"
   role = aws_iam_role.ecs_instance.name
 }
 
 resource "aws_iam_role" "ecs_instance" {
-  name = "ecs_instance"
+  name = "ecsInstanceRole"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -62,7 +62,16 @@ data "aws_iam_policy" "ssm" {
   name = "AmazonSSMManagedInstanceCore"
 }
 
+data "aws_iam_policy" "ecs" {
+  name = "AmazonEC2ContainerServiceforEC2Role "
+}
+
 resource "aws_iam_role_policy_attachment" "ecs_instance" {
   role       = aws_iam_role.ecs_instance.name
   policy_arn = data.aws_iam_policy.ssm.arn
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_instance" {
+  role       = aws_iam_role.ecs_instance.name
+  policy_arn = data.aws_iam_policy.ecs
 }
