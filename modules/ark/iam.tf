@@ -66,12 +66,12 @@ data "aws_iam_policy" "ecs" {
   name = "AmazonEC2ContainerServiceforEC2Role "
 }
 
-resource "aws_iam_role_policy_attachment" "ecs_instance" {
+resource "aws_iam_role_policy_attachment" "ecs_ssm" {
   role       = aws_iam_role.ecs_instance.name
   policy_arn = data.aws_iam_policy.ssm.arn
 }
 
-resource "aws_iam_role_policy_attachment" "ecs_instance" {
+resource "aws_iam_role_policy_attachment" "ecs_ecs" {
   role       = aws_iam_role.ecs_instance.name
   policy_arn = data.aws_iam_policy.ecs
 }
