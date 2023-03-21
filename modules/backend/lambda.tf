@@ -4,7 +4,7 @@ locals {
 }
 
 module "test_lambda" {
-  source = "${path.module}/modules/backend_lambda"
+  source = "./modules/backend_lambda"
 
   name = test
   execution_role_arn = aws_iam_role.lambda_execution.arn
