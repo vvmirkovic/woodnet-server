@@ -21,7 +21,7 @@ module "backend" {
 
   # ark variables
   asg_name = module.ark.asg_name
-  domain = local.domain
+  domain   = local.domain
 }
 
 module "network" {

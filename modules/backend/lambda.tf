@@ -1,25 +1,25 @@
 locals {
-  test_path = "${path.module}/src/test"
+  test_path       = "${path.module}/src/test"
   toggle_ark_path = "${path.module}/src/toggle_ark"
 }
 
 module "test_lambda" {
   source = "./modules/backend_lambda"
 
-  name = "test"
+  name               = "test"
   execution_role_arn = aws_iam_role.lambda_execution.arn
-  backend_arn = aws_api_gateway_rest_api.woodnet.execution_arn
+  backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
 }
 
 module "togle_ark_lambda" {
   source = "./modules/backend_lambda"
 
-  name = "togle_ark"
+  name               = "togle_ark"
   execution_role_arn = aws_iam_role.lambda_execution.arn
-  backend_arn = aws_api_gateway_rest_api.woodnet.execution_arn
+  backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
   template_vars = {
-    asg_name = var.asg_name
-    hosted_zone_id = data.aws_route53_zone.main.zone_id
+    asg_name               = var.asg_name
+    hosted_zone_id         = data.aws_route53_zone.main.zone_id
     lambda_assume_role_arn = aws_iam_role.records.arn
   }
 }

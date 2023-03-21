@@ -36,9 +36,9 @@ EOF
 resource "aws_iam_policy" "records" {
   provider = aws.main
 
-  name               = "${var.environment}_ark_records"
+  name        = "${var.environment}_ark_records"
   description = "Policy for lambdas in other accounts to manage ${data.aws_route53_zone.main.name} records"
-  policy       = <<EOF
+  policy      = <<EOF
 {
     "Version": "2012-10-17",
     "Statement": [

@@ -7,7 +7,7 @@ resource "aws_api_gateway_rest_api" "woodnet" {
     "${path.module}/src/api.yaml",
     {
       lambda_invoke_arn = module.test_lambda.invoke_arn
-    }  
+    }
   )
 
   name = "woodnet-backend"
@@ -41,6 +41,6 @@ resource "aws_api_gateway_method_settings" "example" {
   method_path = "*/*"
 
   settings {
-    logging_level   = "INFO"
+    logging_level = "INFO"
   }
 }
