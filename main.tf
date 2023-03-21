@@ -12,6 +12,9 @@ module "frontend" {
 }
 
 module "backend" {
+  providers = {
+    aws.main = aws.main
+  }
   source = "./modules/backend"
 
   environment = var.environment

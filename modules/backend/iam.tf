@@ -13,6 +13,7 @@ resource "aws_iam_policy" "lambda_policy" {
     "${path.module}/policies/lambda_execution.json",
     {
       account_id = data.aws_caller_identity.current.account_id
+      records_role_arn = aws_iam_role.records.arn
     }
   )
 }

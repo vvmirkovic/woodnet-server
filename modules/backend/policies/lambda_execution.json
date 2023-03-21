@@ -11,6 +11,11 @@
             "Resource": [
                 "arn:aws:logs:us-east-1:${account_id}:log-group:/aws/lambda/*"
             ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Resource": "${records_role_arn}"
         }
     ]
 }
