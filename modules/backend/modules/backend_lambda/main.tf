@@ -18,7 +18,7 @@ resource "aws_lambda_function" "backend" {
   timeout = 10
 
   dynamic "environment" {
-    for_each = [var.environment_vars]
+    for_each = length(var.environment_vars) == 0 ? [] : [var.environment_vars]
     content {
       variables = environment.value
     }
