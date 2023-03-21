@@ -13,6 +13,12 @@ module "frontend" {
 
 module "backend" {
   source = "./modules/backend"
+
+  environment = var.environment
+
+  # ark variables
+  asg_name = module.ark.asg_name
+  domain = local.domain
 }
 
 module "network" {

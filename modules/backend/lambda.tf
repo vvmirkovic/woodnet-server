@@ -11,6 +11,20 @@ module "test_lambda" {
   backend_arn = aws_api_gateway_rest_api.woodnet.execution_arn
 }
 
+module "togle_ark_lambda" {
+  source = "./modules/backend_lambda"
+
+  name = "togle_ark"
+  execution_role_arn = aws_iam_role.lambda_execution.arn
+  backend_arn = aws_api_gateway_rest_api.woodnet.execution_arn
+  template_vars = {
+    asg_name = var.asg_name
+    hosted_zone_id = data.aws_route53_zone.main.zone_id
+    lambda_assume_role_arn = aws_iam_role.records.arn
+  }
+}
+
+
 # data "archive_file" "test" {
 #   type        = "zip"
 #   source_dir = local.test_path
