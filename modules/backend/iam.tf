@@ -1,8 +1,6 @@
 # Creating role and policy for lambda execution role
 resource "aws_iam_role" "lambda_execution" {
   name                = "woodnet_lambda"
-  managed_policy_arns = [aws_iam_policy.lambda_policy.arn]
-
   assume_role_policy = file("${path.module}/policies/lambda_trust.json")
 }
 
@@ -16,6 +14,11 @@ resource "aws_iam_policy" "lambda_policy" {
       records_role_arn = aws_iam_role.records.arn
     }
   )
+}
+
+resource "aws_iam_role_policy_attachment" "lambda" {
+  role       = aws_iam_role.lambda_execution.name
+  policy_arn = aws_iam_policy.lambda_policy.arn
 }
 
 # Creating role and policy for api cloudwatch role
