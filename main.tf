@@ -17,7 +17,7 @@ module "backend" {
   }
   source = "./modules/backend"
 
-  environment = var.environment
+  env = var.env
 
   # ark variables
   asg_name = module.ark.asg_name

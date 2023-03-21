@@ -1,6 +1,6 @@
 # Creating role and policy for lambda execution role
 resource "aws_iam_role" "lambda_execution" {
-  name                = "woodnet_lambda"
+  name               = "woodnet_lambda"
   assume_role_policy = file("${path.module}/policies/lambda_trust.json")
 }
 

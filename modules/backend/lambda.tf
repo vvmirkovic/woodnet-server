@@ -14,7 +14,7 @@ module "test_lambda" {
 module "togle_ark_lambda" {
   source = "./modules/backend_lambda"
 
-  name               = "togle_ark"
+  name               = "toggle_ark"
   execution_role_arn = aws_iam_role.lambda_execution.arn
   backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
   environment_vars = {
