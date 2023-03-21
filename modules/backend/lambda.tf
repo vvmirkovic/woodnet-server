@@ -11,7 +11,7 @@ module "test_lambda" {
   backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
 }
 
-module "togle_ark_lambda" {
+module "toggle_ark_lambda" {
   source = "./modules/backend_lambda"
 
   name               = "toggle_ark"
