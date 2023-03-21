@@ -17,10 +17,10 @@ module "togle_ark_lambda" {
   name               = "togle_ark"
   execution_role_arn = aws_iam_role.lambda_execution.arn
   backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
-  template_vars = {
-    asg_name               = var.asg_name
-    hosted_zone_id         = data.aws_route53_zone.main.zone_id
-    lambda_assume_role_arn = aws_iam_role.records.arn
+  environment_vars = {
+    ASG_NAME               = var.asg_name
+    HOSTED_ZONE_ID         = data.aws_route53_zone.main.zone_id
+    LAMBDA_ASSUME_ROLE_ARN = aws_iam_role.records.arn
   }
 }
 

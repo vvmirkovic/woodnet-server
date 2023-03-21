@@ -16,6 +16,13 @@ resource "aws_lambda_function" "backend" {
   source_code_hash = data.archive_file.lambda.output_base64sha256
   runtime = "python3.9"
   timeout = 10
+
+  dynamic "environment" {
+    for_each = [var.environment_vars]
+    content {
+      variables = environment.value
+    }
+  }
 }
 
 resource "aws_lambda_permission" "backend" {
