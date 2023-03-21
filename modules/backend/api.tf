@@ -6,7 +6,7 @@ resource "aws_api_gateway_rest_api" "woodnet" {
   body = templatefile(
     "${path.module}/src/api.yaml",
     {
-      lambda_invoke_arn = aws_lambda_function.test.invoke_arn
+      lambda_invoke_arn = module.test_lambda.invoke_arn
     }  
   )
 
