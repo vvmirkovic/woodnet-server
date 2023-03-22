@@ -1,4 +1,5 @@
 resource "aws_autoscaling_group" "ark" {
+  name             = "ark_server"
   desired_capacity = 1
   max_size         = 1
   min_size         = 0
