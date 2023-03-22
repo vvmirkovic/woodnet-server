@@ -82,7 +82,7 @@ def set_record():
             response = client_ec2.describe_instances(
                 InstanceIds = [instance_id]
             )
-            instance = response['Reservations']['Instances'][0]
+            instance = response['Reservations'][0]['Instances'][0]
         except IndexError as e:
             logger.error(f'Instance not found. Error: {e}')
             raise e
