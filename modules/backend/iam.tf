@@ -4,6 +4,10 @@ resource "aws_iam_role" "lambda_execution" {
   assume_role_policy = file("${path.module}/policies/lambda_trust.json")
 }
 
+data "aws_autoscaling_group" "ark" {
+  name = var.asg_name
+}
+
 resource "aws_iam_policy" "lambda_policy" {
   name = "woodnet_lambda"
 
@@ -12,7 +16,7 @@ resource "aws_iam_policy" "lambda_policy" {
     {
       account_id       = data.aws_caller_identity.current.account_id
       records_role_arn = aws_iam_role.records.arn
-      asg_name         = var.asg_name
+      asg_arn         = data.aws_autoscaling_group.ark.arn
     }
   )
 }
