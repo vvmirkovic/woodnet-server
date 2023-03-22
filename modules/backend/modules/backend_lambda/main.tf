@@ -15,7 +15,7 @@ resource "aws_lambda_function" "backend" {
   handler       = "handler.lambda_handler"
   source_code_hash = data.archive_file.lambda.output_base64sha256
   runtime = "python3.9"
-  timeout = 10
+  timeout = var.timeout
 
   dynamic "environment" {
     for_each = length(var.environment_vars) == 0 ? [] : [var.environment_vars]

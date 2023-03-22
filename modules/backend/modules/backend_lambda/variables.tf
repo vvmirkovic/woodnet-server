@@ -7,3 +7,7 @@ variable "backend_arn" {}
 variable "environment_vars" {
   default = {}
 }
+
+variable "timeout" {
+  default = 10
+}
