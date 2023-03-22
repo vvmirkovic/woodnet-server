@@ -1,7 +1,13 @@
 locals {
   test_path       = "${path.module}/src/test"
   start_ark_path = "${path.module}/src/start_ark"
+
+  server_subdomain_base = "ark"
+  env_modifier       = var.env == "prod" ? "" : "${var.env}."
+  server_subdomain        = "${local.env_modifier}${local.server_subdomain_base}."
+  record_name = "${local.server_subdomain}${data.aws_route53_zone.main.name}"
 }
+
 
 module "test_lambda" {
   source = "./modules/backend_lambda"
@@ -21,8 +27,19 @@ module "start_ark_lambda" {
   environment_vars = {
     ASG_NAME                 = var.asg_name
     HOSTED_ZONE_ID           = data.aws_route53_zone.main.zone_id
-    HOSTED_ZONE_NAME         = data.aws_route53_zone.main.name
+    RECORD_NAME       = local.record_name
     LAMBDA_ASSUME_ROLE_ARN   = aws_iam_role.records.arn
+  }
+}
+
+module "stop_ark_lambda" {
+  source = "./modules/backend_lambda"
+
+  name               = "stop_ark"
+  execution_role_arn = aws_iam_role.lambda_execution.arn
+  backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  environment_vars = {
+    ASG_NAME                 = var.asg_name
   }
 }
 

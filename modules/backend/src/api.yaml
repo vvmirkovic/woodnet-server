@@ -17,38 +17,17 @@ paths:
     put:
       produces:
       - application/json
-      operationId: getTest
+      operationId: startArk
       x-amazon-apigateway-integration:
         httpMethod: POST
         uri: ${start_ark_lambda_invoke_arn}
         type: aws_proxy
-definitions:
-  Input:
-    type: object
-    required:
-    - a
-    - b
-    - op
-    properties:
-      a:
-        type: number
-      b:
-        type: number
-      op:
-        type: string
-        description: binary op of ['+', 'add', '-', 'sub', '*', 'mul', '%2F', 'div']
-    title: Input
-  Output:
-    type: object
-    properties:
-      c:
-        type: number
-    title: Output
-  Result:
-    type: object
-    properties:
-      input:
-        "$ref": "#/definitions/Input"
-      output:
-        "$ref": "#/definitions/Output"
-    title: Result
+  /stop-ark:
+    put:
+      produces:
+      - application/json
+      operationId: stopArk
+      x-amazon-apigateway-integration:
+        httpMethod: POST
+        uri: ${stop_ark_lambda_invoke_arn}
+        type: aws_proxy

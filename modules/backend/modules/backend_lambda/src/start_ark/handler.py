@@ -10,7 +10,7 @@ logger.setLevel(logging.INFO)
 
 ASG_NAME = environ["ASG_NAME"]
 HOSTED_ZONE_ID = environ["HOSTED_ZONE_ID"]
-HOSTED_ZONE_NAME = environ["HOSTED_ZONE_NAME"]
+RECORD_NAME = environ["RECORD_NAME"]
 LAMBDA_ASSUME_ROLE_ARN = environ["LAMBDA_ASSUME_ROLE_ARN"]
 
 def set_record():
@@ -112,7 +112,7 @@ def set_record():
                 {
                     'Action': 'UPSERT',
                     'ResourceRecordSet': {
-                        'Name': f'ark.{HOSTED_ZONE_NAME}',
+                        'Name': RECORD_NAME,
                         'Type': 'A',
                         'ResourceRecords': [
                             {
@@ -145,5 +145,5 @@ def lambda_handler(event, context):
         
     return {
         'statusCode': 200,
-        'body': json.dumps(f'Server started and record has been configured with new IP')
+        'body': json.dumps(f'Server started and record has been updated with IP')
     }
