@@ -18,13 +18,11 @@
             "Resource": "${records_role_arn}"
         },
         {
-            "Sid": "VisualEditor0",
             "Effect": "Allow",
             "Action": "autoscaling:DescribeAutoScalingGroups",
             "Resource": "*"
         },
         {
-            "Sid": "VisualEditor0",
             "Effect": "Allow",
             "Action": "autoscaling:SetDesiredCapacity",
             "Resource": "${asg_arn}"
