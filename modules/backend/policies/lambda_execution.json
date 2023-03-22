@@ -25,7 +25,7 @@
         {
             "Effect": "Allow",
             "Action": "autoscaling:SetDesiredCapacity",
-            "Resource": "${asg_arn}"
+            "Resource": "arn:aws:autoscaling::${account_id}:autoScalingGroup::${asg_name}/"
         }
     ]
 }
