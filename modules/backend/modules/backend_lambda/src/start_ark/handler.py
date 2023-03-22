@@ -25,7 +25,7 @@ def set_record():
     SESSION_TOKEN = acct_b['Credentials']['SessionToken']
 
     client_asg = boto3.client("autoscaling", region_name="us-east-1")
-    client_ec2 = boto3.client("autoscaling", region_name="us-east-1")
+    client_ec2 = boto3.client("ec2", region_name="us-east-1")
     client_route53 = boto3.client(
         'route53',
         aws_access_key_id=ACCESS_KEY,
@@ -36,7 +36,7 @@ def set_record():
 
     # Wait for instance to be created
     instance_found = False
-    count == 0
+    count = 0
     wait_time = 10
     while not instance_found:
         count += 1
@@ -73,7 +73,7 @@ def set_record():
     
     # Wait for instance public IP to be available
     ip_found = False
-    count == 0
+    count = 0
     wait_time = 5
     while not ip_found:
         count += 1
