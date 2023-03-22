@@ -7,7 +7,7 @@ resource "aws_api_gateway_rest_api" "woodnet" {
     "${path.module}/src/api.yaml",
     {
       test_lambda_invoke_arn = module.test_lambda.invoke_arn
-      toggle_ark_lambda_invoke_arn = module.toggle_ark_lambda.invoke_arn
+      start_ark_lambda_invoke_arn = module.start_ark_lambda.invoke_arn
     }
   )
 

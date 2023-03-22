@@ -1,6 +1,6 @@
 locals {
   test_path       = "${path.module}/src/test"
-  toggle_ark_path = "${path.module}/src/toggle_ark"
+  start_ark_path = "${path.module}/src/start_ark"
 }
 
 module "test_lambda" {
@@ -11,10 +11,10 @@ module "test_lambda" {
   backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
 }
 
-module "toggle_ark_lambda" {
+module "start_ark_lambda" {
   source = "./modules/backend_lambda"
 
-  name               = "toggle_ark"
+  name               = "start_ark"
   execution_role_arn = aws_iam_role.lambda_execution.arn
   backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
   environment_vars = {

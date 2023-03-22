@@ -13,14 +13,14 @@ paths:
         httpMethod: POST
         uri: ${test_lambda_invoke_arn}
         type: aws_proxy
-  /toggle-ark:
-    get:
+  /start-ark:
+    put:
       produces:
       - application/json
       operationId: getTest
       x-amazon-apigateway-integration:
         httpMethod: POST
-        uri: ${toggle_ark_lambda_invoke_arn}
+        uri: ${start_ark_lambda_invoke_arn}
         type: aws_proxy
 definitions:
   Input:
