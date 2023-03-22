@@ -10,6 +10,7 @@ logger.setLevel(logging.INFO)
 
 ASG_NAME = environ["ASG_NAME"]
 HOSTED_ZONE_ID = environ["HOSTED_ZONE_ID"]
+HOSTED_ZONE_NAME = environ["HOSTED_ZONE_NAME"]
 LAMBDA_ASSUME_ROLE_ARN = environ["LAMBDA_ASSUME_ROLE_ARN"]
 
 def set_record():
@@ -111,7 +112,7 @@ def set_record():
                 {
                     'Action': 'UPSERT',
                     'ResourceRecordSet': {
-                        'Name': 'ark',
+                        'Name': f'ark.{HOSTED_ZONE_NAME}',
                         'Type': 'A',
                         'ResourceRecords': [
                             {
