@@ -29,9 +29,6 @@ module "network" {
 }
 
 module "ark" {
-  providers = {
-    aws.main = aws.main
-  }
   source = "./modules/ark"
 
   env          = var.env
