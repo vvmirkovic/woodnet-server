@@ -40,7 +40,7 @@ def start_ark():
     try:
         response = client.set_desired_capacity(
             AutoScalingGroupName = ASG_NAME,
-            DesiredCapacity = new_capacity
+            DesiredCapacity = 1
         )
     except botocore.exceptions.ClientError as e:
         logger.error(f'Client error. Error: {e}')
