@@ -65,6 +65,17 @@ module "sign_in_lambda" {
   }
 }
 
+module "reset_password_lambda" {
+  source = "./modules/backend_lambda"
+
+  name               = "reset_password"
+  execution_role_arn = aws_iam_role.lambda_execution.arn
+  backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  environment_vars = {
+    CLIENT_ID = aws_cognito_user_pool_client.client.id
+  }
+}
+
 
 # data "archive_file" "test" {
 #   type        = "zip"

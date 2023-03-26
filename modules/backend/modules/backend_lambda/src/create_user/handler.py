@@ -63,6 +63,8 @@ def lambda_handler(event, context):
                 'statusCode': 400,
                 'body': json.dumps(f'Invalid request. Username already exists')
             }
+        else:
+            raise
         
     return {
         'statusCode': 200,

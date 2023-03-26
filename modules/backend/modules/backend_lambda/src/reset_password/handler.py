@@ -26,31 +26,25 @@ def lambda_handler(event, context):
     client = boto3.client('cognito-idp')
     
     try:
-        response_init = client.initiate_auth(
-            ClientId=self.client_id, 
-            AuthFlow='USER_PASSWORD_AUTH',
-            AuthParameters={
-                'USERNAME': username, 
-                'PASSWORD': password
-            }
+        response = client.admin_set_user_password(
+            UserPoolId = USER_POOL_ID,
+            Username = username,
+            Password = password,
+            Permanent = True
         )
-        print(response_init['AuthenticationResult'])
     except ClientError as e:
-        if e.response['Error']['Code'] == 'UsernameExistsException':
+        if e.response['Error']['Code'] == 'NotAuthorizedException':
             return {
                 'statusCode': 400,
-                'body': json.dumps(f'Invalid request. Username already exists')
+                'body': json.dumps(f'Invalid username and password.')
             }
-    except KeyError:
-        return {
-            'statusCode': 400,
-            'body': json.dumps(f'Password authentication failed. Further Challenges required.')
-        }
+        else:
+            raise
+
         
     return {
         'statusCode': 200,
         'body': json.dumps({
-            'password': temp_password,
-            'message': f'{username} added to users'
+            'message': response_init['AuthenticationResult']
         })
     }
