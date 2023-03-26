@@ -40,11 +40,13 @@ def lambda_handler(event, context):
                 'statusCode': 400,
                 'body': json.dumps(f'Invalid username and password.')
             }
-    except KeyError:
-        return {
-            'statusCode': 400,
-            'body': json.dumps(f'Password authentication failed. Further Challenges required: {response_init['ChallengeName']}')
-        }
+        else:
+            raise
+    
+    # if 'ChallengeName' in response_init and response_init['ChallengeName'] == 'NEW_PASSWORD_REQUIRED':
+    #     return {
+    #         statusCode': 301
+    #     }
         
     return {
         'statusCode': 200,

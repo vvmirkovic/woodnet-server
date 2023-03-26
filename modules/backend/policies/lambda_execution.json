@@ -33,7 +33,10 @@
         },
         {
             "Effect": "Allow",
-            "Action": "cognito-idp:AdminCreateUser",
+            "Action": [
+                "cognito-idp:AdminCreateUser",
+                "cognito-idp:AdminSetUserPassword"
+            ],
             "Resource": "${cognito_user_pool_arn}"
         }
     ]
