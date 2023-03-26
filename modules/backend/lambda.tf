@@ -61,7 +61,7 @@ module "sign_in_lambda" {
   execution_role_arn = aws_iam_role.lambda_execution.arn
   backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
   environment_vars = {
-    USER_POOL_ID = aws_cognito_user_pool.pool.id
+    CLIENT_ID = aws_cognito_user_pool_client.client.id
   }
 }
 
