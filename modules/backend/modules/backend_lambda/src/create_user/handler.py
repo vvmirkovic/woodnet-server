@@ -42,15 +42,20 @@ def lambda_handler(event, context):
         }
     
     username = event['username']
-    temp_password = generate_password()
+    password = generate_password()
 
     client = boto3.client('cognito-idp')
     
     try:
         client.admin_create_user(
             UserPoolId = USER_POOL_ID,
+            Username = username
+        )
+        response = client.admin_set_user_password(
+            UserPoolId = USER_POOL_ID,
             Username = username,
-            TemporaryPassword = temp_password
+            Password = password,
+            Permanent = True
         )
     except ClientError as e:
         if e.response['Error']['Code'] == 'UsernameExistsException':
@@ -62,7 +67,7 @@ def lambda_handler(event, context):
     return {
         'statusCode': 200,
         'body': json.dumps({
-            'password': temp_password,
+            'password': password,
             'message': f'{username} added to users'
         })
     }
