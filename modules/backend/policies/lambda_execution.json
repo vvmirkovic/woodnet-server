@@ -29,6 +29,11 @@
             "Effect": "Allow",
             "Action": "autoscaling:SetDesiredCapacity",
             "Resource": "${asg_arn}"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "cognito-idp:AdminCreateUser",
+            "Resource": "${cognito_user_pool_arn}"
         }
     ]
 }

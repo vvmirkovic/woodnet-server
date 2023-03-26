@@ -27,5 +27,5 @@ def lambda_handler(event, context):
         
     return {
         'statusCode': 200,
-        'body': json.dumps(f'Server started and record has been updated with IP')
+        'body': json.dumps(f'Ark server has been stopped')
     }
