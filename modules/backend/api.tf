@@ -31,6 +31,15 @@ resource "aws_api_gateway_deployment" "woodnet" {
   }
 }
 
+resource "aws_api_gateway_authorizer" "woodnet" {
+  name                   = "woodnet"
+  type                   = "COGNITO_USER_POOLS"
+  rest_api_id            = aws_api_gateway_rest_api.woodnet.id
+  # authorizer_credentials = aws_iam_role.invocation_role.arn
+  provider_arns          = [aws_cognito_user_pool.pool.arn]
+}
+
+
 resource "aws_api_gateway_stage" "woodnet" {
   deployment_id = aws_api_gateway_deployment.woodnet.id
   rest_api_id   = aws_api_gateway_rest_api.woodnet.id

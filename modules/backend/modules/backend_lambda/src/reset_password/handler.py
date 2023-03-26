@@ -14,23 +14,21 @@ USER_POOL_ID = environ["USER_POOL_ID"]
 
 def lambda_handler(event, context):
 
-    if 'username' not in event or 'password' not in event:
+    if 'password' not in event:
         return {
             'statusCode': 400,
             'body': json.dumps(f'Invalid request. Must provide username and password')
         }
     
-    username = event['username']
     password = event['password']
 
     client = boto3.client('cognito-idp')
     
     try:
-        response = client.admin_set_user_password(
-            UserPoolId = USER_POOL_ID,
-            Username = username,
-            Password = password,
-            Permanent = True
+        response = client.change_password(
+            PreviousPassword='string',
+            ProposedPassword='string',
+            AccessToken='string'
         )
     except ClientError as e:
         if e.response['Error']['Code'] == 'NotAuthorizedException':
