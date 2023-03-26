@@ -43,7 +43,7 @@ module "stop_ark_lambda" {
   }
 }
 
-module "stop_ark_lambda" {
+module "create_user_lambda" {
   source = "./modules/backend_lambda"
 
   name               = "create_user"
