@@ -38,7 +38,7 @@ def lambda_handler(event, context):
     if 'username' not in event:
         return {
             'statusCode': 400,
-            'body': json.dumps(f'Invalid reuest. No username provided')
+            'body': json.dumps(f'Invalid request. No username provided')
         }
     
     username = event['username']

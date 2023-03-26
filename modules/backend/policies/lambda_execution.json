@@ -21,6 +21,7 @@
             "Effect": "Allow",
             "Action": [
                 "autoscaling:DescribeAutoScalingGroups",
+                "cognito-idp:InitiateAuth",
                 "ec2:DescribeInstances"
             ],
             "Resource": "*"
