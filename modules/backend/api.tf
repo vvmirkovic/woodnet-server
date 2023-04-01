@@ -39,13 +39,13 @@ locals {
   authorizor_name = "woodnet"
 }
 
-resource "aws_api_gateway_authorizer" "woodnet" {
-  name        = local.authorizor_name
-  type        = "COGNITO_USER_POOLS"
-  rest_api_id = aws_api_gateway_rest_api.woodnet.id
-  # authorizer_credentials = aws_iam_role.invocation_role.arn
-  provider_arns = [aws_cognito_user_pool.pool.arn]
-}
+# resource "aws_api_gateway_authorizer" "woodnet" {
+#   name        = local.authorizor_name
+#   type        = "COGNITO_USER_POOLS"
+#   rest_api_id = aws_api_gateway_rest_api.woodnet.id
+#   # authorizer_credentials = aws_iam_role.invocation_role.arn
+#   provider_arns = [aws_cognito_user_pool.pool.arn]
+# }
 
 
 resource "aws_api_gateway_stage" "woodnet" {
