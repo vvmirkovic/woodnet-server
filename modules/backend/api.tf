@@ -12,7 +12,7 @@ resource "aws_api_gateway_rest_api" "woodnet" {
       create_user_lambda_invoke_arn    = module.create_user_lambda.invoke_arn
       reset_password_lambda_invoke_arn = module.reset_password_lambda.invoke_arn
       sign_in_lambda_invoke_arn        = module.sign_in_lambda.invoke_arn
-      authorizor_name                  = aws_api_gateway_authorizer.woodnet.name
+      authorizor_name                  = local.authorizor_name
       cognito_pool_arn                 = aws_cognito_user_pool.pool.arn
     }
   )
@@ -36,8 +36,12 @@ resource "aws_api_gateway_deployment" "woodnet" {
   }
 }
 
+locals {
+  authorizor_name
+}
+
 resource "aws_api_gateway_authorizer" "woodnet" {
-  name        = "woodnet"
+  name        = local.authorizor_name
   type        = "COGNITO_USER_POOLS"
   rest_api_id = aws_api_gateway_rest_api.woodnet.id
   # authorizer_credentials = aws_iam_role.invocation_role.arn
