@@ -197,15 +197,15 @@ resource "aws_ecs_task_definition" "ark" {
         }
       ]
     }
-
-    runtime_platform {
-      cpu_architecture        = upper(var.cpu_architecture)
-    }
   ])
 
   # runtime_platform {
   #   cpu_architecture = "ARM64"
   # }
+
+  runtime_platform {
+    cpu_architecture = upper(var.cpu_architecture)
+  }
 
   volume {
     name = "ark-server"
