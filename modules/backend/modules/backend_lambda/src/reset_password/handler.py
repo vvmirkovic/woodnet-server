@@ -10,26 +10,25 @@ from os import environ
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-USER_POOL_ID = environ["USER_POOL_ID"]
-
 def lambda_handler(event, context):
 
     body = json.loads(event['body'])
-    if 'username' not in body:
+    if 'previous_password' not in body and 'password' not in body:
         return {
             'statusCode': 400,
-            'body': json.dumps(f'Invalid request. Must provide username and password')
+            'body': json.dumps(f'Invalid request. Must provide previous_password and password')
         }
     
+    previous_password = event['previous_password']
     password = event['password']
 
     client = boto3.client('cognito-idp')
     
     try:
-        response = client.change_password(
-            PreviousPassword='string',
-            ProposedPassword='string',
-            AccessToken='string'
+        client.change_password(
+            PreviousPassword=previous_password,
+            ProposedPassword=password,
+            AccessToken=event['headers']['Authorization']
         )
     except ClientError as e:
         if e.response['Error']['Code'] == 'NotAuthorizedException':
@@ -43,7 +42,5 @@ def lambda_handler(event, context):
         
     return {
         'statusCode': 200,
-        'body': json.dumps({
-            'message': response_init['AuthenticationResult']
-        })
+        'body': json.dumps("Password reset successfully.")
     }

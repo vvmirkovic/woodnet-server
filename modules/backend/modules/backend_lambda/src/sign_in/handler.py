@@ -15,7 +15,7 @@ CLIENT_ID = environ["CLIENT_ID"]
 def lambda_handler(event, context):
 
     body = json.loads(event['body'])
-    if 'username' not in event or 'password' not in body:
+    if 'username' not in body or 'password' not in body:
         return {
             'statusCode': 400,
             'body': json.dumps(f'Invalid request. Must provide username and password')
