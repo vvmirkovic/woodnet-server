@@ -4,17 +4,35 @@ info:
   title: Woodnet
   description: Woodnet Backend API
 paths:
-  /test:
-    get:
+  /create-user:
+    post:
       produces:
       - application/json
-      operationId: getTest
+      operationId: createUser
       x-amazon-apigateway-integration:
         httpMethod: POST
-        uri: ${test_lambda_invoke_arn}
+        uri: ${create_user_lambda_invoke_arn}
+        type: aws_proxy
+  /reset-password:
+    post:
+      produces:
+      - application/json
+      operationId: createUser
+      x-amazon-apigateway-integration:
+        httpMethod: POST
+        uri: ${reset_password_lambda_invoke_arn}
+        type: aws_proxy
+  /sign-in:
+    post:
+      produces:
+      - application/json
+      operationId: createUser
+      x-amazon-apigateway-integration:
+        httpMethod: POST
+        uri: ${sign_in_lambda_invoke_arn}
         type: aws_proxy
   /start-ark:
-    put:
+    post:
       produces:
       - application/json
       operationId: startArk
@@ -23,11 +41,20 @@ paths:
         uri: ${start_ark_lambda_invoke_arn}
         type: aws_proxy
   /stop-ark:
-    put:
+    post:
       produces:
       - application/json
       operationId: stopArk
       x-amazon-apigateway-integration:
         httpMethod: POST
         uri: ${stop_ark_lambda_invoke_arn}
+        type: aws_proxy
+  /test:
+    get:
+      produces:
+      - application/json
+      operationId: getTest
+      x-amazon-apigateway-integration:
+        httpMethod: POST
+        uri: ${test_lambda_invoke_arn}
         type: aws_proxy
