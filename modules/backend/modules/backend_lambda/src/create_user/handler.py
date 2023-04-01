@@ -35,13 +35,14 @@ def generate_password():
 
 def lambda_handler(event, context):
 
-    if 'username' not in event:
+    body = json.loads(event['body'])
+    if 'username' not in body:
         return {
             'statusCode': 400,
             'body': json.dumps(f'Invalid request. No username provided')
         }
     
-    username = event['username']
+    username = body['username']
     password = generate_password()
 
     client = boto3.client('cognito-idp')

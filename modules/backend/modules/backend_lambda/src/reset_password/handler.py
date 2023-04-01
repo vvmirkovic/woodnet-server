@@ -14,7 +14,8 @@ USER_POOL_ID = environ["USER_POOL_ID"]
 
 def lambda_handler(event, context):
 
-    if 'password' not in event:
+    body = json.loads(event['body'])
+    if 'username' not in body:
         return {
             'statusCode': 400,
             'body': json.dumps(f'Invalid request. Must provide username and password')
