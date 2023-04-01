@@ -21,7 +21,7 @@ resource "aws_launch_template" "ark" {
   image_id      = data.aws_ami.ecs_optimized.id
   # instance_type = "t3.large"
   # instance_type = "r7g.medium"
-  instance_type = "r6g.medium"
+  instance_type = var.instance_type
   user_data = base64encode(templatefile(
     "${path.module}/ecs.sh",
     {
@@ -47,7 +47,7 @@ data "aws_ami" "ecs_optimized" {
 
   filter {
     name = "name"
-    values = ["amzn2-ami-ecs-hvm-2.0.20*-arm64-ebs"]
+    values = ["amzn2-ami-ecs-hvm-2.0.20*-${var.cpu_architecture}-ebs"]
     # values = ["amzn2-ami-ecs-hvm-2.0.20*-x86_64-ebs"]
   }
 }

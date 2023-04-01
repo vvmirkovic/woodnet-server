@@ -33,7 +33,8 @@ module "ark" {
 
   env          = var.env
   server_image = "hermsi/ark-server"
-  # server_image = "thmhoag/arkserver"
+  instance_type = "r6g.medium"
+  cpu_architecture = "arm64" #x86_64
   domain             = local.domain
   subdomain          = "ark.server"
   vpc_id             = module.network.vpc_id
