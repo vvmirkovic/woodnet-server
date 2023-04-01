@@ -12,7 +12,7 @@ resource "aws_api_gateway_rest_api" "woodnet" {
       create_user_lambda_invoke_arn    = module.create_user_lambda.invoke_arn
       reset_password_lambda_invoke_arn = module.reset_password_lambda.invoke_arn
       sign_in_lambda_invoke_arn        = module.sign_in_lambda.invoke_arn
-      cognito_pool_name                = aws_cognito_user_pool.pool.name
+      authorizor_name                  = aws_api_gateway_authorizer.woodnet.name
       cognito_pool_arn                 = aws_cognito_user_pool.pool.arn
     }
   )

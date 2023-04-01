@@ -12,7 +12,7 @@ paths:
       - application/json
       operationId: createUser
       security:
-        - ${cognito_pool_name}: []
+        - ${authorizor_name}: []
       parameters:
       - in: body
         name: username
@@ -32,7 +32,7 @@ paths:
       - application/json
       operationId: resetPassword
       security:
-        - ${cognito_pool_name}: []
+        - ${authorizor_name}: []
       x-amazon-apigateway-integration:
         httpMethod: POST
         uri: ${reset_password_lambda_invoke_arn}
@@ -63,7 +63,7 @@ paths:
       - application/json
       operationId: startArk
       security:
-        - ${cognito_pool_name}: []
+        - ${authorizor_name}: []
       x-amazon-apigateway-integration:
         httpMethod: POST
         uri: ${start_ark_lambda_invoke_arn}
@@ -74,7 +74,7 @@ paths:
       - application/json
       operationId: stopArk
       security:
-        - ${cognito_pool_name}: []
+        - ${authorizor_name}: []
       x-amazon-apigateway-integration:
         httpMethod: POST
         uri: ${stop_ark_lambda_invoke_arn}
@@ -90,7 +90,7 @@ paths:
         type: aws_proxy
 components:
   securitySchemes:
-    ${cognito_pool_name}:
+    ${authorizor_name}:
       type: apiKey,
       name: Authorization,
       in: header,
