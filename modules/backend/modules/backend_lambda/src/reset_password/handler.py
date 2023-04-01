@@ -19,8 +19,8 @@ def lambda_handler(event, context):
             'body': json.dumps(f'Invalid request. Must provide previous_password and password')
         }
     
-    previous_password = event['previous_password']
-    password = event['password']
+    previous_password = body['previous_password']
+    password = body['password']
 
     client = boto3.client('cognito-idp')
     
