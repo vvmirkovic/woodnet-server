@@ -6,12 +6,14 @@ resource "aws_api_gateway_rest_api" "woodnet" {
   body = templatefile(
     "${path.module}/src/api.yaml",
     {
-      test_lambda_invoke_arn      = module.test_lambda.invoke_arn
-      start_ark_lambda_invoke_arn = module.start_ark_lambda.invoke_arn
-      stop_ark_lambda_invoke_arn  = module.stop_ark_lambda.invoke_arn
-      create_user_lambda_invoke_arn  = module.create_user_lambda.invoke_arn
-      reset_password_lambda_invoke_arn  = module.reset_password_lambda.invoke_arn
-      sign_in_lambda_invoke_arn  = module.sign_in_lambda.invoke_arn
+      test_lambda_invoke_arn           = module.test_lambda.invoke_arn
+      start_ark_lambda_invoke_arn      = module.start_ark_lambda.invoke_arn
+      stop_ark_lambda_invoke_arn       = module.stop_ark_lambda.invoke_arn
+      create_user_lambda_invoke_arn    = module.create_user_lambda.invoke_arn
+      reset_password_lambda_invoke_arn = module.reset_password_lambda.invoke_arn
+      sign_in_lambda_invoke_arn        = module.sign_in_lambda.invoke_arn
+      cognito_pool_name                = aws_cognito_user_pool.pool.name
+      cognito_pool_arn                 = aws_cognito_user_pool.pool.arn
     }
   )
 
@@ -35,11 +37,11 @@ resource "aws_api_gateway_deployment" "woodnet" {
 }
 
 resource "aws_api_gateway_authorizer" "woodnet" {
-  name                   = "woodnet"
-  type                   = "COGNITO_USER_POOLS"
-  rest_api_id            = aws_api_gateway_rest_api.woodnet.id
+  name        = "woodnet"
+  type        = "COGNITO_USER_POOLS"
+  rest_api_id = aws_api_gateway_rest_api.woodnet.id
   # authorizer_credentials = aws_iam_role.invocation_role.arn
-  provider_arns          = [aws_cognito_user_pool.pool.arn]
+  provider_arns = [aws_cognito_user_pool.pool.arn]
 }
 
 

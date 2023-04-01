@@ -11,6 +11,8 @@ paths:
       consumes:
       - application/json
       operationId: createUser
+      security:
+        - EndpointAuthorizer: []
       parameters:
       - in: body
         name: username
@@ -29,6 +31,8 @@ paths:
       produces:
       - application/json
       operationId: resetPassword
+      security:
+        - EndpointAuthorizer: []
       x-amazon-apigateway-integration:
         httpMethod: POST
         uri: ${reset_password_lambda_invoke_arn}
@@ -58,6 +62,8 @@ paths:
       produces:
       - application/json
       operationId: startArk
+      security:
+        - EndpointAuthorizer: []
       x-amazon-apigateway-integration:
         httpMethod: POST
         uri: ${start_ark_lambda_invoke_arn}
@@ -67,6 +73,8 @@ paths:
       produces:
       - application/json
       operationId: stopArk
+      security:
+        - EndpointAuthorizer: []
       x-amazon-apigateway-integration:
         httpMethod: POST
         uri: ${stop_ark_lambda_invoke_arn}
@@ -80,3 +88,15 @@ paths:
         httpMethod: POST
         uri: ${test_lambda_invoke_arn}
         type: aws_proxy
+components:
+  securitySchemes:
+    ${cognito_pool_name}:
+      type: apiKey,
+      name: Authorization,
+      in: header,
+      x-amazon-apigateway-authtype: cognito_user_pools,
+      x-amazon-apigateway-authorizer: 
+        type: cognito_user_pools,
+        providerARNs: [
+          '${cognito_pool_arn}'
+        ]
