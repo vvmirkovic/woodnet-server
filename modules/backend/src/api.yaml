@@ -8,16 +8,27 @@ paths:
     post:
       produces:
       - application/json
+      consumes:
+      - application/json
       operationId: createUser
+      parameters:
+      - in: body
+        name: username
+        required: true
+        type: string
+      - in: body
+        name: password
+        required: true
+        type: string
       x-amazon-apigateway-integration:
         httpMethod: POST
         uri: ${create_user_lambda_invoke_arn}
         type: aws_proxy
   /reset-password:
-    post:
+    put:
       produces:
       - application/json
-      operationId: createUser
+      operationId: resetPassword
       x-amazon-apigateway-integration:
         httpMethod: POST
         uri: ${reset_password_lambda_invoke_arn}
@@ -26,13 +37,24 @@ paths:
     post:
       produces:
       - application/json
-      operationId: createUser
+      consumes:
+      - application/json
+      operationId: signIn
+      parameters:
+      - in: body
+        name: username
+        required: true
+        type: string
+      - in: body
+        name: password
+        required: true
+        type: string
       x-amazon-apigateway-integration:
         httpMethod: POST
         uri: ${sign_in_lambda_invoke_arn}
         type: aws_proxy
   /start-ark:
-    post:
+    put:
       produces:
       - application/json
       operationId: startArk
@@ -41,7 +63,7 @@ paths:
         uri: ${start_ark_lambda_invoke_arn}
         type: aws_proxy
   /stop-ark:
-    post:
+    put:
       produces:
       - application/json
       operationId: stopArk
