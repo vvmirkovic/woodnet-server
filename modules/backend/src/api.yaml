@@ -79,6 +79,15 @@ paths:
         httpMethod: POST
         uri: ${stop_ark_lambda_invoke_arn}
         type: aws_proxy
+  /test:
+    get:
+      produces:
+      - application/json
+      operationId: getTest
+      x-amazon-apigateway-integration:
+        httpMethod: POST
+        uri: ${test_lambda_invoke_arn}
+        type: aws_proxy
 components:
   securitySchemes:
     ${authorizor_name}:
@@ -88,6 +97,5 @@ components:
       x-amazon-apigateway-authtype: cognito_user_pools,
       x-amazon-apigateway-authorizer: 
         type: cognito_user_pools,
-        providerARNs: [
-          '${cognito_pool_arn}'
-        ]
+        providerARNs:
+          - ${cognito_pool_arn}
