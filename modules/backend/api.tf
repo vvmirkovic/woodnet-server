@@ -37,7 +37,7 @@ resource "aws_api_gateway_deployment" "woodnet" {
 }
 
 locals {
-  authorizor_name
+  authorizor_name = "woodnet"
 }
 
 resource "aws_api_gateway_authorizer" "woodnet" {
