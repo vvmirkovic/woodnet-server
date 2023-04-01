@@ -28,7 +28,7 @@ def lambda_handler(event, context):
         client.change_password(
             PreviousPassword=previous_password,
             ProposedPassword=password,
-            AccessToken=event['headers']['Authorization']
+            AccessToken=event['headers']['accesstoken']
         )
     except ClientError as e:
         if e.response['Error']['Code'] == 'NotAuthorizedException':
