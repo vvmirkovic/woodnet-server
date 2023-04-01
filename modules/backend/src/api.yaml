@@ -79,15 +79,6 @@ paths:
         httpMethod: POST
         uri: ${stop_ark_lambda_invoke_arn}
         type: aws_proxy
-  /test:
-    get:
-      produces:
-      - application/json
-      operationId: getTest
-      x-amazon-apigateway-integration:
-        httpMethod: POST
-        uri: ${test_lambda_invoke_arn}
-        type: aws_proxy
 components:
   securitySchemes:
     ${authorizor_name}:
