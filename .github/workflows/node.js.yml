@@ -42,15 +42,15 @@ jobs:
         cache-dependency-path: package-lock.json
         # cache-dependency-path: ${{ env.REACT_PATH }}/package-lock.json
 
-    - name: Download terraform values
-      uses: actions/download-artifact@v3
-      with:
-        name: backend_url
+    # - name: Download terraform values
+    #   uses: actions/download-artifact@v3
+    #   with:
+    #     name: backend_url
 
-    - name: Save terraform data values
-      run: |
-        backend_url=`cat backend_url.txt`
-        echo $backend_url
+    # - name: Save terraform data values
+    #   run: |
+    #     backend_url=`cat backend_url.txt`
+    #     echo $backend_url
 
     - run: npm ci #${{ env.REACT_PATH }} --prefix ${{ env.REACT_PATH }}
     - run: npm run build --if-present # --prefix ${{ env.REACT_PATH }}

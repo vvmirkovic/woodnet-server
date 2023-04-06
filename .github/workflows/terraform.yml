@@ -66,12 +66,12 @@ jobs:
       if: env.APPLY
       run: terraform apply -auto-approve -input=false -var="env=$ENVIRONMENT" -var="github_token=$GITHUB_TOKEN"
     
-    - name: Upload Terraform Data
-      if: env.APPLY
-      uses: actions/upload-artifact@v3
-      with:
-        name: backend_url
-        path: backend_url.txt
+    # - name: Upload Terraform Data
+    #   if: env.APPLY
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: backend_url
+    #     path: backend_url.txt
 
     # - name: Dispatch Frontend Build
     #   if: env.APPLY
