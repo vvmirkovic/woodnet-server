@@ -18,9 +18,9 @@ resource "aws_api_gateway_domain_name" "backend" {
 }
 
 resource "aws_api_gateway_base_path_mapping" "backend" {
-  api_id      = aws_api_gateway_rest_api.backend.id
+  api_id      = aws_api_gateway_rest_api.woodnet.id
   domain_name = aws_api_gateway_domain_name.backend.domain_name
-  stage_name  = aws_api_gateway_stage.backend.stage_name
+  stage_name  = aws_api_gateway_stage.woodnet.stage_name
 }
 
 resource "aws_acm_certificate" "backend" {
@@ -29,8 +29,8 @@ resource "aws_acm_certificate" "backend" {
 }
 
 resource "aws_acm_certificate_validation" "backend" {
-  certificate_arn         = aws_acm_certificate.woodnet.arn
-  validation_record_fqdns = [for record in aws_route53_record.woodnet_certificate : record.fqdn]
+  certificate_arn         = aws_acm_certificate.backend.arn
+  validation_record_fqdns = [for record in aws_route53_record.backend_cert : record.fqdn]
 }
 
 resource "aws_route53_record" "backend_cert" {
