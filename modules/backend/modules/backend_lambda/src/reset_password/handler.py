@@ -13,21 +13,21 @@ logger.setLevel(logging.INFO)
 def lambda_handler(event, context):
 
     body = json.loads(event['body'])
-    if 'previous_password' not in body and 'password' not in body:
+    if 'previous_password' not in body and 'new_password' not in body:
         return {
             'statusCode': 400,
             'body': json.dumps(f'Invalid request. Must provide previous_password and password')
         }
     
     previous_password = body['previous_password']
-    password = body['password']
+    new_password = body['new_password']
 
     client = boto3.client('cognito-idp')
     
     try:
         client.change_password(
             PreviousPassword=previous_password,
-            ProposedPassword=password,
+            ProposedPassword=new_password,
             AccessToken=event['headers']['accesstoken']
         )
     except ClientError as e:
