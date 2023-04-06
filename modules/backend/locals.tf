@@ -1,3 +1,3 @@
 locals {
-    backend_domain = "backend.${var.domain}"
+  backend_domain = "backend.${var.domain}"
 }
