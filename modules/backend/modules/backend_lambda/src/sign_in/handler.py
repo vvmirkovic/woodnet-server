@@ -39,6 +39,11 @@ def lambda_handler(event, context):
         if e.response['Error']['Code'] == 'NotAuthorizedException':
             return {
                 'statusCode': 400,
+                'headers': {
+                    "Access-Control-Allow-Headers" : "Content-Type",
+                    "Access-Control-Allow-Origin": "https://dev.woodnet.com",
+                    "Access-Control-Allow-Methods": "OPTIONS,POST"
+                },
                 'body': json.dumps(f'Invalid username and password.')
             }
         else:
