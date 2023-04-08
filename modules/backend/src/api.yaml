@@ -67,20 +67,20 @@ paths:
               responseTemplates:
                 application/json: |
                   {}
-    responses:
-      200:
-        description: Default response for CORS method
-        headers:
-          Access-Control-Allow-Origin:
-            schema:
-              type: string
-          Access-Control-Allow-Methods:
-            schema:
-              type: string
-          Access-Control-Allow-Headers:
-            schema:
-              type: string
-        content: {}
+      responses:
+        200:
+          description: Default response for CORS method
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content: {}
     options:
       responses:
         "200":
