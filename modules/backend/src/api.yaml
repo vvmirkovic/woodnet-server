@@ -53,20 +53,6 @@ paths:
         name: password
         required: true
         type: string
-      x-amazon-apigateway-integration:
-        httpMethod: POST
-        uri: ${sign_in_lambda_invoke_arn}
-        type: aws_proxy
-        responses:
-            default:
-              statusCode: "200"
-              responseParameters:
-                method.response.header.Access-Control-Allow-Headers: '''Content-Type,X-Amz-Date,Authorization,X-Api-Key'''
-                method.response.header.Access-Control-Allow-Methods: '''*'''
-                method.response.header.Access-Control-Allow-Origin: '''*'''
-              responseTemplates:
-                application/json: |
-                  {}
       responses:
         200:
           description: Default response for CORS method
@@ -81,6 +67,20 @@ paths:
               schema:
                 type: string
           content: {}
+      x-amazon-apigateway-integration:
+        httpMethod: POST
+        uri: ${sign_in_lambda_invoke_arn}
+        type: aws_proxy
+        responses:
+            default:
+              statusCode: "200"
+              responseParameters:
+                method.response.header.Access-Control-Allow-Headers: '''Content-Type,X-Amz-Date,Authorization,X-Api-Key'''
+                method.response.header.Access-Control-Allow-Methods: '''*'''
+                method.response.header.Access-Control-Allow-Origin: '''*'''
+              responseTemplates:
+                application/json: |
+                  {}
     options:
       responses:
         "200":
