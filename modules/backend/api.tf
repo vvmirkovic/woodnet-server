@@ -14,6 +14,7 @@ resource "aws_api_gateway_rest_api" "woodnet" {
       sign_in_lambda_invoke_arn        = module.sign_in_lambda.invoke_arn
       authorizor_name                  = local.authorizor_name
       cognito_pool_arn                 = aws_cognito_user_pool.pool.arn
+      frontend_domain                  = local.frontend_domain
     }
   )
 

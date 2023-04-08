@@ -8,4 +8,5 @@ locals {
   record_name           = "${local.server_subdomain}${data.aws_route53_zone.main.name}"
   
   backend_domain = "${local.env_modifier}backend.${var.domain}"
+  frontend_domain = "${local.env_modifier}${var.domain}"
 }
