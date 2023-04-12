@@ -1,8 +1,9 @@
 # Create layers
 locals {
-  backend_handler_folder = "${path.module}/modules/backend_lambda/src/backend_handler/"
-  backend_handler_template = "${local.backend_handler_folder}python/backend_handler.py.tftpl"
-  backend_handler_dest = "${local.backend_handler_folder}python/backend_handler.py"
+  zip_folder = "${path.module}modules/backend_lambda/src/backend_handler"
+  backend_handler_folder = "${local.zip_folder}/python/lib/python3.9/site-packages"
+  backend_handler_template = "${local.backend_handler_folder}backend_handler.py.tftpl"
+  backend_handler_dest = "${local.backend_handler_folder}backend_handler.py"
 }
 
 resource "local_file" "foo" {
@@ -15,12 +16,12 @@ resource "local_file" "foo" {
 
 data "archive_file" "backend_handler" {
   type        = "zip"
-  source_dir = local.backend_handler_folder
-  output_path = "${local.backend_handler_folder}.zip"
+  source_dir = local.zip_folder
+  output_path = "${local.zip_folder}.zip"
 }
 
 resource "aws_lambda_layer_version" "backend_handler" {
-  filename   = "${local.backend_handler_folder}.zip"
+  filename   = "${local.zip_folder}.zip"
   layer_name = "backend_handler"
   compatible_runtimes = ["python3.9"]
 
