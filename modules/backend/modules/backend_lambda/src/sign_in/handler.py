@@ -43,5 +43,5 @@ def lambda_handler(event, context):
     #         statusCode': 301
     #     }
     
-    body = json.dumps({'message': response_init['AuthenticationResult']})
+    body = json.dumps(response_init['AuthenticationResult'])
     return response(event, 200, body)
