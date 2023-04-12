@@ -6,6 +6,7 @@ import re
 import string
 from botocore.exceptions import ClientError
 from os import environ
+from backend_handler import response
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -35,14 +36,12 @@ def generate_password():
 
 def lambda_handler(event, context):
 
-    body = json.loads(event['body'])
-    if 'username' not in body:
-        return {
-            'statusCode': 400,
-            'body': json.dumps(f'Invalid request. No username provided')
-        }
+    request_body = json.loads(event['body'])
+    if 'username' not in request_body:
+        body = json.dumps({'message': f'Invalid request. No username provided'})
+        return response(event, 400, body)
     
-    username = body['username']
+    username = request_body['username']
     password = generate_password()
 
     client = boto3.client('cognito-idp')
@@ -60,17 +59,13 @@ def lambda_handler(event, context):
         )
     except ClientError as e:
         if e.response['Error']['Code'] == 'UsernameExistsException':
-            return {
-                'statusCode': 400,
-                'body': json.dumps(f'Invalid request. Username already exists')
-            }
+            body = json.dumps({'message': f'Invalid request. Username already exists'})
+            return response(event, 400, body)
         else:
             raise
         
-    return {
-        'statusCode': 200,
-        'body': json.dumps({
-            'password': password,
-            'message': f'{username} added to users'
-        })
-    }
+    body = json.dumps({
+        'password': password,
+        'message': f'{username} added to users'
+    })
+    return response(event, 200, body)

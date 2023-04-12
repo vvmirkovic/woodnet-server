@@ -12,20 +12,13 @@ CLIENT_ID = environ["CLIENT_ID"]
 
 def lambda_handler(event, context):
 
-    body = json.loads(event['body'])
-    if 'username' not in body or 'password' not in body:
-        return response(
-                event,
-                400,
-                json.dumps(f'Invalid request. Must provide username and password')
-            )
-        # {
-        #     'statusCode': 400,
-        #     'body': json.dumps(f'Invalid request. Must provide username and password')
-        # }
+    request_body = json.loads(event['body'])
+    if 'username' not in request_body or 'password' not in request_body:
+        body = json.dumps({'message': f'Invalid request. Must provide username and password'})
+        return response(event, 400, body)
     
-    username = body['username']
-    password = body['password']
+    username = request_body['username']
+    password = request_body['password']
 
     client = boto3.client('cognito-idp')
     
@@ -40,20 +33,8 @@ def lambda_handler(event, context):
         )
     except ClientError as e:
         if e.response['Error']['Code'] == 'NotAuthorizedException':
-            return response(
-                event,
-                400,
-                json.dumps(f'Invalid username and password.')
-            )
-        # {
-        #         'statusCode': 400,
-        #         'headers': {
-        #             "Access-Control-Allow-Headers" : "Content-Type",
-        #             "Access-Control-Allow-Origin": "https://dev.woodnet.io",
-        #             "Access-Control-Allow-Methods": "OPTIONS,POST"
-        #         },
-        #         'body': json.dumps(f'Invalid username and password.')
-        #     }
+            body = json.dumps({'message': f'Invalid username and password.'})
+            return response(event, 400, body)
         else:
             raise
     
@@ -62,10 +43,5 @@ def lambda_handler(event, context):
     #         statusCode': 301
     #     }
     
-    return response(
-        event,
-        200,
-        json.dumps({
-            'message': response_init['AuthenticationResult']
-        })
-    )
+    body = json.dumps({'message': response_init['AuthenticationResult']})
+    return response(event, 200, body)

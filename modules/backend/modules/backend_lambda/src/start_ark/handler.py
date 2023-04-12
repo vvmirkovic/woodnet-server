@@ -4,6 +4,7 @@ import botocore
 import boto3
 import time
 from os import environ
+from backend_handler import response
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -143,7 +144,4 @@ def lambda_handler(event, context):
     start_ark()
     set_record()
         
-    return {
-        'statusCode': 200,
-        'body': json.dumps(f'Server started and record has been updated with IP')
-    }
+    return response(event, 200, json.dumps(f'Server started and record has been updated with IP'))

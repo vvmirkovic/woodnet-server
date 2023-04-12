@@ -3,6 +3,7 @@ import logging
 import botocore
 import boto3
 from os import environ
+from backend_handler import response
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -25,7 +26,4 @@ def stop_ark():
 def lambda_handler(event, context):
     stop_ark()
         
-    return {
-        'statusCode': 200,
-        'body': json.dumps(f'Ark server has been stopped')
-    }
+    return response(event, 200, json.dumps(f'Ark server has been stopped'))
