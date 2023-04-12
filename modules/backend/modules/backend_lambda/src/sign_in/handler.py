@@ -1,11 +1,9 @@
 import boto3
 import json
 import logging
-import random
-import re
-import string
 from botocore.exceptions import ClientError
 from os import environ
+from backend_handler import success
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -53,7 +51,14 @@ def lambda_handler(event, context):
     #     return {
     #         statusCode': 301
     #     }
-        
+    
+    return success(
+        event,
+        200,
+        json.dumps({
+            'message': response_init['AuthenticationResult']
+        })
+    )
     return {
         'statusCode': 200,
         'headers': {
