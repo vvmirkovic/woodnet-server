@@ -1,7 +1,7 @@
 # Create layers
 locals {
-  zip_folder = "${path.module}/modules/backend_lambda/src/backend_handler"
-  backend_handler_folder = "${local.zip_folder}/python/lib/python3.9/site-packages"
+  zip_folder = "${path.module}/modules/backend_lambda/src/backend_handler/"
+  backend_handler_folder = "${local.zip_folder}python/lib/python3.9/site-packages/"
   backend_handler_template = "${local.backend_handler_folder}backend_handler.py.tftpl"
   backend_handler_dest = "${local.backend_handler_folder}backend_handler.py"
 }
