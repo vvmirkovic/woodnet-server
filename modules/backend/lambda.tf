@@ -1,32 +1,33 @@
 # Create layers
 locals {
-  zip_folder = "${path.module}/modules/backend_lambda/src/backend_handler/"
-  backend_handler_folder = "${local.zip_folder}python/lib/python3.9/site-packages/"
+  zip_folder               = "${path.module}/modules/backend_lambda/src/backend_handler/"
+  zip_file                 = "${zip_folder}.zip"
+  backend_handler_folder   = "${local.zip_folder}python/lib/python3.9/site-packages/"
   backend_handler_template = "${local.backend_handler_folder}backend_handler.py.tftpl"
-  backend_handler_dest = "${local.backend_handler_folder}backend_handler.py"
+  backend_handler_dest     = "${local.backend_handler_folder}backend_handler.py"
 }
 
 resource "local_file" "backend_handler" {
-  content  = templatefile(
+  content = templatefile(
     local.backend_handler_template,
-    {"frontend_domain" = "https://${local.frontend_domain}"}
+    { "frontend_domain" = "https://${local.frontend_domain}" }
   )
   filename = local.backend_handler_dest
 }
 
 data "archive_file" "backend_handler" {
   type        = "zip"
-  source_dir = local.zip_folder
-  output_path = "${local.zip_folder}.zip"
+  source_dir  = local.zip_folder
+  output_path = local.zip_file
 
   depends_on = [local_file.backend_handler]
 }
 
 resource "aws_lambda_layer_version" "backend_handler" {
-  filename   = "${local.zip_folder}.zip"
-  layer_name = "backend_handler"
+  filename            = local.zip_file
+  layer_name          = "backend_handler"
   compatible_runtimes = ["python3.9"]
-  source_code_hash = filebase64sha256(local.zip_folder)
+  source_code_hash    = filebase64sha256(local.zip_file)
 
   depends_on = [data.archive_file.backend_handler]
 }
@@ -69,7 +70,7 @@ module "stop_ark_lambda" {
   execution_role_arn = aws_iam_role.lambda_execution.arn
   layers             = local.default_layers
   name               = "stop_ark"
-  
+
   environment_vars = {
     ASG_NAME = var.asg_name
   }

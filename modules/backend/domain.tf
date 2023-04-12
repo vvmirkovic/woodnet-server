@@ -15,7 +15,7 @@ resource "aws_route53_record" "backend" {
 resource "aws_api_gateway_domain_name" "backend" {
   domain_name              = aws_acm_certificate.backend.domain_name
   regional_certificate_arn = aws_acm_certificate.backend.arn
-  
+
   endpoint_configuration {
     types = ["REGIONAL"]
   }
