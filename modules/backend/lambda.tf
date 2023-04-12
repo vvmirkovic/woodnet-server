@@ -1,6 +1,6 @@
 # Create layers
 locals {
-  backend_handler_folder = "${path.module}/modules/backend_lambda/src/backend_handler/"
+  backend_handler_folder = "${path.module}/modules/backend_lambda/src/backend_handler/python/"
   backend_handler_template = "${local.backend_handler_folder}backend_handler.py.tftpl"
   backend_handler_dest = "${local.backend_handler_folder}backend_handler.py"
 }
