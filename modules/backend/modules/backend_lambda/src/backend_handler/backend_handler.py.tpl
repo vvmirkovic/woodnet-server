@@ -1,19 +1,18 @@
 import json
 
-def success(event, message):
-    headers = {}
+def success(event, statusCode, message):
+    response = {
+        'statusCode': statusCode,
+        'body': json.dumps({
+            'message': message
+        })
+    }
 
     if event['httpMethod'] in ['OPTIONS', 'POST', 'PUT']:
-        headers = headers | {
+        response['headers'] = {
             "Access-Control-Allow-Headers" : "Content-Type",
             "Access-Control-Allow-Origin": "${frontend_domain}",
             "Access-Control-Allow-Methods": event['httpMethod']
         }
 
-    return {
-        'statusCode': 200,
-        'headers': headers,
-        'body': json.dumps({
-            'message': message
-        })
-    }
+    return response

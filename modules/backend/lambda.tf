@@ -1,3 +1,30 @@
+locals {
+  backend_handler_folder = "./modules/backend_lambda/src/backend_handler/"
+  backend_handler_template = "${local.backend_handler_folder}backend_handler.py.tpl"
+  backend_handler_dest = "${local.backend_handler_folder}backend_handler.py"
+}
+
+resource "local_file" "foo" {
+  content  = templatefile(
+    local.backend_handler_template,
+    {"frontend_domain" = "https://${local.frontend_domain}"}
+  )
+  filename = local.backend_handler_dest
+}
+
+data "archive_file" "backend_handler" {
+  type        = "zip"
+  source_dir = local.backend_handler_folder
+  output_path = "${local.backend_handler_folder}.zip"
+}
+
+resource "aws_lambda_layer_version" "backend_handler" {
+  filename   = "${local.backend_handler_folder}.zip"
+  layer_name = "backend_handler"
+
+  compatible_runtimes = ["python3.9"]
+}
+
 module "test_lambda" {
   source = "./modules/backend_lambda"
 
