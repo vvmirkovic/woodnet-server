@@ -18,6 +18,8 @@ data "archive_file" "backend_handler" {
   type        = "zip"
   source_dir = local.zip_folder
   output_path = "${local.zip_folder}.zip"
+
+  depends_on = [local_file.foo]
 }
 
 resource "aws_lambda_layer_version" "backend_handler" {
