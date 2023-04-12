@@ -71,16 +71,6 @@ paths:
         httpMethod: POST
         uri: ${sign_in_lambda_invoke_arn}
         type: aws_proxy
-        responses:
-            default:
-              statusCode: "200"
-              responseParameters:
-                method.response.header.Access-Control-Allow-Headers: '''Content-Type,X-Amz-Date,Authorization,X-Api-Key'''
-                method.response.header.Access-Control-Allow-Methods: '''*'''
-                method.response.header.Access-Control-Allow-Origin: '''${frontend_domain}'''
-              responseTemplates:
-                application/json: |
-                  {}
     options:
       responses:
         "200":
