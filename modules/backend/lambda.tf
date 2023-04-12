@@ -6,7 +6,7 @@ locals {
   backend_handler_dest = "${local.backend_handler_folder}backend_handler.py"
 }
 
-resource "local_file" "foo" {
+resource "local_file" "backend_handler" {
   content  = templatefile(
     local.backend_handler_template,
     {"frontend_domain" = "https://${local.frontend_domain}"}
@@ -19,13 +19,14 @@ data "archive_file" "backend_handler" {
   source_dir = local.zip_folder
   output_path = "${local.zip_folder}.zip"
 
-  depends_on = [local_file.foo]
+  depends_on = [local_file.backend_handler]
 }
 
 resource "aws_lambda_layer_version" "backend_handler" {
   filename   = "${local.zip_folder}.zip"
   layer_name = "backend_handler"
   compatible_runtimes = ["python3.9"]
+  source_code_hash = filebase64sha256(local.zip_folder)
 
   depends_on = [data.archive_file.backend_handler]
 }
