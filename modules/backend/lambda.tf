@@ -1,3 +1,4 @@
+# Create layers
 locals {
   backend_handler_folder = "${path.module}/modules/backend_lambda/src/backend_handler/"
   backend_handler_template = "${local.backend_handler_folder}backend_handler.py.tftpl"
@@ -21,25 +22,34 @@ data "archive_file" "backend_handler" {
 resource "aws_lambda_layer_version" "backend_handler" {
   filename   = "${local.backend_handler_folder}.zip"
   layer_name = "backend_handler"
-
   compatible_runtimes = ["python3.9"]
+
+  depends_on = [data.archive_file.backend_handler]
 }
 
+locals {
+  default_layers = [aws_lambda_layer_version.backend_handler.arn]
+}
+
+# Create lambdas
 module "test_lambda" {
   source = "./modules/backend_lambda"
 
-  name               = "test"
-  execution_role_arn = aws_iam_role.lambda_execution.arn
   backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  execution_role_arn = aws_iam_role.lambda_execution.arn
+  layers             = [aws_lambda_layer_version.backend_handler.arn]
+  name               = "test"
 }
 
 module "start_ark_lambda" {
   source = "./modules/backend_lambda"
 
-  name               = "start_ark"
-  execution_role_arn = aws_iam_role.lambda_execution.arn
   backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  execution_role_arn = aws_iam_role.lambda_execution.arn
+  layers             = local.default_layers
+  name               = "start_ark"
   timeout            = 900
+
   environment_vars = {
     ASG_NAME               = var.asg_name
     HOSTED_ZONE_ID         = data.aws_route53_zone.main.zone_id
@@ -51,9 +61,11 @@ module "start_ark_lambda" {
 module "stop_ark_lambda" {
   source = "./modules/backend_lambda"
 
-  name               = "stop_ark"
-  execution_role_arn = aws_iam_role.lambda_execution.arn
   backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  execution_role_arn = aws_iam_role.lambda_execution.arn
+  layers             = local.default_layers
+  name               = "stop_ark"
+  
   environment_vars = {
     ASG_NAME = var.asg_name
   }
@@ -62,9 +74,11 @@ module "stop_ark_lambda" {
 module "create_user_lambda" {
   source = "./modules/backend_lambda"
 
-  name               = "create_user"
-  execution_role_arn = aws_iam_role.lambda_execution.arn
   backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  execution_role_arn = aws_iam_role.lambda_execution.arn
+  layers             = local.default_layers
+  name               = "create_user"
+
   environment_vars = {
     USER_POOL_ID = aws_cognito_user_pool.pool.id
   }
@@ -73,9 +87,11 @@ module "create_user_lambda" {
 module "sign_in_lambda" {
   source = "./modules/backend_lambda"
 
-  name               = "sign_in"
-  execution_role_arn = aws_iam_role.lambda_execution.arn
   backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  execution_role_arn = aws_iam_role.lambda_execution.arn
+  layers             = local.default_layers
+  name               = "sign_in"
+
   environment_vars = {
     CLIENT_ID = aws_cognito_user_pool_client.client.id
   }
@@ -84,9 +100,10 @@ module "sign_in_lambda" {
 module "reset_password_lambda" {
   source = "./modules/backend_lambda"
 
-  name               = "reset_password"
-  execution_role_arn = aws_iam_role.lambda_execution.arn
   backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  execution_role_arn = aws_iam_role.lambda_execution.arn
+  layers             = local.default_layers
+  name               = "reset_password"
 }
 
 

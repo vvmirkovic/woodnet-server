@@ -11,11 +11,12 @@ data "archive_file" "lambda" {
 resource "aws_lambda_function" "backend" {
   filename      = "${local.script_path}.zip"
   function_name = var.name
-  role          = var.execution_role_arn
   handler       = "handler.lambda_handler"
+  layers        = var.layers
+  runtime       = "python3.9"
+  role          = var.execution_role_arn
   source_code_hash = data.archive_file.lambda.output_base64sha256
-  runtime = "python3.9"
-  timeout = var.timeout
+  timeout       = var.timeout
 
   dynamic "environment" {
     for_each = length(var.environment_vars) == 0 ? [] : [var.environment_vars]
