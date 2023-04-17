@@ -123,17 +123,6 @@ components:
           schema:
             type: "string"
       content: {}
-    x-amazon-apigateway-integration:
-  securitySchemes:
-    ${authorizor_name}:
-      type: apiKey
-      name: Authorization
-      in: header
-      x-amazon-apigateway-authtype: cognito_user_pools
-      x-amazon-apigateway-authorizer:
-        type: cognito_user_pools
-        providerARNs:
-          - ${cognito_pool_arn}
   x-amazon-apigateway-integrations:
     options:
       responses:
@@ -147,3 +136,13 @@ components:
         application/json: "{\"statusCode\": 200}"
       passthroughBehavior: "when_no_match"
       type: "mock"
+  securitySchemes:
+    ${authorizor_name}:
+      type: apiKey
+      name: Authorization
+      in: header
+      x-amazon-apigateway-authtype: cognito_user_pools
+      x-amazon-apigateway-authorizer:
+        type: cognito_user_pools
+        providerARNs:
+          - ${cognito_pool_arn}
