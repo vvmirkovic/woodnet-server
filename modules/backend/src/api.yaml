@@ -73,7 +73,7 @@ paths:
         type: aws_proxy
     options:
       responses:
-        "$ref": '#/components/responses/options'
+        $ref: '#/components/responses/options'
       x-amazon-apigateway-integration:
         responses:
           default:
