@@ -75,7 +75,7 @@ paths:
       responses:
         $ref: '#/components/responses/options'
       x-amazon-apigateway-integration:
-        $ref: '#/components/x-amazon-apigateway-integration/lambda-integration'
+        $ref: '#/components/x-amazon-apigateway-integrations/options'
   /start-ark:
     put:
       produces:
@@ -134,13 +134,13 @@ components:
         type: cognito_user_pools
         providerARNs:
           - ${cognito_pool_arn}
-  x-amazon-apigateway-integration:
-    lambda-integration:
+  x-amazon-apigateway-integrations:
+    options:
       responses:
         default:
           statusCode: "200"
           responseParameters:
-            method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST'"
+            method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,PUT'"
             method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
             method.response.header.Access-Control-Allow-Origin: "'${frontend_domain}'"
       requestTemplates:
