@@ -73,31 +73,8 @@ paths:
         type: aws_proxy
     options:
       responses:
-        "200":
-          description: "200 response"
-          headers:
-            Access-Control-Allow-Origin:
-              schema:
-                type: "string"
-            Access-Control-Allow-Methods:
-              schema:
-                type: "string"
-            Access-Control-Allow-Headers:
-              schema:
-                type: "string"
-          content: {}
-      x-amazon-apigateway-integration:
-        responses:
-          default:
-            statusCode: "200"
-            responseParameters:
-              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST'"
-              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-              method.response.header.Access-Control-Allow-Origin: "'${frontend_domain}'"
-        requestTemplates:
-          application/json: "{\"statusCode\": 200}"
-        passthroughBehavior: "when_no_match"
-        type: "mock"
+        $ref: '#/components/responses/options'
+      x-amazon-apigateway-integration: *lambda-integration
   /start-ark:
     put:
       produces:
@@ -130,6 +107,22 @@ paths:
         uri: ${test_lambda_invoke_arn}
         type: aws_proxy
 components:
+  responses:
+    options:
+      "200":
+        description: "200 response"
+        headers:
+          Access-Control-Allow-Origin:
+            schema:
+              type: "string"
+          Access-Control-Allow-Methods:
+            schema:
+              type: "string"
+          Access-Control-Allow-Headers:
+            schema:
+              type: "string"
+        content: {}
+    x-amazon-apigateway-integration:
   securitySchemes:
     ${authorizor_name}:
       type: apiKey
@@ -140,3 +133,17 @@ components:
         type: cognito_user_pools
         providerARNs:
           - ${cognito_pool_arn}
+x-definitions:
+  type: object
+  x-amazon-apigateway-integration: &lambda-integration
+    responses:
+      default:
+        statusCode: "200"
+        responseParameters:
+          method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST'"
+          method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+          method.response.header.Access-Control-Allow-Origin: "'${frontend_domain}'"
+    requestTemplates:
+      application/json: "{\"statusCode\": 200}"
+    passthroughBehavior: "when_no_match"
+    type: "mock"

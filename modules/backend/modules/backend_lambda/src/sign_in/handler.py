@@ -35,8 +35,12 @@ def lambda_handler(event, context):
         if e.response['Error']['Code'] == 'NotAuthorizedException':
             body = json.dumps({'message': f'Invalid username and password.'})
             return response(event, 400, body)
+        elif e.response['Error']['Code'] == 'UserNotFoundException':
+            body = json.dumps({'message': f'Invalid username and password.'})
+            return response(event, 400, body)
         else:
-            raise
+            body = json.dumps({'message': f'Error validating username and password.'})
+            return response(event, 400, body)
     
     # if 'ChallengeName' in response_init and response_init['ChallengeName'] == 'NEW_PASSWORD_REQUIRED':
     #     return {
