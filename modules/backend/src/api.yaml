@@ -76,7 +76,7 @@ paths:
         "200":
           $ref: '#/components/responses/options'
       x-amazon-apigateway-integration:
-        $ref: '#/components/x-amazon-apigateway-integrations/test'
+        $ref: '#/components/x-amazon-apigateway-integrations/options'
   /start-ark:
     put:
       produces:
@@ -124,18 +124,18 @@ components:
             type: "string"
       content: {}
   x-amazon-apigateway-integrations:
-    test:
+    options:
       responses:
         default:
-          statusCode: "200"
+          statusCode: 200
           responseParameters:
-            method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,PUT'"
-            method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-            method.response.header.Access-Control-Allow-Origin: "'${frontend_domain}'"
+            method.response.header.Access-Control-Allow-Methods: 'OPTIONS,POST,PUT'
+            method.response.header.Access-Control-Allow-Headers: 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
+            method.response.header.Access-Control-Allow-Origin: '${frontend_domain}'
       requestTemplates:
-        application/json: "{\"statusCode\": 200}"
-      passthroughBehavior: "when_no_match"
-      type: "mock"
+        application/json: {\"statusCode\": 200}
+      passthroughBehavior: when_no_match
+      type: mock
   securitySchemes:
     ${authorizor_name}:
       type: apiKey
