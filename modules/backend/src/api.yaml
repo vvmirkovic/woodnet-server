@@ -76,7 +76,7 @@ paths:
         "200":
           $ref: '#/components/responses/options'
       x-amazon-apigateway-integration:
-        $ref: '#/components/x-amazon-apigateway-integrations/options'
+        $ref: '#/components/x-amazon-apigateway-integrations/test'
   /start-ark:
     put:
       produces:
@@ -124,7 +124,7 @@ components:
             type: "string"
       content: {}
   x-amazon-apigateway-integrations:
-    options:
+    test:
       responses:
         default:
           statusCode: "200"
