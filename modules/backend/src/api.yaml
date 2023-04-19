@@ -84,7 +84,7 @@ paths:
               method.response.header.Access-Control-Allow-Headers: 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
               method.response.header.Access-Control-Allow-Origin: '${frontend_domain}'
         requestTemplates:
-          application/json: {\"statusCode\": 200}
+          application/json: "{\"statusCode\": 200}"
         passthroughBehavior: when_no_match
         type: mock
   /start-ark:
