@@ -76,17 +76,7 @@ paths:
         "200":
           $ref: '#/components/responses/options'
       x-amazon-apigateway-integration:
-        responses:
-          default:
-            statusCode: 200
-            responseParameters:
-              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,PUT'"
-              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-              method.response.header.Access-Control-Allow-Origin: "'${frontend_domain}'"
-        requestTemplates:
-          application/json: "{\"statusCode\": 200}"
-        passthroughBehavior: when_no_match
-        type: mock
+        $ref: '#/components/x-amazon-apigateway-integrations/options'
   /start-ark:
     put:
       produces:
