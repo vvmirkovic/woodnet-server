@@ -41,6 +41,7 @@ paths:
         requestTemplates:
           application/json: "{\"statusCode\": 200}"
         passthroughBehavior: when_no_match
+        type: mock
   /reset-password:
     put:
       produces:
@@ -67,6 +68,7 @@ paths:
         requestTemplates:
           application/json: "{\"statusCode\": 200}"
         passthroughBehavior: when_no_match
+        type: mock
   /sign-in:
     post:
       produces:
@@ -116,6 +118,7 @@ paths:
         requestTemplates:
           application/json: "{\"statusCode\": 200}"
         passthroughBehavior: when_no_match
+        type: mock
   /start-ark:
     put:
       produces:
@@ -142,6 +145,7 @@ paths:
         requestTemplates:
           application/json: "{\"statusCode\": 200}"
         passthroughBehavior: when_no_match
+        type: mock
   /stop-ark:
     put:
       produces:
@@ -168,6 +172,7 @@ paths:
         requestTemplates:
           application/json: "{\"statusCode\": 200}"
         passthroughBehavior: when_no_match
+        type: mock
   /test:
     get:
       produces:
