@@ -26,6 +26,22 @@ paths:
         httpMethod: POST
         uri: ${create_user_lambda_invoke_arn}
         type: aws_proxy
+    options:
+      responses:
+        "200":
+          $ref: '#/components/responses/options'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: 'OPTIONS,POST,PUT'
+              method.response.header.Access-Control-Allow-Headers: 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
+              method.response.header.Access-Control-Allow-Origin: '${frontend_domain}'
+        requestTemplates:
+          application/json: {\"statusCode\": 200}
+        passthroughBehavior: when_no_match
+        type: mock
   /reset-password:
     put:
       produces:
@@ -37,6 +53,22 @@ paths:
         httpMethod: POST
         uri: ${reset_password_lambda_invoke_arn}
         type: aws_proxy
+    options:
+      responses:
+        "200":
+          $ref: '#/components/responses/options'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: 'OPTIONS,POST,PUT'
+              method.response.header.Access-Control-Allow-Headers: 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
+              method.response.header.Access-Control-Allow-Origin: '${frontend_domain}'
+        requestTemplates:
+          application/json: {\"statusCode\": 200}
+        passthroughBehavior: when_no_match
+        type: mock
   /sign-in:
     post:
       produces:
@@ -76,7 +108,17 @@ paths:
         "200":
           $ref: '#/components/responses/options'
       x-amazon-apigateway-integration:
-        $ref: '#/components/x-amazon-apigateway-integrations/options'
+        responses:
+          default:
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: 'OPTIONS,POST,PUT'
+              method.response.header.Access-Control-Allow-Headers: 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
+              method.response.header.Access-Control-Allow-Origin: '${frontend_domain}'
+        requestTemplates:
+          application/json: {\"statusCode\": 200}
+        passthroughBehavior: when_no_match
+        type: mock
   /start-ark:
     put:
       produces:
@@ -88,6 +130,22 @@ paths:
         httpMethod: POST
         uri: ${start_ark_lambda_invoke_arn}
         type: aws_proxy
+    options:
+      responses:
+        "200":
+          $ref: '#/components/responses/options'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: 'OPTIONS,POST,PUT'
+              method.response.header.Access-Control-Allow-Headers: 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
+              method.response.header.Access-Control-Allow-Origin: '${frontend_domain}'
+        requestTemplates:
+          application/json: {\"statusCode\": 200}
+        passthroughBehavior: when_no_match
+        type: mock
   /stop-ark:
     put:
       produces:
@@ -99,6 +157,22 @@ paths:
         httpMethod: POST
         uri: ${stop_ark_lambda_invoke_arn}
         type: aws_proxy
+    options:
+      responses:
+        "200":
+          $ref: '#/components/responses/options'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: 'OPTIONS,POST,PUT'
+              method.response.header.Access-Control-Allow-Headers: 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
+              method.response.header.Access-Control-Allow-Origin: '${frontend_domain}'
+        requestTemplates:
+          application/json: {\"statusCode\": 200}
+        passthroughBehavior: when_no_match
+        type: mock
   /test:
     get:
       produces:
