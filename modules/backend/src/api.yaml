@@ -35,13 +35,12 @@ paths:
           default:
             statusCode: 200
             responseParameters:
-              method.response.header.Access-Control-Allow-Methods: 'OPTIONS,POST,PUT'
-              method.response.header.Access-Control-Allow-Headers: 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
-              method.response.header.Access-Control-Allow-Origin: '${frontend_domain}'
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,PUT'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'${frontend_domain}'"
         requestTemplates:
-          application/json: {\"statusCode\": 200}
+          application/json: "{\"statusCode\": 200}"
         passthroughBehavior: when_no_match
-        type: mock
   /reset-password:
     put:
       produces:
@@ -62,13 +61,12 @@ paths:
           default:
             statusCode: 200
             responseParameters:
-              method.response.header.Access-Control-Allow-Methods: 'OPTIONS,POST,PUT'
-              method.response.header.Access-Control-Allow-Headers: 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
-              method.response.header.Access-Control-Allow-Origin: '${frontend_domain}'
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,PUT'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'${frontend_domain}'"
         requestTemplates:
-          application/json: {\"statusCode\": 200}
+          application/json: "{\"statusCode\": 200}"
         passthroughBehavior: when_no_match
-        type: mock
   /sign-in:
     post:
       produces:
@@ -112,13 +110,13 @@ paths:
           default:
             statusCode: 200
             responseParameters:
-              method.response.header.Access-Control-Allow-Methods: 'OPTIONS,POST,PUT'
-              method.response.header.Access-Control-Allow-Headers: 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
-              method.response.header.Access-Control-Allow-Origin: '${frontend_domain}'
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,PUT'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'${frontend_domain}'"
         requestTemplates:
-          application/json: {\"statusCode\": 200}
+          application/json: "{\"statusCode\": 200}"
         passthroughBehavior: when_no_match
-        type: mock
+      type: mock
   /start-ark:
     put:
       produces:
@@ -139,13 +137,12 @@ paths:
           default:
             statusCode: 200
             responseParameters:
-              method.response.header.Access-Control-Allow-Methods: 'OPTIONS,POST,PUT'
-              method.response.header.Access-Control-Allow-Headers: 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
-              method.response.header.Access-Control-Allow-Origin: '${frontend_domain}'
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,PUT'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'${frontend_domain}'"
         requestTemplates:
-          application/json: {\"statusCode\": 200}
+          application/json: "{\"statusCode\": 200}"
         passthroughBehavior: when_no_match
-        type: mock
   /stop-ark:
     put:
       produces:
@@ -166,13 +163,12 @@ paths:
           default:
             statusCode: 200
             responseParameters:
-              method.response.header.Access-Control-Allow-Methods: 'OPTIONS,POST,PUT'
-              method.response.header.Access-Control-Allow-Headers: 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
-              method.response.header.Access-Control-Allow-Origin: '${frontend_domain}'
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,PUT'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'${frontend_domain}'"
         requestTemplates:
-          application/json: {\"statusCode\": 200}
+          application/json: "{\"statusCode\": 200}"
         passthroughBehavior: when_no_match
-        type: mock
   /test:
     get:
       produces:
@@ -203,11 +199,11 @@ components:
         default:
           statusCode: 200
           responseParameters:
-            method.response.header.Access-Control-Allow-Methods: 'OPTIONS,POST,PUT'
-            method.response.header.Access-Control-Allow-Headers: 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
-            method.response.header.Access-Control-Allow-Origin: '${frontend_domain}'
+            method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,PUT'"
+            method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+            method.response.header.Access-Control-Allow-Origin: "'${frontend_domain}'"
       requestTemplates:
-        application/json: {\"statusCode\": 200}
+        application/json: "{\"statusCode\": 200}"
       passthroughBehavior: when_no_match
       type: mock
   securitySchemes:
