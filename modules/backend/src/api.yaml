@@ -120,7 +120,7 @@ paths:
         passthroughBehavior: when_no_match
         type: mock
   /start-ark:
-    put:
+    post:
       produces:
       - application/json
       operationId: startArk
@@ -147,7 +147,7 @@ paths:
         passthroughBehavior: when_no_match
         type: mock
   /stop-ark:
-    put:
+    post:
       produces:
       - application/json
       operationId: stopArk
