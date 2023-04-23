@@ -49,6 +49,15 @@ paths:
       operationId: resetPassword
       security:
         - ${authorizor_name}: []
+      parameters:
+      - in: body
+        name: previous_password
+        required: true
+        type: string
+      - in: body
+        name: new_password
+        required: true
+        type: string
       x-amazon-apigateway-integration:
         httpMethod: POST
         uri: ${reset_password_lambda_invoke_arn}
