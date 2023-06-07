@@ -23,7 +23,7 @@ module "backend" {
   asg_name = module.ark.asg_name
   domain   = local.domain
 
-  depends_on = [ 
+  depends_on = [
     module.ark
   ]
 }
