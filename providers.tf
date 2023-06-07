@@ -14,7 +14,7 @@ locals {
   env = length(split("merge", var.env)) > 1 ? "prod" : local.branch_map[var.env]
   account = {
     "dev"  = "851722294868"
-    "main" = "935821842394"
+    "prod" = "935821842394"
   }
   assume_role_name = "OrganizationAccountAccessRole"
   role             = "arn:aws:iam::${local.account[local.env]}:role/${local.assume_role_name}"
