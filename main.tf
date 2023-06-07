@@ -4,7 +4,7 @@ module "frontend" {
   }
   source = "./modules/frontend"
 
-  env          = var.env
+  env          = local.env
   repo         = "https://github.com/vvmirkovic/woodnet-server.git"
   github_token = var.github_token
   domain       = local.domain
@@ -17,7 +17,7 @@ module "backend" {
   }
   source = "./modules/backend"
 
-  env = var.env
+  env = local.env
 
   # ark variables
   asg_name = module.ark.asg_name
@@ -31,7 +31,7 @@ module "network" {
 module "ark" {
   source = "./modules/ark"
 
-  env                = var.env
+  env                = local.env
   server_image       = "hermsi/ark-server"
   instance_type      = "t3.medium" #r6g.medium
   cpu_architecture   = "x86_64"    #arm64

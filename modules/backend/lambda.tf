@@ -27,7 +27,7 @@ resource "aws_lambda_layer_version" "backend_handler" {
   filename            = local.zip_file
   layer_name          = "backend_handler"
   compatible_runtimes = ["python3.9"]
-  source_code_hash    = data.archive_file.backend_handler.output_base64sha256
+  source_code_hash    = filebase64sha256(local.backend_handler_dest)
 }
 
 locals {
