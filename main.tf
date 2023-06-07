@@ -24,7 +24,7 @@ module "backend" {
   domain   = local.domain
 
   depends_on [ 
-    module.ark
+    module.ark.asg_name
   ]
 }
 
