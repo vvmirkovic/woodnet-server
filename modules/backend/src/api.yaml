@@ -26,6 +26,22 @@ paths:
         httpMethod: POST
         uri: ${create_user_lambda_invoke_arn}
         type: aws_proxy
+    options:
+      responses:
+        "200":
+          $ref: '#/components/responses/options'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,PUT'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'${frontend_domain}'"
+        requestTemplates:
+          application/json: "{\"statusCode\": 200}"
+        passthroughBehavior: when_no_match
+        type: mock
   /reset-password:
     put:
       produces:
@@ -33,10 +49,35 @@ paths:
       operationId: resetPassword
       security:
         - ${authorizor_name}: []
+      parameters:
+      - in: body
+        name: previous_password
+        required: true
+        type: string
+      - in: body
+        name: new_password
+        required: true
+        type: string
       x-amazon-apigateway-integration:
         httpMethod: POST
         uri: ${reset_password_lambda_invoke_arn}
         type: aws_proxy
+    options:
+      responses:
+        "200":
+          $ref: '#/components/responses/options'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,PUT'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'${frontend_domain}'"
+        requestTemplates:
+          application/json: "{\"statusCode\": 200}"
+        passthroughBehavior: when_no_match
+        type: mock
   /sign-in:
     post:
       produces:
@@ -76,9 +117,19 @@ paths:
         "200":
           $ref: '#/components/responses/options'
       x-amazon-apigateway-integration:
-        $ref: '#/components/x-amazon-apigateway-integrations/options'
+        responses:
+          default:
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,PUT'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'${frontend_domain}'"
+        requestTemplates:
+          application/json: "{\"statusCode\": 200}"
+        passthroughBehavior: when_no_match
+        type: mock
   /start-ark:
-    put:
+    post:
       produces:
       - application/json
       operationId: startArk
@@ -88,8 +139,24 @@ paths:
         httpMethod: POST
         uri: ${start_ark_lambda_invoke_arn}
         type: aws_proxy
+    options:
+      responses:
+        "200":
+          $ref: '#/components/responses/options'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,PUT'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'${frontend_domain}'"
+        requestTemplates:
+          application/json: "{\"statusCode\": 200}"
+        passthroughBehavior: when_no_match
+        type: mock
   /stop-ark:
-    put:
+    post:
       produces:
       - application/json
       operationId: stopArk
@@ -99,6 +166,22 @@ paths:
         httpMethod: POST
         uri: ${stop_ark_lambda_invoke_arn}
         type: aws_proxy
+    options:
+      responses:
+        "200":
+          $ref: '#/components/responses/options'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,PUT'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'${frontend_domain}'"
+        requestTemplates:
+          application/json: "{\"statusCode\": 200}"
+        passthroughBehavior: when_no_match
+        type: mock
   /test:
     get:
       produces:
@@ -129,11 +212,11 @@ components:
         default:
           statusCode: 200
           responseParameters:
-            method.response.header.Access-Control-Allow-Methods: 'OPTIONS,POST,PUT'
-            method.response.header.Access-Control-Allow-Headers: 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
-            method.response.header.Access-Control-Allow-Origin: '${frontend_domain}'
+            method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,PUT'"
+            method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+            method.response.header.Access-Control-Allow-Origin: "'${frontend_domain}'"
       requestTemplates:
-        application/json: {\"statusCode\": 200}
+        application/json: "{\"statusCode\": 200}"
       passthroughBehavior: when_no_match
       type: mock
   securitySchemes:
