@@ -22,6 +22,10 @@ module "backend" {
   # ark variables
   asg_name = module.ark.asg_name
   domain   = local.domain
+
+  depends_on [ 
+    module.ark
+  ]
 }
 
 module "network" {
