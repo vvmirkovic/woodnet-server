@@ -9,7 +9,7 @@ terraform {
 locals {
   branch_map = {
     "main" = "prod"
-    "dev" = "dev"
+    "dev"  = "dev"
   }
   env = local.branch_map[var.env]
   account = {
