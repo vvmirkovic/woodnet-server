@@ -28,6 +28,8 @@ resource "aws_lambda_layer_version" "backend_handler" {
   layer_name          = "backend_handler"
   compatible_runtimes = ["python3.9"]
   source_code_hash    = local_file.backend_handler.content_base64sha256
+
+  depends_on = [archive_file.backend_handler]
 }
 
 locals {
