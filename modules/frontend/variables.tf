@@ -15,3 +15,7 @@ variable "subdomain" {}
 variable "bucket_name" {
     default = null
 }
+
+variable "create_cert" {
+    default = true
+}

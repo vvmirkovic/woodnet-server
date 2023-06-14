@@ -60,4 +60,5 @@ module "gigaplat" {
   domain      = local.domain
   subdomain   = "gigaplat"
   bucket_name = "gigaplat"
+  create_cert = false
 }
