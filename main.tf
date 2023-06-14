@@ -61,4 +61,8 @@ module "gigaplat" {
   subdomain   = "gigaplat"
   bucket_name = "gigaplat"
   create_cert = false
+
+  depends_on = [
+    module.frontend
+  ]
 }
