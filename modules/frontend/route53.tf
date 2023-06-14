@@ -22,5 +22,5 @@ resource "aws_acm_certificate_validation" "this" {
 data "aws_acm_certificate" "woodnet" {
   count = var.create_cert ? 0 : 1
 
-  domain_name       = local.certificate
+  domain       = local.certificate
 }
