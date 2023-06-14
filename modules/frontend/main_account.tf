@@ -31,7 +31,7 @@ resource "aws_route53_record" "woodnet_certificate" {
   provider = aws.main
 
   for_each = var.create_cert ? {
-    for dvo in aws_acm_certificate.woodnet.domain_validation_options[0] : dvo.domain_name => {
+    for dvo in aws_acm_certificate.woodnet[0].domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
       record = dvo.resource_record_value
       type   = dvo.resource_record_type
