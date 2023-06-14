@@ -49,3 +49,15 @@ module "ark" {
     module.frontend
   ]
 }
+
+module "gigaplat" {
+  providers = {
+    aws.main = aws.main
+  }
+  source = "./modules/frontend"
+
+  env          = local.env
+  domain       = local.domain
+  subdomain    = "gigaplat"
+  bucket_name  = "gigaplat"
+}

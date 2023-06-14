@@ -1,5 +1,5 @@
 locals {
-  bucket_name = "${var.env}-woodnet-frontend"
+  bucket_name = var.bucket_name == null ? "${var.env}-woodnet-frontend" : "${var.env}-${var.bucket_name}"
 }
 
 resource "aws_s3_bucket" "woodnet" {

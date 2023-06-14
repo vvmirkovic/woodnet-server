@@ -1,9 +1,17 @@
 variable "env" {}
 
-variable "repo" {}
+variable "repo" {
+    default = null
+}
 
-variable "github_token" {}
+variable "github_token" {
+    default = null
+}
 
 variable "domain" {}
 
 variable "subdomain" {}
+
+variable "bucket_name" {
+    default = null
+}
