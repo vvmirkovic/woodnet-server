@@ -56,8 +56,8 @@ module "gigaplat" {
   }
   source = "./modules/frontend"
 
-  env          = local.env
-  domain       = local.domain
-  subdomain    = "gigaplat"
-  bucket_name  = "gigaplat"
+  env         = local.env
+  domain      = local.domain
+  subdomain   = "gigaplat"
+  bucket_name = "gigaplat"
 }
