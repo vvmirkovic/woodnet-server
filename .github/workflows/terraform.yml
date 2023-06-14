@@ -64,7 +64,7 @@ jobs:
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
       if: env.APPLY == 'true'
-      run: terraform destroy -auto-approve -input=false -var="env=$ENVIRONMENT" -var="github_token=$GITHUB_TOKEN"
+      run: terraform apply -auto-approve -input=false -var="env=$ENVIRONMENT" -var="github_token=$GITHUB_TOKEN"
     
     # - name: Upload Terraform Data
     #   if: env.APPLY
