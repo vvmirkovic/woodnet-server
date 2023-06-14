@@ -19,7 +19,7 @@ env:
   AWS_DEFAULT_REGION: us-east-1
   # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS }}
-  APPLY: ${{ (github.ref_name == 'main' || github.ref_name == 'dev') && github.event_name == 'push' }}
+  APPLY: ${{ (github.ref_name == 'main' || github.ref_name == 'dev') && github.event_name == 'push' && github.event.action != 'pull_request'}}
   REACT_PATH: modules/frontend/src/
   CI: false
 
