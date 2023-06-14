@@ -19,7 +19,7 @@ env:
   AWS_DEFAULT_REGION: us-east-1
   # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS }}
-  APPLY: ${{ (github.ref_name == 'main' || github.ref_name == 'dev') && github.event_name == 'push' && github.event.action != 'pull_request'}}
+  APPLY: ${{ (github.ref_name == 'main' || github.ref_name == 'dev') && github.event_name == 'push' }}
   REACT_PATH: modules/frontend/src/
   CI: false
 
@@ -68,7 +68,7 @@ jobs:
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
-      if: env.APPLY
+      if: env.APPLY == 'true'
       run: terraform apply -auto-approve -input=false -var="env=$ENVIRONMENT" -var="github_token=$GITHUB_TOKEN"
     
     # - name: Upload Terraform Data
