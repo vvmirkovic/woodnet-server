@@ -23,7 +23,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         repository: Brennan-Flood/Rust_Platformer
-        token: ${{ secrets.PLATFORMER_PAT }
+        token: ${{ secrets.PLATFORMER_PAT }}
     - name: Install Rust
       uses: actions-rs/toolchain@v1
       with:
