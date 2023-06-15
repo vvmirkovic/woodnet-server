@@ -6,7 +6,7 @@ import re
 import string
 from botocore.exceptions import ClientError
 from os import environ
-from backend_handler import response
+from backend_handler import backend_response
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -39,7 +39,7 @@ def lambda_handler(event, context):
     request_body = json.loads(event['body'])
     if 'username' not in request_body:
         body = json.dumps({'message': f'Invalid request. No username provided'})
-        return response(event, 400, body)
+        return backend_response(event, 400, body)
     
     username = request_body['username']
     password = generate_password()
@@ -60,7 +60,7 @@ def lambda_handler(event, context):
     except ClientError as e:
         if e.response['Error']['Code'] == 'UsernameExistsException':
             body = json.dumps({'message': f'Invalid request. Username already exists'})
-            return response(event, 400, body)
+            return backend_response(event, 400, body)
         else:
             raise
         
@@ -68,4 +68,4 @@ def lambda_handler(event, context):
         'password': password,
         'message': f'{username} added to users'
     })
-    return response(event, 200, body)
+    return backend_response(event, 200, body)
