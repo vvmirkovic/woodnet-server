@@ -60,7 +60,7 @@ module "gigaplat" {
   domain      = local.domain
   subdomain   = "gigaplat"
   bucket_name = "gigaplat"
-  create_cert = false
+  create_cert = true
 
   depends_on = [
     module.frontend
