@@ -86,7 +86,7 @@ jobs:
     needs: terraform
     runs-on: ubuntu-latest
 
-    # This step is for the flashcards
+    steps:
     - run: aws s3 sync build/ s3://${{ env.ENVIRONMENT }}-flashcards-frontend
 
   build:
