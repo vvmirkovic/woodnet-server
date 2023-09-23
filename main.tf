@@ -20,8 +20,8 @@ module "backend" {
   env = local.env
 
   api_name = "woodnet"
-  domain = local.domain
-  name   = "woodnet"
+  domain   = local.domain
+  name     = "woodnet"
   # ark variables
   woodnet_server = true
   ark_asg_name   = null #module.ark.asg_name
@@ -41,8 +41,8 @@ module "flashcards" {
   env = local.env
 
   api_name = "flashcards"
-  domain = local.flashcards_domain
-  name   = "flashcards"
+  domain   = local.flashcards_domain
+  name     = "flashcards"
 }
 
 module "network" {
