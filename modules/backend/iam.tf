@@ -30,7 +30,7 @@ locals {
       Resource = "${aws_cognito_user_pool.pool.arn}"
     }
   ]
-  ark_policy_documents = var.ark_asg_name == null ? list([]) : list([
+  ark_policy_documents = var.ark_asg_name == null ? tolist([]) : tolist([
     {
       Action = [
         "autoscaling:DescribeAutoScalingGroups",
