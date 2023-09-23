@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form id="loginForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <input type="submit" value="Login">
+    </form>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get the form data
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // Define the API endpoint URL
+            const apiUrl = "https://example.com/api/login"; // Replace with your API URL
+
+            // Create a JSON object with the form data
+            const data = {
+                username: username,
+                password: password
+            };
+
+            // Send a POST request to the API
+            fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                // Handle the API response here
+                console.log(result);
+                // You can redirect or display a message to the user based on the API response
+            })
+            .catch(error => {
+                // Handle errors here
+                console.error(error);
+            });
+        });
+    </script>
+</body>
+</html>

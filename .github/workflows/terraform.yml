@@ -81,6 +81,14 @@ jobs:
     #     event-type: frontend-build
     #     client-payload: '{"backend_url": "${{ env.BACKEND_URL }}", "environment": "${{ env.ENVIRONMENT }}" }'
   
+  flashcards:
+    if: ${{ github.ref_name == 'main' || github.ref_name == 'dev' && github.event_name == 'push' }}
+    needs: terraform
+    runs-on: ubuntu-latest
+
+    # This step is for the flashcards
+    - run: aws s3 sync build/ s3://${{ env.ENVIRONMENT }}-flashcards-frontend
+
   build:
     if: ${{ github.ref_name == 'main' || github.ref_name == 'dev' && github.event_name == 'push' }}
     needs: terraform
