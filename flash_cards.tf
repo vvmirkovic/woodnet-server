@@ -21,7 +21,8 @@ module "flashcards" {
   }
   source = "./modules/backend"
 
-  env    = local.env
-  domain = local.flashcards_domain
-  name   = "flashcards"
+  account_suffix = true
+  env            = local.env
+  domain         = local.flashcards_domain
+  name           = "flashcards"
 }

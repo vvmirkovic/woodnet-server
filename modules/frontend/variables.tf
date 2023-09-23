@@ -1,3 +1,7 @@
+variable "account_suffix" {
+  default = false
+}
+
 variable "env" {}
 
 variable "repo" {
