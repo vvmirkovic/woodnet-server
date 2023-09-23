@@ -17,8 +17,7 @@ module "backend" {
   }
   source = "./modules/backend"
 
-  env = local.env
-
+  env    = local.env
   domain = local.domain
   name   = "woodnet"
   # ark variables
