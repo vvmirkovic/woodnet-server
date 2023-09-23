@@ -5,6 +5,8 @@ resource "aws_iam_role" "lambda_execution" {
 }
 
 data "aws_autoscaling_group" "ark" {
+  count  = var.asg_name == null ? 0 : 1
+
   name = var.asg_name
 }
 
@@ -16,7 +18,7 @@ resource "aws_iam_policy" "lambda_policy" {
     {
       account_id            = data.aws_caller_identity.current.account_id
       records_role_arn      = aws_iam_role.records.arn
-      asg_arn               = data.aws_autoscaling_group.ark.arn
+      asg_arn               = var.asg_name == null ? "" : data.aws_autoscaling_group.ark[0].arn
       cognito_user_pool_arn = aws_cognito_user_pool.pool.arn
     }
   )

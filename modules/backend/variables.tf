@@ -1,5 +1,7 @@
 # ark variables 
-variable "asg_name" {}
+variable "asg_name" {
+    default = null
+}
 
 variable "domain" {}
 
