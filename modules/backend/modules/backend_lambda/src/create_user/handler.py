@@ -51,7 +51,7 @@ def lambda_handler(event, context):
             UserPoolId = USER_POOL_ID,
             Username = username
         )
-        response = client.admin_set_user_password(
+        client.admin_set_user_password(
             UserPoolId = USER_POOL_ID,
             Username = username,
             Password = password,
