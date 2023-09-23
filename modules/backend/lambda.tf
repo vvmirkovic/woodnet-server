@@ -60,7 +60,7 @@ module "start_ark_lambda" {
     ASG_NAME               = var.ark_asg_name
     HOSTED_ZONE_ID         = data.aws_route53_zone.main.zone_id
     RECORD_NAME            = local.record_name
-    LAMBDA_ASSUME_ROLE_ARN = aws_iam_role.records.arn
+    LAMBDA_ASSUME_ROLE_ARN = aws_iam_role.records[0].arn
   }
 }
 

@@ -19,14 +19,28 @@ module "backend" {
 
   env = local.env
 
+  domain         = local.domain
+  name           = "woodnet"
   # ark variables
   woodnet_server = true
   ark_asg_name   = null #module.ark.asg_name
-  domain         = local.domain
+
 
   # depends_on = [
   #   module.ark
   # ]
+}
+
+module "flashcards" {
+  providers = {
+    aws.main = aws.main
+  }
+  source = "./modules/backend"
+
+  env = local.env
+
+  domain         = local.flashcards_domain
+  name           = "flashcards"
 }
 
 module "network" {

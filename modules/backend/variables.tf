@@ -10,3 +10,5 @@ variable "woodnet_server" {
 variable "domain" {}
 
 variable "env" {}
+
+variable "name" {}

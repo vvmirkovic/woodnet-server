@@ -1,6 +1,6 @@
 # Creating role and policy for lambda execution role
 resource "aws_iam_role" "lambda_execution" {
-  name               = "woodnet_lambda"
+  name               = "${var.name}_lambda"
   assume_role_policy = file("${path.module}/policies/lambda_trust.json")
 }
 
@@ -55,13 +55,13 @@ locals {
 }
 
 resource "aws_iam_policy" "lambda_policy" {
-  name = "woodnet_lambda"
+  name = "${var.name}_lambda"
 
   # policy = templatefile(
   #   "${path.module}/policies/lambda_execution.json",
   #   {
   #     account_id            = data.aws_caller_identity.current.account_id
-  #     records_role_arn      = aws_iam_role.records.arn
+  #     records_role_arn      = aws_iam_role.records[0].arn
   #     asg_arn               = var.ark_asg_name == null ? "*" : data.aws_autoscaling_group.ark[0].arn
   #     cognito_user_pool_arn = aws_cognito_user_pool.pool.arn
   #   }

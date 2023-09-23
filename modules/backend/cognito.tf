@@ -1,9 +1,9 @@
 resource "aws_cognito_user_pool" "pool" {
-  name = "${var.env}-woodnet"
+  name = "${var.env}-${var.name}"
 }
 
 resource "aws_cognito_user_pool_client" "client" {
-  name = "woodnet"
+  name = var.name
 
   user_pool_id = aws_cognito_user_pool.pool.id
   explicit_auth_flows = [
