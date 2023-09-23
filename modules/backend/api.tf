@@ -13,8 +13,8 @@ locals {
     frontend_domain                  = "https://${local.frontend_domain}"
   }
   ark_api_substitutions = merge(local.default_api_substitutions, var.woodnet_server ? {
-    start_ark_lambda_invoke_arn = module.start_ark_lambda.invoke_arn
-    stop_ark_lambda_invoke_arn  = module.stop_ark_lambda.invoke_arn
+    start_ark_lambda_invoke_arn = module.start_ark_lambda[0].invoke_arn
+    stop_ark_lambda_invoke_arn  = module.stop_ark_lambda[0].invoke_arn
   } : {})
 
 }
@@ -24,8 +24,8 @@ resource "aws_api_gateway_rest_api" "woodnet" {
     local.ark_api_substitutions
     # {
     #   test_lambda_invoke_arn           = module.test_lambda.invoke_arn
-    #   start_ark_lambda_invoke_arn      = module.start_ark_lambda.invoke_arn # var.ark_asg_name == null ? "" : 
-    #   stop_ark_lambda_invoke_arn       = module.stop_ark_lambda.invoke_arn  # var.ark_asg_name == null ? "" : 
+    #   start_ark_lambda_invoke_arn      = module.start_ark_lambda[0].invoke_arn # var.ark_asg_name == null ? "" : 
+    #   stop_ark_lambda_invoke_arn       = module.stop_ark_lambda[0].invoke_arn  # var.ark_asg_name == null ? "" : 
     #   create_user_lambda_invoke_arn    = module.create_user_lambda.invoke_arn
     #   reset_password_lambda_invoke_arn = module.reset_password_lambda.invoke_arn
     #   sign_in_lambda_invoke_arn        = module.sign_in_lambda.invoke_arn
