@@ -66,7 +66,7 @@ module "start_ark_lambda" {
 
 module "stop_ark_lambda" {
   source = "./modules/backend_lambda"
-  count  =  var.woodnet_server ? 1 : 0
+  count  = var.woodnet_server ? 1 : 0
 
   backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
