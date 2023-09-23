@@ -20,7 +20,7 @@ module "backend" {
   env = local.env
 
   # ark variables
-  asg_name = module.ark.asg_name
+  asg_name = null #module.ark.asg_name
   domain   = local.domain
 
   # depends_on = [
