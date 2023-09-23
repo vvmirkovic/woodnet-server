@@ -21,7 +21,7 @@ module "backend" {
 
   # ark variables
   ark_asg_name = null #module.ark.asg_name
-  domain   = local.domain
+  domain       = local.domain
 
   # depends_on = [
   #   module.ark

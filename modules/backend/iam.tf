@@ -5,7 +5,7 @@ resource "aws_iam_role" "lambda_execution" {
 }
 
 data "aws_autoscaling_group" "ark" {
-  count  = var.ark_asg_name == null ? 0 : 1
+  count = var.ark_asg_name == null ? 0 : 1
 
   name = var.ark_asg_name
 }
@@ -41,7 +41,7 @@ locals {
       Resource = "*"
     },
     {
-      Action = "autoscaling:SetDesiredCapacity"
+      Action   = "autoscaling:SetDesiredCapacity"
       Effect   = "Allow"
       Resource = "${data.aws_autoscaling_group.ark[0].arn}"
     }

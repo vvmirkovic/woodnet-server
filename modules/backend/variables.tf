@@ -1,6 +1,6 @@
 # ark variables 
 variable "asg_name" {
-    default = null
+  default = null
 }
 
 variable "domain" {}
