@@ -1,4 +1,4 @@
-module "frontend" {
+module "flashcards_frontend" {
   providers = {
     aws.main = aws.main
   }
