@@ -32,23 +32,23 @@ module "network" {
   source = "./modules/network"
 }
 
-module "ark" {
-  source = "./modules/ark"
+# module "ark" {
+#   source = "./modules/ark"
 
-  env                = local.env
-  server_image       = "hermsi/ark-server"
-  instance_type      = "t3.medium" #r6g.medium
-  cpu_architecture   = "x86_64"    #arm64
-  domain             = local.domain
-  subdomain          = "ark.server"
-  vpc_id             = module.network.vpc_id
-  private_subnet_ids = module.network.public_subnet_ids
-  public_subnet_ids  = module.network.public_subnet_ids
+#   env                = local.env
+#   server_image       = "hermsi/ark-server"
+#   instance_type      = "t3.medium" #r6g.medium
+#   cpu_architecture   = "x86_64"    #arm64
+#   domain             = local.domain
+#   subdomain          = "ark.server"
+#   vpc_id             = module.network.vpc_id
+#   private_subnet_ids = module.network.public_subnet_ids
+#   public_subnet_ids  = module.network.public_subnet_ids
 
-  depends_on = [
-    module.frontend
-  ]
-}
+#   depends_on = [
+#     module.frontend
+#   ]
+# }
 
 module "gigaplat" {
   providers = {
