@@ -5,6 +5,7 @@ variable "ark_asg_name" {
 
 variable "woodnet_server" {
   type = bool
+  default = false
 }
 
 variable "domain" {}
