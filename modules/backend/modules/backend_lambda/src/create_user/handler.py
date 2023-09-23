@@ -6,7 +6,7 @@ import re
 import string
 from botocore.exceptions import ClientError
 from os import environ
-from backend_handler import backend_response
+from backend_handler import response
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
