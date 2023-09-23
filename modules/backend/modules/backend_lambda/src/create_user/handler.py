@@ -32,8 +32,6 @@ def generate_password():
         if validate_password(password):
             return password
 
-
-
 def lambda_handler(event, context):
 
     request_body = json.loads(event['body'])
