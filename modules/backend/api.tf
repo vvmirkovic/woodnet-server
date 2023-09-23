@@ -7,8 +7,8 @@ resource "aws_api_gateway_rest_api" "woodnet" {
     "${path.module}/src/api.yaml",
     {
       test_lambda_invoke_arn           = module.test_lambda.invoke_arn
-      start_ark_lambda_invoke_arn      = module.start_ark_lambda.invoke_arn
-      stop_ark_lambda_invoke_arn       = module.stop_ark_lambda.invoke_arn
+      start_ark_lambda_invoke_arn      = var.asg_name == null ? "" : module.start_ark_lambda.invoke_arn
+      stop_ark_lambda_invoke_arn       = var.asg_name == null ? "" : module.stop_ark_lambda.invoke_arn
       create_user_lambda_invoke_arn    = module.create_user_lambda.invoke_arn
       reset_password_lambda_invoke_arn = module.reset_password_lambda.invoke_arn
       sign_in_lambda_invoke_arn        = module.sign_in_lambda.invoke_arn
