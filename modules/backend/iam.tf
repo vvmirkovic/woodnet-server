@@ -28,13 +28,19 @@ locals {
       ]
       Effect   = "Allow"
       Resource = "${aws_cognito_user_pool.pool.arn}"
+    },
+    {
+      Action = [
+        "cognito-idp:InitiateAuth"
+      ]
+      Effect   = "Allow"
+      Resource = "*"
     }
   ]
   ark_policy_documents = var.ark_asg_name == null ? tolist([]) : tolist([
     {
       Action = [
         "autoscaling:DescribeAutoScalingGroups",
-        "cognito-idp:InitiateAuth",
         "ec2:DescribeInstances"
       ]
       Effect   = "Allow"
