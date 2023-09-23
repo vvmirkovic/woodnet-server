@@ -13,5 +13,3 @@ variable "domain" {}
 variable "env" {}
 
 variable "name" {}
-
-variable "api_name" {}

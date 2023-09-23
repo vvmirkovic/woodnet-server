@@ -20,7 +20,7 @@ locals {
 }
 resource "aws_api_gateway_rest_api" "woodnet" {
   body = templatefile(
-    "${path.module}/src/${var.api_name}.yaml",
+    "${path.module}/src/${var.name}.yaml",
     local.ark_api_substitutions
     # {
     #   test_lambda_invoke_arn           = module.test_lambda.invoke_arn

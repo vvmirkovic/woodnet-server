@@ -43,7 +43,7 @@ module "test_lambda" {
   backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
   layers             = [aws_lambda_layer_version.backend_handler.arn]
-  name               = "test"
+  name               = "${var.name}_test"
 }
 
 module "start_ark_lambda" {
@@ -53,7 +53,7 @@ module "start_ark_lambda" {
   backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
   layers             = local.default_layers
-  name               = "start_ark"
+  name               = "${var.name}_start_ark"
   timeout            = 900
 
   environment_vars = {
@@ -71,7 +71,7 @@ module "stop_ark_lambda" {
   backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
   layers             = local.default_layers
-  name               = "stop_ark"
+  name               = "${var.name}_stop_ark"
 
   environment_vars = {
     ASG_NAME = var.ark_asg_name
@@ -84,7 +84,7 @@ module "create_user_lambda" {
   backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
   layers             = local.default_layers
-  name               = "create_user"
+  name               = "${var.name}_create_user"
 
   environment_vars = {
     USER_POOL_ID = aws_cognito_user_pool.pool.id
@@ -97,7 +97,7 @@ module "sign_in_lambda" {
   backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
   layers             = local.default_layers
-  name               = "sign_in"
+  name               = "${var.name}_sign_in"
 
   environment_vars = {
     CLIENT_ID = aws_cognito_user_pool_client.client.id
@@ -110,7 +110,7 @@ module "reset_password_lambda" {
   backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
   layers             = local.default_layers
-  name               = "reset_password"
+  name               = "${var.name}_reset_password"
 }
 
 
