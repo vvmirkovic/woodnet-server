@@ -30,7 +30,7 @@ locals {
       Resource = "${aws_cognito_user_pool.pool.arn}"
     }
   ]
-  ark_policy_documents = var.ark_asg_name == null ? [] : [
+  ark_policy_documents = var.ark_asg_name == null ? list([]) : list([
     {
       Action = [
         "autoscaling:DescribeAutoScalingGroups",
@@ -45,7 +45,7 @@ locals {
       Effect   = "Allow"
       Resource = "${data.aws_autoscaling_group.ark[0].arn}"
     }
-  ]
+  ])
 }
 
 resource "aws_iam_policy" "lambda_policy" {
