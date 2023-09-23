@@ -48,7 +48,7 @@ module "test_lambda" {
 
 module "start_ark_lambda" {
   source = "./modules/backend_lambda"
-  count  = var.asg_name == null ? 0 : 1
+  count  = var.ark_asg_name == null ? 0 : 1
 
   backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
@@ -57,7 +57,7 @@ module "start_ark_lambda" {
   timeout            = 900
 
   environment_vars = {
-    ASG_NAME               = var.asg_name
+    ASG_NAME               = var.ark_asg_name
     HOSTED_ZONE_ID         = data.aws_route53_zone.main.zone_id
     RECORD_NAME            = local.record_name
     LAMBDA_ASSUME_ROLE_ARN = aws_iam_role.records.arn
@@ -66,7 +66,7 @@ module "start_ark_lambda" {
 
 module "stop_ark_lambda" {
   source = "./modules/backend_lambda"
-  count  = var.asg_name == null ? 0 : 1
+  count  = var.ark_asg_name == null ? 0 : 1
 
   backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
@@ -74,7 +74,7 @@ module "stop_ark_lambda" {
   name               = "stop_ark"
 
   environment_vars = {
-    ASG_NAME = var.asg_name
+    ASG_NAME = var.ark_asg_name
   }
 }
 

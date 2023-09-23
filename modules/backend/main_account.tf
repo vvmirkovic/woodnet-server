@@ -43,7 +43,6 @@ resource "aws_iam_policy" "records" {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "VisualEditor0",
             "Effect": "Allow",
             "Action": "route53:ChangeResourceRecordSets",
             "Resource": "${data.aws_route53_zone.main.arn}"
