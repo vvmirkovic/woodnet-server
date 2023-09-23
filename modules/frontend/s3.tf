@@ -1,6 +1,6 @@
 locals {
   base_bucket_name = var.bucket_name == null ? "${var.env}-woodnet-frontend" : "${var.env}-${var.bucket_name}"
-  bucket_name = "${local.base_bucket_name}-${data.aws_caller_identity.current.account_id}"
+  bucket_name = var.account_suffix ? "${local.base_bucket_name}-${data.aws_caller_identity.current.account_id}" : local.base_bucket_name
 }
 
 resource "aws_s3_bucket" "woodnet" {
