@@ -87,6 +87,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
     - run: aws s3 sync src/flashcards_frontend/ s3://${{ env.ENVIRONMENT }}-flashcards-851722294868
 
   build:
