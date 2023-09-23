@@ -87,7 +87,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - run: aws s3 sync src/flashcards_frontend/ s3://${{ env.ENVIRONMENT }}-flashcards-frontend
+    - run: aws s3 sync src/flashcards_frontend/ s3://${{ env.ENVIRONMENT }}-flashcards-851722294868
 
   build:
     if: ${{ github.ref_name == 'main' || github.ref_name == 'dev' && github.event_name == 'push' }}
