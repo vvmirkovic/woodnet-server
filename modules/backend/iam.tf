@@ -82,7 +82,7 @@ resource "aws_iam_role_policy_attachment" "lambda" {
 
 # Creating role and policy for api cloudwatch role
 resource "aws_iam_role" "api_cloudwatch" {
-  name                = "api_cloudwatch"
+  name                = "${var.name}_api_cloudwatch"
   managed_policy_arns = [aws_iam_policy.api_cloudwatch.arn]
 
   assume_role_policy = file("${path.module}/policies/api_cloudwatch_trust.json")
