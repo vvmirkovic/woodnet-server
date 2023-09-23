@@ -8,8 +8,12 @@ module "flashcards_frontend" {
   repo         = "https://github.com/vvmirkovic/woodnet-server.git"
   github_token = var.github_token
   domain       = local.flashcards_domain
-  name         = "flashcards"
-  subdomain    = ""
+  bucket_name  = "flashcards"
+  subdomain    = "flashcards"
+
+  depends_on = [
+    module.frontend
+  ]
 }
 
 module "flashcards" {

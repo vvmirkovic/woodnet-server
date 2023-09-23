@@ -10,8 +10,6 @@ variable "github_token" {
 
 variable "domain" {}
 
-variable "name" {}
-
 variable "subdomain" {}
 
 variable "bucket_name" {
