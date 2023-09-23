@@ -1,0 +1,59 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Node.js CI
+on:
+  workflow_run:
+    workflows: [Terraform]
+    types: [completed]
+  # push:
+  #   branches: [ "main", "dev" ]
+  # pull_request:
+  #   branches: [ "main", "dev" ]
+
+env:
+  ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || github.ref_name }}
+  REACT_PATH: modules/frontend/src/
+  CI: false
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_DEFAULT_REGION: us-east-1
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        repository: Brennan-Flood/woodnet-frontend
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: package-lock.json
+        # cache-dependency-path: ${{ env.REACT_PATH }}/package-lock.json
+
+    # - name: Download terraform values
+    #   uses: actions/download-artifact@v3
+    #   with:
+    #     name: backend_url
+
+    # - name: Save terraform data values
+    #   run: |
+    #     backend_url=`cat backend_url.txt`
+    #     echo $backend_url
+
+    - run: npm ci #${{ env.REACT_PATH }} --prefix ${{ env.REACT_PATH }}
+    - run: npm run build --if-present # --prefix ${{ env.REACT_PATH }}
+#    - run: npm test --prefix ${{ env.REACT_PATH }}
+    # - run: aws s3 sync ${{ env.REACT_PATH }}build/ s3://${{ github.ref_name }}-woodnet-frontend
+    - run: aws s3 sync build/ s3://${{ env.ENVIRONMENT }}-woodnet-frontend
