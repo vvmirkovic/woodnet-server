@@ -1,5 +1,5 @@
 # ark variables 
-variable "asg_name" {
+variable "ark_asg_name" {
   default = null
 }
 
