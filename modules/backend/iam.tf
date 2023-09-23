@@ -89,7 +89,7 @@ resource "aws_iam_role" "api_cloudwatch" {
 }
 
 resource "aws_iam_policy" "api_cloudwatch" {
-  name = "api_cloudwatch"
+  name = "${var.name}_api_cloudwatch"
 
   policy = templatefile(
     "${path.module}/policies/api_cloudwatch.json",
