@@ -20,6 +20,7 @@ module "backend" {
   env = local.env
 
   domain = local.domain
+  name   = "woodnet"
   # ark variables
   woodnet_server = true
   ark_asg_name   = null #module.ark.asg_name
