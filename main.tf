@@ -19,7 +19,6 @@ module "backend" {
 
   env = local.env
 
-  api_name = "woodnet"
   domain   = local.domain
   name     = "woodnet"
   # ark variables
@@ -40,7 +39,6 @@ module "flashcards" {
 
   env = local.env
 
-  api_name = "flashcards"
   domain   = local.flashcards_domain
   name     = "flashcards"
 }
