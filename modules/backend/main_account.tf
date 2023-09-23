@@ -56,6 +56,7 @@ EOF
 
 resource "aws_iam_role_policy_attachment" "records" {
   provider = aws.main
+  count    = var.woodnet_server ? 1 : 0
 
   role       = aws_iam_role.records[0].name
   policy_arn = aws_iam_policy.records[0].arn
