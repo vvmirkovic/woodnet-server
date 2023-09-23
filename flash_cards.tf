@@ -4,11 +4,12 @@ module "flashcards_frontend" {
   }
   source = "./modules/frontend"
 
-  env         = local.env
-  domain      = local.flashcards_domain
-  subdomain   = "flashcards"
-  bucket_name = "flashcards"
-  create_cert = true
+  account_suffix = true
+  env            = local.env
+  domain         = local.flashcards_domain
+  subdomain      = "flashcards"
+  bucket_name    = "flashcards"
+  create_cert    = true
 
   depends_on = [
     module.frontend
@@ -21,8 +22,7 @@ module "flashcards" {
   }
   source = "./modules/backend"
 
-  account_suffix = true
-  env            = local.env
-  domain         = local.flashcards_domain
-  name           = "flashcards"
+  env    = local.env
+  domain = local.flashcards_domain
+  name   = "flashcards"
 }
