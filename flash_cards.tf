@@ -18,10 +18,10 @@ module "flashcards" {
   }
   source = "./modules/backend"
 
-  env = local.env
-  domain = local.flashcards_domain
+  env         = local.env
+  domain      = local.flashcards_domain
   subdomain   = "flashcards"
-  bucket_name  = "flashcards"
+  bucket_name = "flashcards"
   create_cert = true
 
   depends_on = [
