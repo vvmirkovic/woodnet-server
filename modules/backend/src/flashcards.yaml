@@ -112,6 +112,22 @@ paths:
         httpMethod: POST
         uri: ${sign_in_lambda_invoke_arn}
         type: aws_proxy
+    options:
+      responses:
+        "200":
+          $ref: '#/components/responses/options'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,PUT'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'${frontend_domain}'"
+        requestTemplates:
+          application/json: "{\"statusCode\": 200}"
+        passthroughBehavior: when_no_match
+        type: mock
   /get-flashcards/{flashcard_set}/{number_of_words}/{week}/{day_of_week}:
     get:
       produces:
