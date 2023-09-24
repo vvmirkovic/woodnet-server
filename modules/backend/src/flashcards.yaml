@@ -149,6 +149,22 @@ paths:
             \"flashcard_set\":\"$input.params('flashcard_set')\",
             \"number_of_words\":\"$input.params('number_of_words')\",
             }"
+    options:
+      responses:
+        "200":
+          $ref: '#/components/responses/options'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'GET'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'${frontend_domain}'"
+        requestTemplates:
+          application/json: "{\"statusCode\": 200}"
+        passthroughBehavior: when_no_match
+        type: mock
   /test:
     get:
       produces:
