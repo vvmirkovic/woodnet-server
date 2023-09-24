@@ -54,6 +54,10 @@
             .then(result => {
                 // Handle the API response here
                 console.log(result);
+                localStorage.setItem("AccessToken", result.AccessToken);
+                localStorage.setItem("RefreshToken", result.RefreshToken);
+                localStorage.setItem("IdToken", result.IdToken);
+                localStorage.setItem("LoggedIn", "true");
                 window.location.href = "flashcards";
             })
             .catch(error => {
