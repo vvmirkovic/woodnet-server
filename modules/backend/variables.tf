@@ -8,7 +8,7 @@ variable "woodnet_server" {
   default = false
 }
 
-variable "subdomain" {
+variable "frontend_subdomain" {
   default = ""
 }
 
