@@ -30,4 +30,6 @@ module "flashcards" {
 
 module "flashcards_database" {
   source = "./modules/flashcards"
+
+  name = "flashcards"
 }
