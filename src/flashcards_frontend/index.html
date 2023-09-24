@@ -54,7 +54,7 @@
             .then(result => {
                 // Handle the API response here
                 console.log(result);
-                // You can redirect or display a message to the user based on the API response
+                window.location.href = `${window.location.hostname}/flashcards`;
             })
             .catch(error => {
                 // Handle errors here
