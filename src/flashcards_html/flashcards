@@ -7,5 +7,71 @@
 </head>
 <body>
     <h1>Hello World</h1>
+
+    <form id="loginForm">
+        <label for="day_of_week">Day of the week (integer):</label>
+        <input type="text" id="day_of_week" name="day_of_week" required><br><br>
+
+        <label for="week">Week (Integer):</label>
+        <input type="text" id="week" name="week" required><br><br>
+
+        <label for="number_of_words">Number of words in the set:</label>
+        <input type="text" id="number_of_words" name="number_of_words" required><br><br>
+
+        <input type="submit" value="Login">
+    </form>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get the form data
+            const day_of_week = document.getElementById("day_of_week").value;
+            const week = document.getElementById("week").value;
+            const number_of_words = document.getElementById("number_of_words").value;
+            const flashcard_set = "flashcards";
+
+            // Define the API endpoint URL
+            var currentDomain = window.location.hostname;
+
+            if (currentDomain.includes("dev")) {
+                var environment_prefix = "dev.";
+            } else {
+                var environment_prefix = "";
+            }
+
+            const apiUrl = `https://${environment_prefix}backend.vvmirkovic.com/get-flashcards`; // Replace with your API URL
+
+            // Create a JSON object with the form data
+            const data = {
+                day_of_week: day_of_week,
+                week: week,
+                number_of_words: number_of_words,
+                flashcard_set: flashcard_set
+            };
+
+            // Send a POST request to the API
+            fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                // Handle the API response here
+                localStorage.setItem("AccessToken", result.AccessToken);
+                localStorage.setItem("RefreshToken", result.RefreshToken);
+                localStorage.setItem("IdToken", result.IdToken);
+                localStorage.setItem("LoggedIn", "true");
+                window.location.href = "flashcards";
+            })
+            .catch(error => {
+                // Handle errors here
+                console.error(error);
+            });
+        });
+    </script>
 </body>
 </html>

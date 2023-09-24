@@ -112,8 +112,8 @@ paths:
         httpMethod: POST
         uri: ${sign_in_lambda_invoke_arn}
         type: aws_proxy
-  /get-flashcards:
-    post:
+  /get-flashcards/{flashcard_set}/{number_of_words}/{week}/{day_of_week}:
+    get:
       produces:
       - application/json
       consumes:
@@ -142,22 +142,13 @@ paths:
         httpMethod: POST
         uri: ${create_user_lambda_invoke_arn}
         type: aws_proxy
-    options:
-      responses:
-        "200":
-          $ref: '#/components/responses/options'
-      x-amazon-apigateway-integration:
-        responses:
-          default:
-            statusCode: 200
-            responseParameters:
-              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,PUT'"
-              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-              method.response.header.Access-Control-Allow-Origin: "'${frontend_domain}'"
         requestTemplates:
-          application/json: "{\"statusCode\": 200}"
-        passthroughBehavior: when_no_match
-        type: mock
+          application/json: "{
+            \"day_of_week\": \"$input.params('day_of_week')\",
+            \"week\":\"$input.params('week')\",
+            \"flashcard_set\":\"$input.params('flashcard_set')\",
+            \"number_of_words\":\"$input.params('number_of_words')\",
+            }"
   /test:
     get:
       produces:
