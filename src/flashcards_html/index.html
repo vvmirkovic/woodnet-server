@@ -53,7 +53,6 @@
             .then(response => response.json())
             .then(result => {
                 // Handle the API response here
-                console.log(result);
                 localStorage.setItem("AccessToken", result.AccessToken);
                 localStorage.setItem("RefreshToken", result.RefreshToken);
                 localStorage.setItem("IdToken", result.IdToken);

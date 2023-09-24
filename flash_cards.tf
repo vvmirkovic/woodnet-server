@@ -27,3 +27,7 @@ module "flashcards" {
   domain             = local.flashcards_domain
   name               = "flashcards"
 }
+
+module "flashcards_database" {
+  source = "./modules/flashcards"
+}
