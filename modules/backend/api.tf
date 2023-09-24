@@ -16,7 +16,7 @@ locals {
     start_ark_lambda_invoke_arn = module.start_ark_lambda[0].invoke_arn
     stop_ark_lambda_invoke_arn  = module.stop_ark_lambda[0].invoke_arn
   } : {})
-  flashcards_api_substitutions = merge(local.default_api_substitutions, var.flashcards ? {
+  flashcards_api_substitutions = merge(local.ark_api_substitutions, var.flashcards ? {
     get_flashcards_lambda_invoke_arn = module.get_flashcards_lambda[0].invoke_arn
   } : {})
   final_api_substitutions = local.flashcards_api_substitutions

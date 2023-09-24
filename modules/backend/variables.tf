@@ -9,7 +9,7 @@ variable "woodnet_server" {
 }
 
 variable "flashcards" {
-  type = bool
+  type    = bool
   default = false
 }
 
