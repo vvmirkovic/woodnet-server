@@ -8,6 +8,11 @@ variable "woodnet_server" {
   default = false
 }
 
+variable "flashcards" {
+  type = bool
+  default = false
+}
+
 variable "frontend_subdomain" {
   default = ""
 }

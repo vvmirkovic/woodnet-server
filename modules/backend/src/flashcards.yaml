@@ -112,6 +112,36 @@ paths:
         httpMethod: POST
         uri: ${sign_in_lambda_invoke_arn}
         type: aws_proxy
+  /get-flashcards:
+    post:
+      produces:
+      - application/json
+      consumes:
+      - application/json
+      operationId: getFlashcards
+      security:
+        - ${authorizor_name}: []
+      parameters:
+      - in: body
+        name: day_of_week
+        required: true
+        type: Integer
+      - in: body
+        name: week
+        required: true
+        type: Integer
+      - in: body
+        name: flashcard_set
+        required: true
+        type: string
+      - in: body
+        name: number_of_words
+        required: true
+        type: Integer
+      x-amazon-apigateway-integration:
+        httpMethod: POST
+        uri: ${create_user_lambda_invoke_arn}
+        type: aws_proxy
     options:
       responses:
         "200":

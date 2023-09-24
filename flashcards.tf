@@ -23,6 +23,7 @@ module "flashcards" {
   source = "./modules/backend"
 
   env                = local.env
+  flashcards         = true
   frontend_subdomain = "flashcards"
   domain             = local.flashcards_domain
   name               = "flashcards"

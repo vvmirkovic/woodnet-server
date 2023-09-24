@@ -1,4 +1,4 @@
-resource "aws_api_gateway_account" "woodnet" {
+resource "aws_api_gateway_account" "backend" {
   cloudwatch_role_arn = aws_iam_role.api_cloudwatch.arn
 }
 
@@ -16,12 +16,16 @@ locals {
     start_ark_lambda_invoke_arn = module.start_ark_lambda[0].invoke_arn
     stop_ark_lambda_invoke_arn  = module.stop_ark_lambda[0].invoke_arn
   } : {})
+  flashcards_api_substitutions = merge(local.default_api_substitutions, var.flashcards ? {
+    get_flashcards_lambda_invoke_arn = module.get_flashcards_lambda[0].invoke_arn
+  } : {})
+  final_api_substitutions = local.flashcards_api_substitutions
 
 }
-resource "aws_api_gateway_rest_api" "woodnet" {
+resource "aws_api_gateway_rest_api" "backend" {
   body = templatefile(
     "${path.module}/src/${var.name}.yaml",
-    local.ark_api_substitutions
+    local.final_api_substitutions
   )
 
   name = "${var.name}-backend"
@@ -31,11 +35,11 @@ resource "aws_api_gateway_rest_api" "woodnet" {
   }
 }
 
-resource "aws_api_gateway_deployment" "woodnet" {
-  rest_api_id = aws_api_gateway_rest_api.woodnet.id
+resource "aws_api_gateway_deployment" "backend" {
+  rest_api_id = aws_api_gateway_rest_api.backend.id
 
   triggers = {
-    redeployment = sha1(jsonencode(aws_api_gateway_rest_api.woodnet.body))
+    redeployment = sha1(jsonencode(aws_api_gateway_rest_api.backend.body))
   }
 
   lifecycle {
@@ -44,27 +48,27 @@ resource "aws_api_gateway_deployment" "woodnet" {
 }
 
 locals {
-  authorizor_name = "woodnet"
+  authorizor_name = var.name
 }
 
-# resource "aws_api_gateway_authorizer" "woodnet" {
+# resource "aws_api_gateway_authorizer" "backend" {
 #   name        = local.authorizor_name
 #   type        = "COGNITO_USER_POOLS"
-#   rest_api_id = aws_api_gateway_rest_api.woodnet.id
+#   rest_api_id = aws_api_gateway_rest_api.backend.id
 #   # authorizer_credentials = aws_iam_role.invocation_role.arn
 #   provider_arns = [aws_cognito_user_pool.pool.arn]
 # }
 
 
-resource "aws_api_gateway_stage" "woodnet" {
-  deployment_id = aws_api_gateway_deployment.woodnet.id
-  rest_api_id   = aws_api_gateway_rest_api.woodnet.id
+resource "aws_api_gateway_stage" "backend" {
+  deployment_id = aws_api_gateway_deployment.backend.id
+  rest_api_id   = aws_api_gateway_rest_api.backend.id
   stage_name    = var.name
 }
 
-resource "aws_api_gateway_method_settings" "example" {
-  rest_api_id = aws_api_gateway_rest_api.woodnet.id
-  stage_name  = aws_api_gateway_stage.woodnet.stage_name
+resource "aws_api_gateway_method_settings" "backend" {
+  rest_api_id = aws_api_gateway_rest_api.backend.id
+  stage_name  = aws_api_gateway_stage.backend.stage_name
   method_path = "*/*"
 
   settings {

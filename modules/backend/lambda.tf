@@ -40,7 +40,7 @@ locals {
 module "test_lambda" {
   source = "./modules/backend_lambda"
 
-  backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  backend_arn        = aws_api_gateway_rest_api.backend.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
   layers             = [aws_lambda_layer_version.backend_handler.arn]
   application_name   = var.name
@@ -119,6 +119,16 @@ module "reset_password_lambda" {
   name               = "reset_password"
 }
 
+module "get_flashcards_lambda" {
+  source = "./modules/backend_lambda"
+  count  = var.flashcards ? 1 : 0
+
+  backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  execution_role_arn = aws_iam_role.lambda_execution.arn
+  layers             = local.default_layers
+  application_name   = var.name
+  name               = "get_flashcards"
+}
 
 # data "archive_file" "test" {
 #   type        = "zip"
