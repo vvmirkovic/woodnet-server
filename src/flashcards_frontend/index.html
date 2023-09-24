@@ -27,11 +27,11 @@
 
             // Define the API endpoint URL
             var currentDomain = window.location.hostname;
-            
+
             if (currentDomain.includes("dev")) {
-                let environment_prefix = "dev.";
+                var environment_prefix = "dev.";
             } else {
-                let environment_prefix = "";
+                var environment_prefix = "";
             }
 
             const apiUrl = `https://${environment_prefix}backend.vvmirkovic.com/sign-in`; // Replace with your API URL
