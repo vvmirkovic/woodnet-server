@@ -39,33 +39,20 @@
             } else {
                 var environment_prefix = "";
             }
-
-            const apiUrl = `https://${environment_prefix}backend.vvmirkovic.com/get-flashcards`; // Replace with your API URL
-
-            // Create a JSON object with the form data
-            const data = {
-                day_of_week: day_of_week,
-                week: week,
-                number_of_words: number_of_words,
-                flashcard_set: flashcard_set
-            };
+            
+            const apiUrl = `https://${environment_prefix}backend.vvmirkovic.com/get-flashcards/${flashcard_set}/${number_of_words}/${week}/${day_of_week}`; // Replace with your API URL
 
             // Send a POST request to the API
             fetch(apiUrl, {
-                method: "POST",
+                method: "GET",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Authorization": localStorage.getItem('IdToken')
                 },
-                body: JSON.stringify(data)
             })
             .then(response => response.json())
             .then(result => {
                 // Handle the API response here
-                localStorage.setItem("AccessToken", result.AccessToken);
-                localStorage.setItem("RefreshToken", result.RefreshToken);
-                localStorage.setItem("IdToken", result.IdToken);
-                localStorage.setItem("LoggedIn", "true");
-                window.location.href = "flashcards";
+                console.log(result)
             })
             .catch(error => {
                 // Handle errors here
