@@ -26,7 +26,15 @@
             const password = document.getElementById("password").value;
 
             // Define the API endpoint URL
-            const apiUrl = "https://example.com/api/login"; // Replace with your API URL
+            var currentDomain = window.location.hostname;
+            
+            if (currentDomain.includres("dev")) {
+                let environment_prefix = "dev.";
+            } else {
+                let environment_prefix = "";
+            }
+            
+            const apiUrl = `https://${environment_prefix}backend.vvmirkovic.com/login`; // Replace with your API URL
 
             // Create a JSON object with the form data
             const data = {
