@@ -3,10 +3,10 @@ resource "aws_dynamodb_table" "basic-dynamodb-table" {
   billing_mode   = "PROVISIONED"
   read_capacity  = 5
   write_capacity = 5
-  hash_key       = "WordId"
+  hash_key       = "id"
 
   attribute {
-    name = "WordId"
+    name = "id"
     type = "N"
   }
 }
