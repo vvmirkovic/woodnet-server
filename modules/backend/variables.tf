@@ -8,6 +8,10 @@ variable "woodnet_server" {
   default = false
 }
 
+variable "subdomain" {
+  default = ""
+}
+
 variable "domain" {}
 
 variable "env" {}
