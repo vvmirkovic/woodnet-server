@@ -51,7 +51,7 @@ module "start_ark_lambda" {
   source = "./modules/backend_lambda"
   count  = var.woodnet_server ? 1 : 0
 
-  backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  backend_arn        = aws_api_gateway_rest_api.backend.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
   layers             = local.default_layers
   application_name   = var.name
@@ -70,7 +70,7 @@ module "stop_ark_lambda" {
   source = "./modules/backend_lambda"
   count  = var.woodnet_server ? 1 : 0
 
-  backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  backend_arn        = aws_api_gateway_rest_api.backend.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
   layers             = local.default_layers
   application_name   = var.name
@@ -84,7 +84,7 @@ module "stop_ark_lambda" {
 module "create_user_lambda" {
   source = "./modules/backend_lambda"
 
-  backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  backend_arn        = aws_api_gateway_rest_api.backend.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
   layers             = local.default_layers
   application_name   = var.name
@@ -98,7 +98,7 @@ module "create_user_lambda" {
 module "sign_in_lambda" {
   source = "./modules/backend_lambda"
 
-  backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  backend_arn        = aws_api_gateway_rest_api.backend.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
   layers             = local.default_layers
   application_name   = var.name
@@ -112,7 +112,7 @@ module "sign_in_lambda" {
 module "reset_password_lambda" {
   source = "./modules/backend_lambda"
 
-  backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  backend_arn        = aws_api_gateway_rest_api.backend.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
   layers             = local.default_layers
   application_name   = var.name
@@ -123,7 +123,7 @@ module "get_flashcards_lambda" {
   source = "./modules/backend_lambda"
   count  = var.flashcards ? 1 : 0
 
-  backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  backend_arn        = aws_api_gateway_rest_api.backend.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
   layers             = local.default_layers
   application_name   = var.name
