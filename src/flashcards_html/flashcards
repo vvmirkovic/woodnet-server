@@ -25,9 +25,9 @@
 
     <button onclick="flipCard()">Flip Card</button>
 
-    <button onclick="previousCard(-1)">Previous Card</button>
+    <button onclick="changeCard(-1)">Previous Card</button>
 
-    <button onclick="nextCard(1)">Next Card</button>
+    <button onclick="changeCard(1)">Next Card</button>
 
     <h3>Select initial language:</h3>
     <form id="initialSide">
