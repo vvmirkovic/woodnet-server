@@ -25,7 +25,9 @@
 
     <button onclick="flipCard()">Flip Card</button>
 
-    <button onclick="nextCard()">Next Card</button>
+    <button onclick="previousCard(-1)">Previous Card</button>
+
+    <button onclick="nextCard(1)">Next Card</button>
 
     <h3>Select initial language:</h3>
     <form id="initialSide">
@@ -58,9 +60,9 @@
             localStorage.setItem("card_side", card_side);
         }
     
-        function nextCard() {
+        function changeCard(shift = 1) {
             cards = JSON.parse(localStorage.getItem("cards"));
-            card_number = (parseInt(localStorage.getItem("card_number"), 10) + 1) % cards.length;
+            card_number = (parseInt(localStorage.getItem("card_number"), 10) + shift) % cards.length;
             card_side = parseInt(localStorage.getItem("initialSide"), 10);
     
             console.log(cards);
