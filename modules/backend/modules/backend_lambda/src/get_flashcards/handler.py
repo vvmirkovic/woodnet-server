@@ -44,8 +44,8 @@ def get_words(database_name, day_of_week, week, number_of_words):
         )
 
         selected_words.append((
-            item['Item']['croatian'],
-            item['Item']['english']
+            item['Item']['croatian']['S'],
+            item['Item']['english']['S']
         ))
 
     return selected_words
