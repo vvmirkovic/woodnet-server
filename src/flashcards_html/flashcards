@@ -27,7 +27,7 @@
 
     <button onclick="nextCard()">Next Card</button>
 
-    <h1>Select a Color:</h1>
+    <h3>Select initial language:</h3>
     <form id="initialLanguage">
         <label>
             <input type="radio" name="language" value="hrvatski" checked> Hrvatski
