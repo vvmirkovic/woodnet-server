@@ -52,12 +52,13 @@ def get_words(database_name, day_of_week, week, number_of_words):
         
 
 def lambda_handler(event, context):
+    parameters = event['pathParameters']
     try:
         # Determine day of week
-        if event["day_of_week"] == -1:
+        if parameters["day_of_week"] == -1:
             day_of_week = get_day_of_week()
         else:
-            day_of_week = event["day_of_week"]
+            day_of_week = parameters["day_of_week"]
 
         try:
             assert day_of_week >= 0
@@ -67,10 +68,10 @@ def lambda_handler(event, context):
             return response(event, 400, body)    
             
         # Determine week
-        if event["week"] == -1:
+        if parameters["week"] == -1:
             week = get_day_of_week()
         else:
-            week = event["week"]
+            week = parameters["week"]
 
         try:
             assert week >= 0
@@ -79,8 +80,8 @@ def lambda_handler(event, context):
             body = json.dumps({'message': f'Specify an integer between 0 and 53.'})
             return response(event, 400, body)
             
-        database_name = event["flashcard_set"]
-        number_of_words = event["number_of_words"]
+        database_name = parameters["flashcard_set"]
+        number_of_words = parameters["number_of_words"]
 
     except KeyError:
         body = json.dumps({'message': f'Missing argument(s).'})
