@@ -35,6 +35,7 @@
             card_number = localStorage.getItem("card_number");
             card_side = (localStorage.getItem("card_side") + 1) % 2;
             
+            console.log(cards);
             const card_text = cards[card_number][card_side];
             card.innerHTML = card_text;
             
@@ -46,6 +47,7 @@
             card_side = localStorage.getItem("card_side");
             card_number = (localStorage.getItem("card_number") + 1) % cards.length;
     
+            console.log(cards);
             const card_text = cards[card_number][card_side];
             card.innerHTML = card_text;
             
