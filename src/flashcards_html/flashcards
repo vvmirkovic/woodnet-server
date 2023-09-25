@@ -130,7 +130,7 @@
             });
         });
 
-        document.getElementById("initialLanguage").colorForm.addEventListener("change", function() {
+        document.getElementById("initialLanguage").addEventListener("change", function() {
             const selectedValue = document.querySelector('input[name="language"]:checked').value;
             
             console.log(selectedValue);
