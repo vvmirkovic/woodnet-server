@@ -26,6 +26,15 @@
     <button onclick="flipCard()">Flip Card</button>
 
     <button onclick="nextCard()">Next Card</button>
+
+    <form id="initialLanguage">
+        <label>
+            <input type="radio" name="language" value="hrvatski"> Hrvatski
+        </label><br>
+        <label>
+            <input type="radio" name="language" value="english"> English
+        </label><br>
+    </form>
     
     <script>
         var card = document.getElementById("card");
@@ -47,7 +56,7 @@
         function nextCard() {
             cards = JSON.parse(localStorage.getItem("cards"));
             card_number = (parseInt(localStorage.getItem("card_number"), 10) + 1) % cards.length;
-            card_side = parseInt(localStorage.getItem("card_side"), 10);
+            card_side = parseInt(localStorage.getItem("initialLanguage"), 10);
     
             console.log(cards);
             console.log(cards[card_number]);
@@ -114,6 +123,16 @@
                 // Handle errors here
                 console.error(error);
             });
+        });
+
+        document.getElementById("initialLanguage").colorForm.addEventListener("change", function() {
+            const selectedValue = document.querySelector('input[name="language"]:checked').value;
+            
+            if (selectedValue == "hrvatski") {
+                localStorage.setItem("initialSide", "0")
+            } else if (selectedValue == "english") {
+                localStorage.setItem("initialSide", "1")
+            }
         });
 
     </script>
