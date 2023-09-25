@@ -12,7 +12,7 @@
         <label for="day_of_week">Day of the week (integer):</label>
         <input type="text" id="day_of_week" name="day_of_week"><br><br>
 
-        <label for="week">Week (Integer):</label>
+        <label for="week">Week (integer):</label>
         <input type="text" id="week" name="week"><br><br>
 
         <label for="number_of_words">Number of words in the set:</label>
