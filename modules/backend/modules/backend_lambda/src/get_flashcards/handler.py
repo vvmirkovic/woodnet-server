@@ -59,10 +59,13 @@ def lambda_handler(event, context):
             day_of_week = get_day_of_week()
         else:
             day_of_week = parameters["day_of_week"]
-
         try:
+            day_of_week = int(event['day_of_week'])
             assert day_of_week >= 0
             assert day_of_week <= 6
+        except ValueError:
+            body = json.dumps({'message': f'Invalid value for day of the week provided. Please specify a value between 0 and 6.'})
+            return response(event, 400, body)
         except AssertionError:
             body = json.dumps({'message': f'Specify value 0 and 6 to specify a day of the week.'})
             return response(event, 400, body)    
@@ -74,14 +77,25 @@ def lambda_handler(event, context):
             week = parameters["week"]
 
         try:
+            week = int(event['week'])
             assert week >= 0
             assert week <= 53
+        except ValueError:
+            body = json.dumps({'message': f'Invalid value for week provided. Please specify an integer between 0 and 53.'})
+            return response(event, 400, body)
         except AssertionError:
             body = json.dumps({'message': f'Specify an integer between 0 and 53.'})
             return response(event, 400, body)
+        
+        try:
+            number_of_words = int(parameters["number_of_words"])
+            assert number_of_words >= 0
+        except ValueError:
+            body = json.dumps({'message': f'Invalid value for number of words provided. Please specify an integer greater than or equal to 0.'})
+            return response(event, 400, body)
+        
             
         database_name = parameters["flashcard_set"]
-        number_of_words = parameters["number_of_words"]
 
     except KeyError:
         body = json.dumps({'message': f'Missing argument(s).'})
