@@ -52,6 +52,16 @@ locals {
       Resource = "${data.aws_autoscaling_group.ark[0].arn}"
     }
   ])
+  flashcards_policy_documents = var.flashcards ? tolist([
+    {
+      Action = [
+        "dynamodb:DescribeTable",
+				"dynamodb:GetItem"
+      ]
+      Effect   = "Allow"
+      Resource = "*"
+    }
+  ]) : tolist([])
 }
 
 resource "aws_iam_policy" "lambda_policy" {
@@ -70,7 +80,8 @@ resource "aws_iam_policy" "lambda_policy" {
     Version = "2012-10-17"
     Statement = concat(
       local.default_polict_statements,
-      local.ark_policy_documents
+      local.ark_policy_documents,
+      local.flashcards_policy_documents
     )
   })
 }

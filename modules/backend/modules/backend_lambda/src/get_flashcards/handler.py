@@ -53,33 +53,31 @@ def get_words(database_name, day_of_week, week, number_of_words):
 
 def lambda_handler(event, context):
     try:
-        if event["day_of_week"] == "":
+        # Determine day of week
+        if event["day_of_week"] == -1:
             day_of_week = get_day_of_week()
         else:
-            try:
-                # day_of_week = int(event['day_of_week'])
-                assert day_of_week >= 0
-                assert day_of_week <= 6
-            # except ValueError:
-            #     body = json.dumps({'message': f'Invalid value for day of the week provided. Please provide a value between 0 and 6.'})
-            #     return response(event, 400, body)
-            except AssertionError:
-                body = json.dumps({'message': f'Specify value 0 and 6 to specify a day of the week.'})
-                return response(event, 400, body)    
+            day_of_week = event["day_of_week"]
+
+        try:
+            assert day_of_week >= 0
+            assert day_of_week <= 6
+        except AssertionError:
+            body = json.dumps({'message': f'Specify value 0 and 6 to specify a day of the week.'})
+            return response(event, 400, body)    
             
-        if event["week"] == "":
+        # Determine week
+        if event["week"] == -1:
             week = get_day_of_week()
         else:
-            try:
-                # week = int(event['day_of_week'])
-                assert week >= 0
-                assert week <= 53
-            # except ValueError:
-            #     body = json.dumps({'message': f'Invalid value for week provided. Please provide an integer greater than or equal to 0, and less or equal to  53'})
-            #     return response(event, 400, body)
-            except AssertionError:
-                body = json.dumps({'message': f'Specify provide an integer specify a week.'})
-                return response(event, 400, body)
+            week = event["week"]
+
+        try:
+            assert week >= 0
+            assert week <= 53
+        except AssertionError:
+            body = json.dumps({'message': f'Specify an integer between 0 and 53.'})
+            return response(event, 400, body)
             
         database_name = event["flashcard_set"]
         number_of_words = event["number_of_words"]
