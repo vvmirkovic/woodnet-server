@@ -1,10 +1,11 @@
 # Create layers
 locals {
-  zip_folder               = "${path.module}/modules/backend_lambda/src/backend_handler"
-  zip_file                 = "${var.name}_${local.zip_folder}.zip"
-  backend_handler_folder   = "${local.zip_folder}/python/lib/python3.9/site-packages"
-  backend_handler_template = "${local.backend_handler_folder}/backend_handler.py.tftpl"
-  backend_handler_dest     = "${local.backend_handler_folder}/backend_handler.py"
+  source_folder            = "${path.module}/modules/backend_lambda/src/backend_handler"
+  destination_folder       = "${local.source_folder}_${var.name}"
+  zip_file                 = "${local.destination_folder}.zip"
+  backend_handler_template = "${local.source_folder}/backend_handler.py.tftpl"
+  lambda_packages_folder   = "/python/lib/python3.9/site-packages"
+  backend_handler_dest     = "${local.destination_folder}${local.lambda_packages_folder}/backend_handler.py"
 }
 
 resource "local_file" "backend_handler" {
@@ -17,7 +18,7 @@ resource "local_file" "backend_handler" {
 
 data "archive_file" "backend_handler" {
   type        = "zip"
-  source_dir  = local.zip_folder
+  source_dir  = local.destination_folder
   output_path = local.zip_file
 
   depends_on = [local_file.backend_handler]
