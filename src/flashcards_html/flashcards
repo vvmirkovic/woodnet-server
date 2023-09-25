@@ -15,7 +15,7 @@
         <label for="week">Week (integer):</label>
         <input type="text" id="week" name="week"><br><br>
 
-        <label for="number_of_words">Number of words in the set:</label>
+        <label for="number_of_words">Words per set:</label>
         <input type="text" id="number_of_words" name="number_of_words" value="8" required><br><br>
 
         <input type="submit" value="Update Flashcards">
@@ -51,9 +51,6 @@
             card_number = parseInt(localStorage.getItem("card_number"), 10);
             card_side = (parseInt(localStorage.getItem("card_side"), 10) + 1) % 2;
             
-            console.log(cards);
-            console.log(cards[card_number]);
-            console.log(cards[card_number][card_side]);
             const card_text = cards[card_number][card_side];
             card.innerHTML = card_text;
             
@@ -65,9 +62,6 @@
             card_number = (parseInt(localStorage.getItem("card_number"), 10) + shift) % cards.length;
             card_side = parseInt(localStorage.getItem("initialSide"), 10);
     
-            console.log(cards);
-            console.log(cards[card_number]);
-            console.log(cards[card_number][card_side]);
             const card_text = cards[card_number][card_side];
             card.innerHTML = card_text;
             
@@ -75,9 +69,8 @@
         }
 
         document.getElementById("loginForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent the default form submission
+            event.preventDefault();
 
-            // Get the form data
             let day_of_week = document.getElementById("day_of_week").value;
             let week = document.getElementById("week").value;
             const number_of_words = document.getElementById("number_of_words").value;
@@ -90,7 +83,6 @@
                 week = "-1";
             }
 
-            // Define the API endpoint URL
             var currentDomain = window.location.hostname;
 
             if (currentDomain.includes("dev")) {
@@ -101,7 +93,6 @@
 
             const apiUrl = `https://${environment_prefix}backend.vvmirkovic.com/get-flashcards/${flashcard_set}/${number_of_words}/${week}/${day_of_week}`; // Replace with your API URL
 
-            // Send a POST request to the API
             fetch(apiUrl, {
                 method: "GET",
                 headers: {
@@ -110,7 +101,6 @@
             })
             .then(response => response.json())
             .then(result => {
-                // Handle the API response here
                 console.log(result);
                 localStorage.setItem(
                     "cards",
@@ -127,7 +117,6 @@
                 flipCard();
             })
             .catch(error => {
-                // Handle errors here
                 console.error(error);
             });
         });
@@ -135,7 +124,6 @@
         document.getElementById("initialSide").addEventListener("change", function() {
             const selectedValue = document.querySelector('input[name="language"]:checked').value;
             
-            console.log(selectedValue);
             if (selectedValue == "hrvatski") {
                 localStorage.setItem("initialSide", "0");
             } else if (selectedValue == "english") {
