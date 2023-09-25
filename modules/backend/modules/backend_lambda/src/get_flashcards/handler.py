@@ -55,7 +55,7 @@ def lambda_handler(event, context):
     parameters = event['pathParameters']
     try:
         # Determine day of week
-        if parameters["day_of_week"] == -1:
+        if parameters["day_of_week"] == "-1":
             day_of_week = get_day_of_week()
         else:
             day_of_week = parameters["day_of_week"]
@@ -71,7 +71,7 @@ def lambda_handler(event, context):
             return response(event, 400, body)    
             
         # Determine week
-        if parameters["week"] == -1:
+        if parameters["week"] == "-1":
             week = get_day_of_week()
         else:
             week = parameters["week"]

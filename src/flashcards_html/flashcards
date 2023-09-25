@@ -74,7 +74,7 @@
                     "card_number",
                     0
                 )
-                localStorag.setItem(
+                localStorage.setItem(
                     "card_side",
                     0
                 )
