@@ -36,8 +36,8 @@
             card_side = (parseInt(localStorage.getItem("card_side"), 10) + 1) % 2;
             
             console.log(cards);
-            console.log(cards)[card_number];
-            console.log(cards)[card_number][card_side];
+            console.log(cards[card_number]);
+            console.log(cards[card_number][card_side]);
             const card_text = cards[card_number][card_side];
             card.innerHTML = card_text;
             
@@ -50,8 +50,8 @@
             card_side = parseInt(localStorage.getItem("card_side"), 10);
     
             console.log(cards);
-            console.log(cards)[card_number];
-            console.log(cards)[card_number][card_side];
+            console.log(cards[card_number]);
+            console.log(cards[card_number][card_side]);
             const card_text = cards[card_number][card_side];
             card.innerHTML = card_text;
             
