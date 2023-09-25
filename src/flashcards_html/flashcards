@@ -10,26 +10,39 @@
 
     <form id="loginForm">
         <label for="day_of_week">Day of the week (integer):</label>
-        <input type="text" id="day_of_week" name="day_of_week" required><br><br>
+        <input type="text" id="day_of_week" name="day_of_week"><br><br>
 
         <label for="week">Week (Integer):</label>
-        <input type="text" id="week" name="week" required><br><br>
+        <input type="text" id="week" name="week"><br><br>
 
         <label for="number_of_words">Number of words in the set:</label>
-        <input type="text" id="number_of_words" name="number_of_words" required><br><br>
+        <input type="text" id="number_of_words" name="number_of_words" placeholder="8" required><br><br>
 
-        <input type="submit" value="Login">
+        <input type="submit" value="Update Flashcards">
     </form>
+
+    <div id="textContainer">Update flash cards to get started.</div>
+
+    <button onclick="flipCard()">Flip Card</button>
+
+    <button onclick="nextCard()">Next Card</button>
 
     <script>
         document.getElementById("loginForm").addEventListener("submit", function(event) {
             event.preventDefault(); // Prevent the default form submission
 
             // Get the form data
-            const day_of_week = document.getElementById("day_of_week").value;
-            const week = document.getElementById("week").value;
+            let day_of_week = document.getElementById("day_of_week").value;
+            let week = document.getElementById("week").value;
             const number_of_words = document.getElementById("number_of_words").value;
             const flashcard_set = "flashcards";
+
+            if (day_of_week == "") {
+                day_of_week = "-1"
+            }
+            if (week == "") {
+                week = "-1"
+            }
 
             // Define the API endpoint URL
             var currentDomain = window.location.hostname;
@@ -39,7 +52,7 @@
             } else {
                 var environment_prefix = "";
             }
-            
+
             const apiUrl = `https://${environment_prefix}backend.vvmirkovic.com/get-flashcards/${flashcard_set}/${number_of_words}/${week}/${day_of_week}`; // Replace with your API URL
 
             // Send a POST request to the API
@@ -53,12 +66,46 @@
             .then(result => {
                 // Handle the API response here
                 console.log(result)
+                localStorage.setItem(
+                    "cards",
+                    result["cards"]
+                )
+                localStorage.setItem(
+                    "card_number",
+                    0
+                )
+                localStorag.setItem(
+                    "card_side",
+                    0
+                )
             })
             .catch(error => {
                 // Handle errors here
                 console.error(error);
             });
         });
+
+        function flipCard() {
+            cards = localStorage.getItem("cards")
+            card_number = localStorage.getItem("card_number")
+            card_side = (localStorage.getItem("card_side") + 1) % 2
+            
+            const card_text = cards[card_number][card_side]
+            textElement.innerHTML = card_text;
+            
+            localStorage.setItem("card_side", card_side)
+        }
+
+        function nextCard() {
+            cards = localStorage.getItem("cards")
+            card_side = localStorage.getItem("card_side")
+            card_number = (localStorage.getItem("card_number") + 1) % cards.length
+
+            const card_text = cards[card_number][card_side]
+            textElement.innerHTML = card_text;
+            
+            localStorage.setItem("card_number", card_number)
+        }
     </script>
 </body>
 </html>
