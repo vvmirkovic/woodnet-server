@@ -6,7 +6,7 @@
     <title>Login</title>
 </head>
 <body>
-    <h1>Hello World</h1>
+    <h1>Flaš Kartice</h1>
 
     <form id="loginForm">
         <label for="day_of_week">Day of the week (integer):</label>
@@ -21,14 +21,14 @@
         <input type="submit" value="Update Flashcards">
     </form>
 
-    <div id="card">Update flash cards to get started.</div>
+    <h1 id="card">Update flash cards to get started.</h1>
 
     <button onclick="flipCard()">Flip Card</button>
 
     <button onclick="nextCard()">Next Card</button>
 
     <h3>Select initial language:</h3>
-    <form id="initialLanguage">
+    <form id="initialSide">
         <label>
             <input type="radio" name="language" value="hrvatski" checked> Hrvatski
         </label><br>
@@ -40,8 +40,8 @@
     <script>
         var card = document.getElementById("card");
         
-        if (!localStorage.getItem("initialLanguage")) {
-            localStorage.setItem("initialLanguage", 0);
+        if (!localStorage.getItem("initialSide")) {
+            localStorage.setItem("initialSide", 0);
         }
 
         function flipCard() {
@@ -61,7 +61,7 @@
         function nextCard() {
             cards = JSON.parse(localStorage.getItem("cards"));
             card_number = (parseInt(localStorage.getItem("card_number"), 10) + 1) % cards.length;
-            card_side = parseInt(localStorage.getItem("initialLanguage"), 10);
+            card_side = parseInt(localStorage.getItem("initialSide"), 10);
     
             console.log(cards);
             console.log(cards[card_number]);
@@ -130,7 +130,7 @@
             });
         });
 
-        document.getElementById("initialLanguage").addEventListener("change", function() {
+        document.getElementById("initialSide").addEventListener("change", function() {
             const selectedValue = document.querySelector('input[name="language"]:checked').value;
             
             console.log(selectedValue);
