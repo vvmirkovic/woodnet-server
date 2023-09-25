@@ -66,6 +66,7 @@
             card.innerHTML = card_text;
             
             localStorage.setItem("card_number", card_number);
+            localStorage.setItem("card_side", card_side);
         }
 
         document.getElementById("loginForm").addEventListener("submit", function(event) {
