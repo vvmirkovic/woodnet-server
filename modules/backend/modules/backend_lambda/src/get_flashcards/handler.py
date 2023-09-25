@@ -28,7 +28,7 @@ def get_words(database_name, day_of_week, week, number_of_words):
     seed_value = week * 7 + day_of_week
     random.seed(seed_value)
 
-    n = client.describe_table(TableName='string')['Table']['ItemCount']
+    n = client.describe_table(TableName=database_name)['Table']['ItemCount']
 
     selected_words = []
 
@@ -39,7 +39,7 @@ def get_words(database_name, day_of_week, week, number_of_words):
             TableName=database_name,
             Key={
                 'id': {
-                    'N': random_word_id}
+                    'N': str(random_word_id)}
             }
         )
 
