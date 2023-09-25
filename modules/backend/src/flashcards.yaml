@@ -154,6 +154,19 @@ paths:
         name: number_of_words
         required: true
         type: Integer
+      responses:
+        200:
+          description: Default response for CORS method
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
       x-amazon-apigateway-integration:
         httpMethod: POST
         uri: ${create_user_lambda_invoke_arn}
