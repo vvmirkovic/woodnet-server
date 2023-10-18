@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flaš Kartice</title>
+</head>
+<body>
+    <h1>Flaš Kartice</h1>
+
+    <form id="loginForm">
+        <label for="day_of_week">Day of the week (integer):</label>
+        <input type="text" id="day_of_week" name="day_of_week"><br><br>
+
+        <label for="week">Week (integer):</label>
+        <input type="text" id="week" name="week"><br><br>
+
+        <label for="number_of_words">Words per set:</label>
+        <input type="text" id="number_of_words" name="number_of_words" value="8" required><br><br>
+
+        <input type="submit" value="Update Flashcards">
+    </form>
+
+    <h1 id="card">Update flash cards to get started.</h1>
+
+    <button onclick="flipCard()">Flip Card</button>
+
+    <button onclick="changeCard(-1)">Previous Card</button>
+
+    <button onclick="changeCard(1)">Next Card</button>
+
+    <h3>Select initial language:</h3>
+    <form id="initialSide">
+        <label>
+            <input type="radio" name="language" value="hrvatski" checked> Hrvatski
+        </label><br>
+        <label>
+            <input type="radio" name="language" value="english"> English
+        </label><br>
+    </form>
+    
+    <script>
+        var card = document.getElementById("card");
+        
+        var initialSideButtons = document.getElementById("initialSide");
+        var initialSide = localStorage.getItem("initialSide")
+        if (!initialSide) {
+            localStorage.setItem("initialSide", 0);
+            initialSideButtons[0].checked = true;
+        } else {
+            if (initialSide == 0) {
+                initialSideButtons[0].checked = true;
+            } else if (initialSide == 1) {
+                initialSideButtons[1].checked = true;
+            }
+        }
+
+        var initalCards = localStorage.getItem("cards")
+        if (initalCards) {
+            cards = JSON.parse(initalCards);
+            const card_text = cards[card_number][card_side];
+            card.innerHTML = card_text;
+        }
+
+        function flipCard() {
+            cards = JSON.parse(localStorage.getItem("cards"));
+            card_number = parseInt(localStorage.getItem("card_number"), 10);
+            card_side = (parseInt(localStorage.getItem("card_side"), 10) + 1) % 2;
+            
+            const card_text = cards[card_number][card_side];
+            card.innerHTML = card_text;
+            
+            localStorage.setItem("card_side", card_side);
+        }
+    
+        function changeCard(shift = 1) {
+            cards = JSON.parse(localStorage.getItem("cards"));
+            card_number = (parseInt(localStorage.getItem("card_number"), 10) + shift) % cards.length;
+            card_side = parseInt(localStorage.getItem("initialSide"), 10);
+    
+            const card_text = cards[card_number][card_side];
+            card.innerHTML = card_text;
+            
+            localStorage.setItem("card_number", card_number);
+            localStorage.setItem("card_side", card_side);
+        }
+
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let day_of_week = document.getElementById("day_of_week").value;
+            let week = document.getElementById("week").value;
+            const number_of_words = document.getElementById("number_of_words").value;
+            const flashcard_set = "flashcards";
+
+            if (day_of_week == "") {
+                day_of_week = "-1";
+            }
+            if (week == "") {
+                week = "-1";
+            }
+
+            var currentDomain = window.location.hostname;
+
+            if (currentDomain.includes("dev")) {
+                var environment_prefix = "dev.";
+            } else {
+                var environment_prefix = "";
+            }
+
+            const apiUrl = `https://${environment_prefix}backend.vvmirkovic.com/get-flashcards/${flashcard_set}/${number_of_words}/${week}/${day_of_week}`; // Replace with your API URL
+
+            fetch(apiUrl, {
+                method: "GET",
+                headers: {
+                    "Authorization": localStorage.getItem('IdToken')
+                },
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log(result);
+                localStorage.setItem(
+                    "cards",
+                    JSON.stringify(result["cards"])
+                );
+                localStorage.setItem(
+                    "card_number",
+                    0
+                );
+                localStorage.setItem(
+                    "card_side",
+                    1
+                );
+                flipCard();
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        });
+
+        document.getElementById("initialSide").addEventListener("change", function() {
+            const selectedValue = document.querySelector('input[name="language"]:checked').value;
+            
+            if (selectedValue == "hrvatski") {
+                localStorage.setItem("initialSide", "0");
+            } else if (selectedValue == "english") {
+                localStorage.setItem("initialSide", "1");
+            }
+        });
+
+    </script>
+</body>
+</html>

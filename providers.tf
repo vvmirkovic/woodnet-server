@@ -11,7 +11,7 @@ locals {
     "main" = "prod"
     "dev"  = "dev"
   }
-  env = length(split("merge", var.env)) > 1 ? "prod" : local.branch_map[var.env]
+  env = var.env #length(split("merge", var.env)) > 1 ? "prod" : local.branch_map[var.env]
   account = {
     "dev"  = "851722294868"
     "prod" = "935821842394"

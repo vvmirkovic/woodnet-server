@@ -10,7 +10,7 @@ data "archive_file" "lambda" {
 
 resource "aws_lambda_function" "backend" {
   filename      = "${local.script_path}.zip"
-  function_name = var.name
+  function_name = "${var.application_name}_${var.name}"
   handler       = "handler.lambda_handler"
   layers        = var.layers
   runtime       = "python3.9"

@@ -1,3 +1,4 @@
 locals {
-  domain = "woodnet.io"
+  domain            = "woodnet.io"
+  flashcards_domain = "vvmirkovic.com"
 }

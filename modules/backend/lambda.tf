@@ -1,10 +1,11 @@
 # Create layers
 locals {
-  zip_folder               = "${path.module}/modules/backend_lambda/src/backend_handler"
-  zip_file                 = "${local.zip_folder}.zip"
-  backend_handler_folder   = "${local.zip_folder}/python/lib/python3.9/site-packages"
-  backend_handler_template = "${local.backend_handler_folder}/backend_handler.py.tftpl"
-  backend_handler_dest     = "${local.backend_handler_folder}/backend_handler.py"
+  source_folder            = "${path.module}/modules/backend_lambda/src/backend_handler"
+  destination_folder       = "${local.source_folder}_${var.name}"
+  zip_file                 = "${local.destination_folder}.zip"
+  backend_handler_template = "${local.source_folder}/backend_handler.py.tftpl"
+  lambda_packages_folder   = "/python/lib/python3.9/site-packages"
+  backend_handler_dest     = "${local.destination_folder}${local.lambda_packages_folder}/backend_handler.py"
 }
 
 resource "local_file" "backend_handler" {
@@ -17,7 +18,7 @@ resource "local_file" "backend_handler" {
 
 data "archive_file" "backend_handler" {
   type        = "zip"
-  source_dir  = local.zip_folder
+  source_dir  = local.destination_folder
   output_path = local.zip_file
 
   depends_on = [local_file.backend_handler]
@@ -25,7 +26,7 @@ data "archive_file" "backend_handler" {
 
 resource "aws_lambda_layer_version" "backend_handler" {
   filename            = local.zip_file
-  layer_name          = "backend_handler"
+  layer_name          = "${var.name}_backend_handler"
   compatible_runtimes = ["python3.9"]
   source_code_hash    = local_file.backend_handler.content_base64sha256
 
@@ -40,9 +41,10 @@ locals {
 module "test_lambda" {
   source = "./modules/backend_lambda"
 
-  backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  backend_arn        = aws_api_gateway_rest_api.backend.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
   layers             = [aws_lambda_layer_version.backend_handler.arn]
+  application_name   = var.name
   name               = "test"
 }
 
@@ -50,9 +52,10 @@ module "start_ark_lambda" {
   source = "./modules/backend_lambda"
   count  = var.woodnet_server ? 1 : 0
 
-  backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  backend_arn        = aws_api_gateway_rest_api.backend.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
   layers             = local.default_layers
+  application_name   = var.name
   name               = "start_ark"
   timeout            = 900
 
@@ -60,17 +63,18 @@ module "start_ark_lambda" {
     ASG_NAME               = var.ark_asg_name
     HOSTED_ZONE_ID         = data.aws_route53_zone.main.zone_id
     RECORD_NAME            = local.record_name
-    LAMBDA_ASSUME_ROLE_ARN = aws_iam_role.records.arn
+    LAMBDA_ASSUME_ROLE_ARN = aws_iam_role.records[0].arn
   }
 }
 
 module "stop_ark_lambda" {
   source = "./modules/backend_lambda"
-  count  =  var.woodnet_server ? 1 : 0
+  count  = var.woodnet_server ? 1 : 0
 
-  backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  backend_arn        = aws_api_gateway_rest_api.backend.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
   layers             = local.default_layers
+  application_name   = var.name
   name               = "stop_ark"
 
   environment_vars = {
@@ -81,9 +85,10 @@ module "stop_ark_lambda" {
 module "create_user_lambda" {
   source = "./modules/backend_lambda"
 
-  backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  backend_arn        = aws_api_gateway_rest_api.backend.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
   layers             = local.default_layers
+  application_name   = var.name
   name               = "create_user"
 
   environment_vars = {
@@ -94,9 +99,10 @@ module "create_user_lambda" {
 module "sign_in_lambda" {
   source = "./modules/backend_lambda"
 
-  backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  backend_arn        = aws_api_gateway_rest_api.backend.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
   layers             = local.default_layers
+  application_name   = var.name
   name               = "sign_in"
 
   environment_vars = {
@@ -107,12 +113,23 @@ module "sign_in_lambda" {
 module "reset_password_lambda" {
   source = "./modules/backend_lambda"
 
-  backend_arn        = aws_api_gateway_rest_api.woodnet.execution_arn
+  backend_arn        = aws_api_gateway_rest_api.backend.execution_arn
   execution_role_arn = aws_iam_role.lambda_execution.arn
   layers             = local.default_layers
+  application_name   = var.name
   name               = "reset_password"
 }
 
+module "get_flashcards_lambda" {
+  source = "./modules/backend_lambda"
+  count  = var.flashcards ? 1 : 0
+
+  backend_arn        = aws_api_gateway_rest_api.backend.execution_arn
+  execution_role_arn = aws_iam_role.lambda_execution.arn
+  layers             = local.default_layers
+  application_name   = var.name
+  name               = "get_flashcards"
+}
 
 # data "archive_file" "test" {
 #   type        = "zip"

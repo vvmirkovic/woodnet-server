@@ -1,6 +1,6 @@
 # Creating role and policy for lambda execution role
 resource "aws_iam_role" "lambda_execution" {
-  name               = "woodnet_lambda"
+  name               = "${var.name}_lambda"
   assume_role_policy = file("${path.module}/policies/lambda_trust.json")
 }
 
@@ -52,16 +52,26 @@ locals {
       Resource = "${data.aws_autoscaling_group.ark[0].arn}"
     }
   ])
+  flashcards_policy_documents = var.flashcards ? tolist([
+    {
+      Action = [
+        "dynamodb:DescribeTable",
+				"dynamodb:GetItem"
+      ]
+      Effect   = "Allow"
+      Resource = "*"
+    }
+  ]) : tolist([])
 }
 
 resource "aws_iam_policy" "lambda_policy" {
-  name = "woodnet_lambda"
+  name = "${var.name}_lambda"
 
   # policy = templatefile(
   #   "${path.module}/policies/lambda_execution.json",
   #   {
   #     account_id            = data.aws_caller_identity.current.account_id
-  #     records_role_arn      = aws_iam_role.records.arn
+  #     records_role_arn      = aws_iam_role.records[0].arn
   #     asg_arn               = var.ark_asg_name == null ? "*" : data.aws_autoscaling_group.ark[0].arn
   #     cognito_user_pool_arn = aws_cognito_user_pool.pool.arn
   #   }
@@ -70,7 +80,8 @@ resource "aws_iam_policy" "lambda_policy" {
     Version = "2012-10-17"
     Statement = concat(
       local.default_polict_statements,
-      local.ark_policy_documents
+      local.ark_policy_documents,
+      local.flashcards_policy_documents
     )
   })
 }
@@ -82,14 +93,14 @@ resource "aws_iam_role_policy_attachment" "lambda" {
 
 # Creating role and policy for api cloudwatch role
 resource "aws_iam_role" "api_cloudwatch" {
-  name                = "api_cloudwatch"
+  name                = "${var.name}_api_cloudwatch"
   managed_policy_arns = [aws_iam_policy.api_cloudwatch.arn]
 
   assume_role_policy = file("${path.module}/policies/api_cloudwatch_trust.json")
 }
 
 resource "aws_iam_policy" "api_cloudwatch" {
-  name = "api_cloudwatch"
+  name = "${var.name}_api_cloudwatch"
 
   policy = templatefile(
     "${path.module}/policies/api_cloudwatch.json",

@@ -15,6 +15,7 @@ data "aws_route53_zone" "main" {
 
 resource "aws_iam_role" "records" {
   provider = aws.main
+  count    = var.woodnet_server ? 1 : 0
 
   name               = "${var.env}_ark_records"
   assume_role_policy = <<EOF
@@ -35,6 +36,7 @@ EOF
 
 resource "aws_iam_policy" "records" {
   provider = aws.main
+  count    = var.woodnet_server ? 1 : 0
 
   name        = "${var.env}-ark-records"
   description = "Policy for lambdas in other accounts to manage ${data.aws_route53_zone.main.name} records"
@@ -54,7 +56,8 @@ EOF
 
 resource "aws_iam_role_policy_attachment" "records" {
   provider = aws.main
+  count    = var.woodnet_server ? 1 : 0
 
-  role       = aws_iam_role.records.name
-  policy_arn = aws_iam_policy.records.arn
+  role       = aws_iam_role.records[0].name
+  policy_arn = aws_iam_policy.records[0].arn
 }

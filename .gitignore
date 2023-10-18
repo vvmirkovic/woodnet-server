@@ -6,3 +6,4 @@ start_server.sh
 terraform/.terraform*
 terraform/terraform*
 .terraform*
+venv
