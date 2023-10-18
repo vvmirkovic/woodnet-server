@@ -42,8 +42,23 @@
     <script>
         var card = document.getElementById("card");
         
+        var initialSideButtons  =document.getElementById("initialSide");
         if (!localStorage.getItem("initialSide")) {
             localStorage.setItem("initialSide", 0);
+            initialSideButtons[0].checked = true;
+        } else {
+            for (var i = 0; i < initialSideButtons.length; i++) {
+                if (initialSideButtons[i].value == localStorage.getItem("initialSide")) {
+                    initialSideButtons[i].checked = true;
+                    break
+                }
+            }
+        }
+
+        if (!localStorage.getItem("cards")) {
+            cards = JSON.parse(localStorage.getItem("cards"));
+            const card_text = cards[card_number][card_side];
+            card.innerHTML = card_text;
         }
 
         function flipCard() {
