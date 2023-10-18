@@ -42,16 +42,16 @@
     <script>
         var card = document.getElementById("card");
         
-        var initialSideButtons  =document.getElementById("initialSide");
-        if (!localStorage.getItem("initialSide")) {
+        var initialSideButtons = document.getElementById("initialSide");
+        var initialSide = localStorage.getItem("initialSide")
+        if (!initialSide) {
             localStorage.setItem("initialSide", 0);
             initialSideButtons[0].checked = true;
         } else {
-            for (var i = 0; i < initialSideButtons.length; i++) {
-                if (initialSideButtons[i].value == localStorage.getItem("initialSide")) {
-                    initialSideButtons[i].checked = true;
-                    break
-                }
+            if (initialSide == 0) {
+                initialSideButtons[0].checked = true;
+            } else if (initialSide == 1) {
+                initialSideButtons[1].checked = true;
             }
         }
 
