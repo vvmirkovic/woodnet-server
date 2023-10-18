@@ -55,8 +55,9 @@
             }
         }
 
-        if (!localStorage.getItem("cards")) {
-            cards = JSON.parse(localStorage.getItem("cards"));
+        var initalCards = localStorage.getItem("cards")
+        if (initalCards) {
+            cards = JSON.parse(initalCards);
             const card_text = cards[card_number][card_side];
             card.innerHTML = card_text;
         }
