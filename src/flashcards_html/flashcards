@@ -21,7 +21,7 @@
         <label for="challenging">Choose from only selected challenging words:</label>
         
         <label>
-            <input type="radio" name="challenging" id="checked" value="true" checked> True
+            <input type="radio" name="challenging" id="challenging" value="true" checked> True
         </label>
         <label>
             <input type="radio" name="challenging" value="false"> False
