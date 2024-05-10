@@ -19,14 +19,13 @@
         <input type="text" id="number_of_words" name="number_of_words" value="8" required><br><br>
         
         <label for="challenging">Choose from only selected challenging words:</label>
-        <form id="challenging">
-            <label>
-                <input type="radio" name="challenging" value="true" checked> True
-            </label>
-            <label>
-                <input type="radio" name="challenging" value="false"> False
-            </label>
-        </form><br><br>
+        
+        <label>
+            <input type="radio" name="challenging" value="true" checked> True
+        </label>
+        <label>
+            <input type="radio" name="challenging" value="false"> False
+        </label><br><br>
 
         <input type="submit" value="Update Flashcards">
     </form>
