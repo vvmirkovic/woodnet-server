@@ -21,7 +21,7 @@
         <label for="challenging">Choose from only selected challenging words:</label>
         
         <label>
-            <input type="radio" name="challenging" value="true" checked> True
+            <input type="radio" name="challenging" id="checked" value="true" checked> True
         </label>
         <label>
             <input type="radio" name="challenging" value="false"> False
@@ -124,7 +124,7 @@
             let day_of_week = document.getElementById("day_of_week").value;
             let week = document.getElementById("week").value;
             const number_of_words = document.getElementById("number_of_words").value;
-            const challenging = document.getElementById("challenging").value;
+            const challenging = document.getElementById("challenging").checked;
             const flashcard_set = "flashcards";
 
             if (day_of_week == "") {
