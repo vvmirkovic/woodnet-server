@@ -76,6 +76,8 @@
         var initalCards = localStorage.getItem("cards")
         if (initalCards) {
             cards = JSON.parse(initalCards);
+            card_number = (parseInt(localStorage.getItem("card_number"), 10) + shift) % cards.length;;
+            card_side = parseInt(localStorage.getItem("initialSide"), 10);
             const card_text = getCardText(cards, card_number, card_side);
             card.innerHTML = card_text;
         }
