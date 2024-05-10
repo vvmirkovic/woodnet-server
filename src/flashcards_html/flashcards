@@ -17,11 +17,25 @@
 
         <label for="number_of_words">Words per set:</label>
         <input type="text" id="number_of_words" name="number_of_words" value="8" required><br><br>
+        
+        <label for="challenging">Choose from only selected challenging words:</label>
+        <form id="challenging">
+            <label>
+                <input type="radio" name="challenging" value="true" checked> True
+            </label>
+            <label>
+                <input type="radio" name="challenging" value="false"> False
+            </label>
+        </form><br><br>
 
         <input type="submit" value="Update Flashcards">
     </form>
 
     <h1 id="card">Update flash cards to get started.</h1>
+
+    <button onclick="flagCard()">Flag card</button>
+
+    <button onclick="challengingCard()">Mark Challenging</button><br>
 
     <button onclick="flipCard()">Flip Card</button>
 
@@ -55,10 +69,14 @@
             }
         }
 
+        function getCardText(cards, card_number, card_side) {
+            return cards[card_number][card_side % 2]
+        }
+
         var initalCards = localStorage.getItem("cards")
         if (initalCards) {
             cards = JSON.parse(initalCards);
-            const card_text = cards[card_number][card_side];
+            const card_text = getCardText(cards, card_number, card_side);
             card.innerHTML = card_text;
         }
 
@@ -67,7 +85,7 @@
             card_number = parseInt(localStorage.getItem("card_number"), 10);
             card_side = (parseInt(localStorage.getItem("card_side"), 10) + 1) % 2;
             
-            const card_text = cards[card_number][card_side];
+            const card_text = getCardText(cards, card_number, card_side);
             card.innerHTML = card_text;
             
             localStorage.setItem("card_side", card_side);
@@ -78,11 +96,25 @@
             card_number = (parseInt(localStorage.getItem("card_number"), 10) + shift) % cards.length;
             card_side = parseInt(localStorage.getItem("initialSide"), 10);
     
+            const card_text = getCardText(cards, card_number, card_side);
+            card.innerHTML = card_text;
+            
+            localStorage.setItem("card_number", card_number);
+            localStorage.setItem("card_side", card_side);
+        }
+    
+        function flagCard(shift = 1) {
+            card_number = (parseInt(localStorage.getItem("card_number"), 10) + shift) % cards.length;
+            card_side = parseInt(localStorage.getItem("initialSide"), 10);
+
             const card_text = cards[card_number][card_side];
             card.innerHTML = card_text;
             
             localStorage.setItem("card_number", card_number);
             localStorage.setItem("card_side", card_side);
+        }
+    
+        function challengingCard(shift = 1) {
         }
 
         document.getElementById("loginForm").addEventListener("submit", function(event) {
@@ -91,6 +123,7 @@
             let day_of_week = document.getElementById("day_of_week").value;
             let week = document.getElementById("week").value;
             const number_of_words = document.getElementById("number_of_words").value;
+            const challenging = document.getElementById("challenging").value;
             const flashcard_set = "flashcards";
 
             if (day_of_week == "") {
@@ -108,7 +141,7 @@
                 var environment_prefix = "";
             }
 
-            const apiUrl = `https://${environment_prefix}backend.vvmirkovic.com/get-flashcards/${flashcard_set}/${number_of_words}/${week}/${day_of_week}`; // Replace with your API URL
+            const apiUrl = `https://${environment_prefix}backend.vvmirkovic.com/get-flashcards/${flashcard_set}/${number_of_words}/${week}/${day_of_week}/${challenging}`;
 
             fetch(apiUrl, {
                 method: "GET",

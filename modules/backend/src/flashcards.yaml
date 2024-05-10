@@ -128,7 +128,7 @@ paths:
           application/json: "{\"statusCode\": 200}"
         passthroughBehavior: when_no_match
         type: mock
-  /get-flashcards/{flashcard_set}/{number_of_words}/{week}/{day_of_week}:
+  /get-flashcards/{flashcard_set}/{number_of_words}/{week}/{day_of_week}/{challenging}:
     get:
       produces:
       - application/json
@@ -154,6 +154,10 @@ paths:
         name: number_of_words
         required: true
         type: Integer
+      - in: body
+        name: challenging
+        required: false
+        type: boolean
       responses:
         200:
           description: Default response for CORS method

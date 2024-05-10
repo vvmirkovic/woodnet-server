@@ -22,30 +22,50 @@ def get_day_of_week():
 
     return day_of_week
 
-def get_words(database_name, day_of_week, week, number_of_words):
+def get_words(database_name, day_of_week, week, number_of_words, challenging):
     client = boto3.client('dynamodb')
 
     seed_value = week * 7 + day_of_week
     random.seed(seed_value)
 
-    n = client.describe_table(TableName=database_name)['Table']['ItemCount']
+    if challenging:
+        words = client.query(
+            TableName=database_name,
+            FilterExpression='challenging = :true',
+            ExpressionAttributeValues={
+                ':true': {'BOOL': True}
+            }
+        )['Items']
+
+        n = len(words)
+    else:
+        n = client.describe_table(TableName=database_name)['Table']['ItemCount']
 
     selected_words = []
 
+    def get_item(word_val):
+        if challenging:
+            return words[word_val]
+        else:
+            return client.get_item(
+                TableName=database_name,
+                Key={
+                    'id': {
+                        'N': str(random_word_id)}
+                }
+            )
+        
     for _ in range(number_of_words):
         random_word_id = random.randint(0, n)
 
-        item = client.get_item(
-            TableName=database_name,
-            Key={
-                'id': {
-                    'N': str(random_word_id)}
-            }
-        )
+        item = get_item(random_word_id)
 
         selected_words.append((
             item['Item']['croatian']['S'],
-            item['Item']['english']['S']
+            item['Item']['english']['S'],
+            item['Item']['id']['N'],
+            item['Item']['flagged']['BOOL'],
+            item['Item']['challenging']['BOOL']
         ))
 
     return selected_words
@@ -97,6 +117,11 @@ def lambda_handler(event, context):
             body = json.dumps({'message': f'For number of words, specify an integer great than 0.'})
             return response(event, 400, body)
         
+        if "challenging" in parameters:
+            challenging = parameters["challenging"]
+        else:
+            challenging = False
+        
             
         database_name = parameters["flashcard_set"]
 
@@ -104,7 +129,7 @@ def lambda_handler(event, context):
         body = json.dumps({'message': f'Missing argument(s).'})
         return response(event, 400, body)
     
-    selected_words = get_words(database_name, day_of_week, week, number_of_words)
+    selected_words = get_words(database_name, day_of_week, week, number_of_words, challenging)
 
     body = json.dumps({
         'cards': selected_words
