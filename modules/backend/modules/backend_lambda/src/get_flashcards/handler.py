@@ -29,7 +29,7 @@ def get_words(database_name, day_of_week, week, number_of_words, challenging):
     random.seed(seed_value)
 
     if challenging:
-        words = client.query(
+        words = client.scan(
             TableName=database_name,
             FilterExpression='challenging = :true',
             ExpressionAttributeValues={
@@ -38,7 +38,9 @@ def get_words(database_name, day_of_week, week, number_of_words, challenging):
         )['Items']
 
         n = len(words)
-    else:
+        
+    if not challenging or n == 0:
+        challenging = False
         n = client.describe_table(TableName=database_name)['Table']['ItemCount']
 
     selected_words = []
