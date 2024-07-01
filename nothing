@@ -52,21 +52,24 @@ def get_words(database_name, day_of_week, week, number_of_words, challenging):
 
     def get_item(word_val):
         if challenging:
+            print(word_val)
+            print(len(words))
             return words[word_val]
         else:
             return client.get_item(
                 TableName=database_name,
                 Key={
                     'id': {
-                        'N': str(random_word_id)}
+kk                        'N': str(random_word_id)}
                 }
-            )['Item']
+            )
         
     for _ in range(number_of_words):
         random_word_id = random.randint(0, n-1)
-
+        print(random_word_id)
         item = get_item(random_word_id)
 
+        print(item)
         selected_words.append((
             item['croatian']['S'],
             item['english']['S'],
@@ -148,3 +151,4 @@ def lambda_handler(event, context):
     })
 
     return response(event, 200, body)
+
