@@ -56,7 +56,8 @@ locals {
     {
       Action = [
         "dynamodb:DescribeTable",
-				"dynamodb:GetItem"
+				"dynamodb:GetItem",
+				"dynamodb:Scan"
       ]
       Effect   = "Allow"
       Resource = "*"
