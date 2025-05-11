@@ -6,8 +6,8 @@ module "gigaplat" {
 
   env         = local.env
   domain      = local.domain
-  subdomain   = "gigaplat"
-  bucket_name = "gigaplat"
+  subdomain   = "game"
+  bucket_name = "game"
   create_cert = true
 
   depends_on = [
