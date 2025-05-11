@@ -8,7 +8,7 @@ module "frontend" {
   repo         = "https://github.com/vvmirkovic/woodnet-server.git"
   github_token = var.github_token
   domain       = local.domain
-  subdomain    = ""
+  subdomain    = "game"
 }
 
 module "backend" {
