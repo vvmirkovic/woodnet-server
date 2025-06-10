@@ -1,3 +1,5 @@
+variable "application_name" {}
+
 variable "name" {}
 
 variable "execution_role_arn" {}

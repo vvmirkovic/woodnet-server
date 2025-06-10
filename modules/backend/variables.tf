@@ -4,9 +4,21 @@ variable "ark_asg_name" {
 }
 
 variable "woodnet_server" {
-  type = bool
+  type    = bool
+  default = false
+}
+
+variable "flashcards" {
+  type    = bool
+  default = false
+}
+
+variable "frontend_subdomain" {
+  default = ""
 }
 
 variable "domain" {}
 
 variable "env" {}
+
+variable "name" {}
